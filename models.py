@@ -21,14 +21,14 @@ class Menu(Base):
     price = Column(Integer, nullable=False)
     category_id = Column(Integer, ForeignKey('Category.id'), nullable=False)
     ordermenus = relationship('OrderMenu', backref='menu')
-    usage = Column(Boolean, default=True, nullable=False)
+    available = Column(Boolean, default=True, nullable=False)
 
-    def __init__(self, name, price, category, usage=True):
+    def __init__(self, name, price, category, available=True):
         self.name = name
         self.price = price
         self.category_id = category
         category.menus.append(self)
-        self.usage = usage
+        self.available = available
 
 
 class Order(Base):
