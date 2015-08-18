@@ -1,3 +1,4 @@
+from datetime import datetime
 from sqlalchemy import Integer, String, ForeignKey, DateTime, Boolean
 from sqlalchemy import Column
 from sqlalchemy.orm import relationship
@@ -9,6 +10,9 @@ class Category(Base):
     name = Column(String(20))
     menus = relationship('Menu', backref='category')
 
+    def __init__(self, name):
+        self.name = name
+
 
 class Menu(Base):
     __tablename__ = 'menu'
@@ -19,12 +23,22 @@ class Menu(Base):
     ordermenus = relationship('OrderMenu', backref='menu')
     usage = Column(Boolean, default=True, nullable=False)
 
+    def __init__(self, name, price, category, usage=True):
+        self.name = name
+        self.price = price
+        self.category_id = category
+        category.menus.append(self)
+        self.usage = usage
+
 
 class Order(Base):
     __tablename__ = 'order'
     id = Column(Integer, primary_key=True)
     time = Column(DateTime)
     ordermenus = relationship('OrderMenu', backref='order')
+
+    def __init__(self):
+        self.time = datetime.now()
 
 
 class OrderMenu(Base):
@@ -33,3 +47,8 @@ class OrderMenu(Base):
     menu_id = Column(Integer, ForeignKey('Menu.id'), nullable=False)
     order_id = Column(Integer, ForeignKey('Order.id'), nullable=False)
     pay = Column(Integer, nullable=False)
+
+    def __init__(self, menu, order):
+        self.menu_id = menu
+        self.order_id = order
+        order.ordermenus.append(self)
