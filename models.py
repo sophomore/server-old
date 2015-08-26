@@ -8,7 +8,7 @@ class Category(Base):
     __tablename__ = 'category'
     id = Column(Integer, primary_key=True)
     name = Column(String(20))
-    menus = relationship('Menu', backref='category')
+    menus = relationship('Menu')
 
     def __init__(self, name):
         self.name = name
@@ -20,7 +20,7 @@ class Menu(Base):
     name = Column(String(30))
     price = Column(Integer, nullable=False)
     category_id = Column(Integer, ForeignKey('Category.id'), nullable=False)
-    ordermenus = relationship('OrderMenu', backref='menu')
+    ordermenus = relationship('OrderMenu')
     available = Column(Boolean, default=True, nullable=False)
 
     def __init__(self, name, price, category, available=True):
@@ -35,7 +35,7 @@ class Order(Base):
     __tablename__ = 'order'
     id = Column(Integer, primary_key=True)
     time = Column(DateTime)
-    ordermenus = relationship('OrderMenu', backref='order')
+    ordermenus = relationship('OrderMenu')
 
     def __init__(self):
         self.time = datetime.now()

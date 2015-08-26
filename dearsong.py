@@ -1,8 +1,9 @@
 from flask import Flask, request
-from models import Menu
+from models import Menu, Category
 from mydb import db_session as db
 
 app = Flask(__name__)
+app.debug = True
 
 
 @app.route('/menu/<int:id>', methods=['GET', 'PUT', 'DELETE'])
@@ -33,10 +34,21 @@ def menu():
     return "Menu Info"
 
 
+@app.route('/')
+def index():
+    category = Category("testCateogry1")
+    db.add(category)
+    db.commit()
+    menu = Menu('test1', 8000, category)
+    db.add(menu)
+    db.commit()
+    return "Dear, Song"
+
+
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db.remove()
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=80)
