@@ -11,48 +11,60 @@ app.debug = True
 def one_menu(id):
     menu = Menu.query.filter_by(id=id).first()
     if request.method == 'GET':
-        return str(menu.name)
+        menu_json = json.dumps(menu.convert_dict())
+        return menu_json
     elif request.method == 'PUT':
         old_menu = menu
         old_menu.available = False
         new_menu = Menu(request.json['name'], request.json['price'], request.json['category'])
         db.add(new_menu)
         db.commit()
+        return json.dumps({"result":"success"})
     elif request.method == 'DELETE':
         db.delete(menu)
         db.commit()
-    return 'One Menu Info '+id
+        return json.dumps({"result":"success"})
+    return abort(400)
 
 
 @app.route('/menu', methods=['GET', 'POST'])
 def menu():
     if request.method == 'GET':
-        result = ""
+        result = []
         for menu in Menu.query.all():
-            result += str(menu.name)
+            result.append(menu.convert_dict())
         return result
     elif request.method == 'POST':
         menu = Menu(request.form['name'], request.form['price'], request.form['category'])
         db.add(menu)
         db.commit()
-    return "Menu Info"
+        return json.dumps({"result":"success"})
+    return abort(400)
 
 
 @app.route('/')
 def index():
-    category = Category("testCateogry1")
-    db.add(category)
-    db.commit()
-    menu = Menu('test1', 8000, category)
-    db.add(menu)
-    db.commit()
     return "Dear, Song"
 
 
 @app.route('/db/init')
 def initdb():
     mydb.init_db()
-    return "init db"
+    cutlet = Category("돈까스")
+    rice = Category("덮밥")
+    noodle = Category("면류")
+    etc = Category("기타")
+    db.add(cutlet)
+    db.add(rice)
+    db.add(noodle)
+    db.add(etc)
+    db.commit()
+    return "initialized db"
+
+
+@app.route('/db/clear')
+def cleardb():
+    pass
 
 
 @app.teardown_appcontext

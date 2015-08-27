@@ -10,6 +10,9 @@ class Category(Base):
     name = Column(String(20))
     menus = relationship('Menu')
 
+    def convert_dict(self):
+        return {"id": self.id, "name": self.name, "menus": self.menus}
+
     def __init__(self, name):
         self.name = name
 
@@ -22,6 +25,10 @@ class Menu(Base):
     category_id = Column(Integer, ForeignKey('category.id'), nullable=False)
     ordermenus = relationship('OrderMenu')
     available = Column(Boolean, default=True, nullable=False)
+
+    def convert_dict(self):
+        return {"id": self.id, "name": self.name, "price": self.price, "category_id": self.category_id,
+                "ordermenus": self.ordermenus, "available": self.available}
 
     def __init__(self, name, price, category, available=True):
         self.name = name
@@ -40,6 +47,9 @@ class Order(Base):
     time = Column(DateTime)
     ordermenus = relationship('OrderMenu')
 
+    def convert_dict(self):
+        return {"id": self.id, "time": self.time, "ordermenus": self.ordermenus}
+
     def __init__(self):
         self.time = datetime.now()
 
@@ -50,6 +60,9 @@ class OrderMenu(Base):
     menu_id = Column(Integer, ForeignKey('menu.id'), nullable=False)
     order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     pay = Column(Integer, nullable=False)
+
+    def convert_dict(self):
+        return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay}
 
     def __init__(self, menu, order):
         self.menu_id = menu
