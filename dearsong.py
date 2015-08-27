@@ -11,7 +11,7 @@ app.debug = True
 def one_menu(id):
     menu = Menu.query.filter_by(id=id).first()
     if request.method == 'GET':
-        return str(menu)
+        return str(menu.name)
     elif request.method == 'PUT':
         old_menu = menu
         old_menu.available = False
@@ -29,7 +29,7 @@ def menu():
     if request.method == 'GET':
         result = ""
         for menu in Menu.query.all():
-            result += str(menu)
+            result += str(menu.name)
         return result
     elif request.method == 'POST':
         menu = Menu(request.form['name'], request.form['price'], request.form['category'])
