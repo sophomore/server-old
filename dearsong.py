@@ -1,7 +1,7 @@
 from flask import Flask, request
 from models import Menu, Category
 from mydb import db_session as db
-import mydb
+import json
 
 app = Flask(__name__)
 app.debug = True
