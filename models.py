@@ -19,7 +19,7 @@ class Menu(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(30))
     price = Column(Integer, nullable=False)
-    category_id = Column(Integer, ForeignKey('Category.id'), nullable=False)
+    category_id = Column(Integer, ForeignKey('category.id'), nullable=False)
     ordermenus = relationship('OrderMenu')
     available = Column(Boolean, default=True, nullable=False)
 
@@ -44,8 +44,8 @@ class Order(Base):
 class OrderMenu(Base):
     __tablename__ = 'ordermenu'
     id = Column(Integer, primary_key=True)
-    menu_id = Column(Integer, ForeignKey('Menu.id'), nullable=False)
-    order_id = Column(Integer, ForeignKey('Order.id'), nullable=False)
+    menu_id = Column(Integer, ForeignKey('menu.id'), nullable=False)
+    order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     pay = Column(Integer, nullable=False)
 
     def __init__(self, menu, order):
