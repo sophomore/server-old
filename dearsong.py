@@ -1,6 +1,7 @@
 from flask import Flask, request
 from models import Menu, Category
 from mydb import db_session as db
+import mydb
 
 app = Flask(__name__)
 app.debug = True
@@ -43,6 +44,11 @@ def index():
     db.add(menu)
     db.commit()
     return "Dear, Song"
+
+
+@app.route('/db/init')
+def initdb():
+    mydb.init_db()
 
 
 @app.teardown_appcontext
