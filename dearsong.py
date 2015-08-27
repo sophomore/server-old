@@ -11,7 +11,7 @@ app.debug = True
 def one_menu(id):
     menu = Menu.query.filter_by(id=id).first()
     if request.method == 'GET':
-        return menu
+        return str(menu)
     elif request.method == 'PUT':
         old_menu = menu
         old_menu.available = False

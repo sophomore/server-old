@@ -30,6 +30,9 @@ class Menu(Base):
         category.menus.append(self)
         self.available = available
 
+    def __repr__(self):
+        return '<Menu %r>' % self.name
+
 
 class Order(Base):
     __tablename__ = 'order'
