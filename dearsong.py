@@ -49,6 +49,7 @@ def index():
 @app.route('/db/init')
 def initdb():
     mydb.init_db()
+    return "init db"
 
 
 @app.teardown_appcontext
