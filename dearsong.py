@@ -27,6 +27,7 @@ def one_menu(id):
 @app.route('/menu', methods=['GET', 'POST'])
 def menu():
     if request.method == 'GET':
+        result = ""
         for menu in Menu.query.all():
             result += str(menu)
         return result
