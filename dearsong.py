@@ -27,7 +27,7 @@ def one_menu(id):
 @app.route('/menu', methods=['GET', 'POST'])
 def menu():
     if request.method == 'GET':
-        return str(len(Menu.query.all()))
+        return " | ".join(Menu.query.all())
     elif request.method == 'POST':
         menu = Menu(request.form['name'], request.form['price'], request.form['category'])
         db.add(menu)
