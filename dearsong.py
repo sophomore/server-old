@@ -33,7 +33,7 @@ def menu():
         result = []
         for menu in Menu.query.all():
             result.append(menu.convert_dict())
-        return result
+        return json.dumps(result)
     elif request.method == 'POST':
         menu = Menu(request.form['name'], request.form['price'], request.form['category'])
         db.add(menu)
