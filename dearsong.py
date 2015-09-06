@@ -30,7 +30,7 @@ def menu():
 
 
 @app.route('/menu/all', methods=['GET'])
-def menu():
+def menu_all():
     if request.method == 'GET':
         return json.dumps(menu_manager.get_all_dict())
     return abort(400)
