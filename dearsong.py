@@ -1,45 +1,66 @@
-from flask import Flask, request
+from flask import Flask, request, abort
 from models import Menu, Category
 from mydb import db_session as db
 import json
+import order_manager
+import menu_manager
 
 app = Flask(__name__)
 app.debug = True
 
-
-@app.route('/menu/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+#Menu
+@app.route('/menu/<int:id>', methods=['GET', 'PUT'])
 def one_menu(id):
-    menu = Menu.query.filter_by(id=id).first()
     if request.method == 'GET':
-        menu_json = json.dumps(menu.convert_dict())
-        return menu_json
+        return json.dumps(menu_manager.get_one_dict(id))
     elif request.method == 'PUT':
-        old_menu = menu
-        old_menu.available = False
-        new_menu = Menu(request.json['name'], request.json['price'], request.json['category'])
-        db.add(new_menu)
-        db.commit()
-        return json.dumps({"result":"success"})
-    elif request.method == 'DELETE':
-        db.delete(menu)
-        db.commit()
-        return json.dumps({"result":"success"})
+        new_menu = menu_manager.modify_menu(id, request.json['name'], request.json['price'], request.json['category'])
+        return json.dumps({"result":"success", "new_menu": new_menu.convert_dict()})
     return abort(400)
 
 
 @app.route('/menu', methods=['GET', 'POST'])
 def menu():
     if request.method == 'GET':
-        result = []
-        for menu in Menu.query.all():
-            result.append(menu.convert_dict())
-        return json.dumps(result)
+        return json.dumps(menu_manager.get_available_dict())
     elif request.method == 'POST':
-        menu = Menu(request.form['name'], request.form['price'], request.form['category'])
-        db.add(menu)
-        db.commit()
-        return json.dumps({"result":"success"})
+        menu = menu_manager.add_menu(request.form['name'], request.form['price'], request.form['category'])
+        return json.dumps({"result":"success", "menu": menu.convert_dict()})
     return abort(400)
+
+
+@app.route('/menu/all', methods=['GET'])
+def menu():
+    if request.method == 'GET':
+        return json.dumps(menu_manager.get_all_dict())
+    return abort(400)
+
+
+#Order
+@app.route('/order/<int:id>', methods=['GET', 'DELETE'])
+def one_order(id):
+    if request.method == 'GET':
+        return json.dumps(order_manager.get_one_dict(id))
+    elif request.method == 'DELETE':
+        order_manager.del_order(id)
+        return json.dumps({"result": "success"})
+    return abort(400)
+
+
+@app.route('/order', methods=['GET', 'POST'])
+def order():
+    if request.method == 'GET':
+        return json.dumps(order_manager.get_all_dict())
+    elif request.method == 'POST':
+        order = order_manager.add_order(request.form['time'], request.form['totalprice'], request.form['ordermenus'])
+        return json.dumps({"result": "success", "order": order})
+    return abort(400)
+
+
+@app.route('/order/menu/<int:id>', methods=['POST'])
+def order_menu_pay(id):
+    order_manager.pay(id, request.form['method'])
+    return json.dumps({"result", "success"})
 
 
 @app.route('/')
