@@ -14,7 +14,7 @@ def one_menu(id):
     if request.method == 'GET':
         return json.dumps(menu_manager.get_one_dict(id))
     elif request.method == 'PUT':
-        new_menu = menu_manager.modify_menu(id, request.json['name'], request.json['price'], request.json['category'])
+        new_menu = menu_manager.modify_menu(id, request.form['name'], request.form['price'], request.form['category'])
         return json.dumps({"result":"success", "new_menu": new_menu.convert_dict()})
     return abort(400)
 

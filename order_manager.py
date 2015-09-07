@@ -19,6 +19,7 @@ def del_order(id):
     order = Order.query.filter_by(id=id).first()
     db.delete(order)
     db.commit()
+    #TODO: 주문 정보에 들어있는 OrderMenu 삭제
 
 
 def pay(id, method):
