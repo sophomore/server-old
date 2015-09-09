@@ -4,6 +4,7 @@ from mydb import db_session as db
 import json
 import order_manager
 import menu_manager
+import statistic
 
 app = Flask(__name__)
 app.debug = True
@@ -61,6 +62,11 @@ def order():
 def order_menu_pay(id):
     order_manager.pay(id, request.form['method'])
     return json.dumps({"result", "success"})
+
+
+@app.route('/statistic')
+def statistic_month():
+    return json.dumps(statistic.month_money_sum())
 
 
 @app.route('/')

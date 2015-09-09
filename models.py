@@ -47,6 +47,7 @@ class Order(Base):
     time = Column(DateTime)
     ordermenus = relationship('OrderMenu')
     totalprice = Column(Integer)
+    takeout = Column(Boolean, default=False, nullable=False)
 
     def convert_dict(self):
         return {"id": self.id, "time": self.time, "ordermenus": self.ordermenus, "totalprice": self.totalprice}
@@ -62,11 +63,22 @@ class OrderMenu(Base):
     menu_id = Column(Integer, ForeignKey('menu.id'), nullable=False)
     order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     pay = Column(Integer, nullable=False)
+    curry = Column(Boolean, default=False, nullable=False)
+    double = Column(Boolean, default=False, nullable=False)
+    totalprice = Column(Integer)
 
     def convert_dict(self):
         return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay}
 
-    def __init__(self, menu, order):
+    def __init__(self, menu, order, curry=False, double=False):
         self.menu_id = menu
         self.order_id = order
+        self.curry = curry
+        self.double = double
+        self.totalprice = menu.price
+        if curry:
+            self.totalprice += 1000
+        if double:
+            self.totalprice += 500
+        #TODO: 가격 확인
         order.ordermenus.append(self)
