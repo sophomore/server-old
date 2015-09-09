@@ -11,7 +11,7 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
     result = {}
     for order in orders:
         ordermenus = order.ordermenus
-        result[startYear+'-'+startMonth] = []
+        result[str(startYear)+'-'+str(startMonth)] = []
         menuprice = {}
         for ordermenu in ordermenus:
             if ordermenu.menu_id in menuprice.keys():
