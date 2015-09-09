@@ -78,10 +78,10 @@ def index():
 def initdb():
     import mydb
     mydb.init_db()
-    cutlet = Category("돈까스")
-    rice = Category("덮밥")
-    noodle = Category("면류")
-    etc = Category("기타")
+    cutlet = Category("돈까스".encode("UTF-8"))
+    rice = Category("덮밥".encode("UTF-8"))
+    noodle = Category("면류".encode("UTF-8"))
+    etc = Category("기타".encode("UTF-8"))
     db.add(cutlet)
     db.add(rice)
     db.add(noodle)
