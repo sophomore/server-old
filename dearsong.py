@@ -76,6 +76,7 @@ def index():
 
 @app.route('/db/init')
 def initdb():
+    import mydb
     mydb.init_db()
     cutlet = Category("돈까스")
     rice = Category("덮밥")
