@@ -18,8 +18,8 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
                 menuprice[ordermenu.menu_id] = (Menu.query.filter_by(id=ordermenu.menu_id).fitst()).totalprice
             else:
                 menuprice[ordermenu.menu_id] += (Menu.query.filter_by(id=ordermenu.menu_id).fitst()).totalprice
-        result[startYear+'-'+startMonth].append({"totalprice": order.totalprice})
-        result[startYear+'-'+startMonth].append({"menutotal": menuprice})
+        result[str(startYear)+'-'+str(startMonth)].append({"totalprice": order.totalprice})
+        result[str(startYear)+'-'+str(startMonth)].append({"menutotal": menuprice})
         if startMonth >= 12:
             startYear += 1
             startMonth = 1
