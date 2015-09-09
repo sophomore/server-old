@@ -5,14 +5,14 @@ __author__ = 'kjydiary'
 from mydb import db_session as db
 
 def add_menu(name, price, category_id):
-    menu = Menu(name, price, Category.query.filter_by(id=category_id).first())
+    menu = Menu(str(name).encode('UTF-8'), price, Category.query.filter_by(id=category_id).first())
     db.add(menu)
     db.commit()
     return menu
 
 
 def modify_menu(id, name, price, category_id):
-    new_menu = add_menu(name, price, category_id)
+    new_menu = add_menu(str(name).encode("UTF-8"), price, category_id)
     db.add(new_menu)
     old_menu = Menu.query.filter_by(id=id).first()
     old_menu.available = False
