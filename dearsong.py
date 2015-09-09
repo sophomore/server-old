@@ -147,6 +147,7 @@ def create_testdata():
     order_manager.add_order('2015-06-20 12:30:20', 16000, [{'id': 1, 'curry': False, 'double': False}])
     order_manager.add_order('2015-07-20 12:30:20', 16000, [{'id': 1, 'curry': False, 'double': False}])
     order_manager.add_order('2015-08-20 12:30:20', 16000, [{'id': 1, 'curry': False, 'double': False}])
+    return "create test data"
 
 
 @app.teardown_appcontext
