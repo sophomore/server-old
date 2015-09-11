@@ -7,6 +7,7 @@ from mydb import db_session as db
 def add_order(time, totalprice, ordermenus_info):
     order = Order(time, totalprice)
     db.add(order)
+    db.commit()
 
     for ordermenu_info in ordermenus_info:
         db.add(OrderMenu(Menu.query.filter_by(id=ordermenu_info['id']).first(), order, ordermenu_info['curry'], ordermenu_info['double']))
