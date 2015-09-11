@@ -8,7 +8,7 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
     endDate = datetime.strptime(str(endYear)+'-'+str(endMonth), '%Y-%m')
     # orders = Order.query.filter(Order.time >= startDate, Order.time < endDate).all()
 
-    result = db.query(OrderMenu).join(OrderMenu.order_id).filter(Order.time >= startDate, Order.time < endDate).all()
+    result = db.query(OrderMenu, Order).join(OrderMenu.order_id).filter(Order.time >= startDate, Order.time < endDate).all()
 
     # result = {}
     # for order in orders:
