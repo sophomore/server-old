@@ -55,6 +55,7 @@ class Order(Base):
     def __init__(self, time, totalprice):
         self.time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
         self.totalprice = totalprice
+        self.takeout = False
 
 
 class OrderMenu(Base):
