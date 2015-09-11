@@ -50,7 +50,7 @@ class Order(Base):
     takeout = Column(Boolean, default=False, nullable=False)
 
     def convert_dict(self):
-        return {"id": self.id, "time": self.time, "ordermenus": self.ordermenus, "totalprice": self.totalprice}
+        return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": self.ordermenus, "totalprice": self.totalprice}
 
     def __init__(self, time, totalprice):
         self.time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
