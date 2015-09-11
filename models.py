@@ -81,4 +81,4 @@ class OrderMenu(Base):
         if double:
             self.totalprice += 500
         #TODO: 가격 확인
-        order.ordermenus.append(self)
+        # order.ordermenus.append(self)
