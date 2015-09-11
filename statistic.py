@@ -6,23 +6,25 @@ from mydb import db_session as db
 def month_money_sum(startYear, startMonth, endYear, endMonth):
     startDate = datetime.strptime(str(startYear)+'-'+str(startMonth), '%Y-%m')
     endDate = datetime.strptime(str(endYear)+'-'+str(endMonth), '%Y-%m')
-    orders = Order.query.filter(Order.time >= startDate, Order.time < endDate).all()
+    # orders = Order.query.filter(Order.time >= startDate, Order.time < endDate).all()
 
-    result = {}
-    for order in orders:
-        ordermenus = order.ordermenus
-        result[str(startYear)+'-'+str(startMonth)] = []
-        menuprice = {}
-        for ordermenu in ordermenus:
-            if ordermenu.menu_id in menuprice.keys():
-                menuprice[ordermenu.menu_id] = (Menu.query.filter_by(id=ordermenu.menu_id).fitst()).totalprice
-            else:
-                menuprice[ordermenu.menu_id] += (Menu.query.filter_by(id=ordermenu.menu_id).fitst()).totalprice
-        result[str(startYear)+'-'+str(startMonth)].append({"totalprice": order.totalprice})
-        result[str(startYear)+'-'+str(startMonth)].append({"menutotal": menuprice})
-        if startMonth >= 12:
-            startYear += 1
-            startMonth = 1
+    result = db.query(OrderMenu).join(OrderMenu.order_id).filter(Order.time >= startDate, Order.time < endDate).all()
+
+    # result = {}
+    # for order in orders:
+    #     ordermenus = order.ordermenus
+    #     result[str(startYear)+'-'+str(startMonth)] = []
+    #     menuprice = {}
+    #     for ordermenu in ordermenus:
+    #         if ordermenu.menu_id in menuprice.keys():
+    #             menuprice[ordermenu.menu_id] = (Menu.query.filter_by(id=ordermenu.menu_id).fitst()).totalprice
+    #         else:
+    #             menuprice[ordermenu.menu_id] += (Menu.query.filter_by(id=ordermenu.menu_id).fitst()).totalprice
+    #     result[str(startYear)+'-'+str(startMonth)].append({"totalprice": order.totalprice})
+    #     result[str(startYear)+'-'+str(startMonth)].append({"menutotal": menuprice})
+    #     if startMonth >= 12:
+    #         startYear += 1
+    #         startMonth = 1
 
     return result
 

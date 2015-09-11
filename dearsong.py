@@ -66,8 +66,9 @@ def order_menu_pay(id):
 
 @app.route('/statistic')
 def statistic_month():
-    return json.dumps(statistic.month_money_sum(2014, 7, 2015, 7))
-
+    # return json.dumps(statistic.month_money_sum(2014, 7, 2015, 7))
+    print(statistic.month_money_sum(2014, 7, 2015, 7))
+    return "statictic"
 
 @app.route('/')
 def index():
