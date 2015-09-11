@@ -9,7 +9,10 @@ def add_order(time, totalprice, ordermenus_info):
     db.add(order)
     db.commit()
 
+    print(ordermenus_info)
+
     for ordermenu_info in ordermenus_info:
+        print(ordermenu_info)
         db.add(OrderMenu(Menu.query.filter_by(id=ordermenu_info['id']).first(), order, ordermenu_info['curry'], ordermenu_info['double']))
 
     db.commit()

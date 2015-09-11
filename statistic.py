@@ -30,3 +30,5 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
 
 
 #in 기간,메뉴리스트, 단위 out 단위에 맞춰서 각 메뉴별 총액
+
+#단위별 결제 방식, 총 결제방식 별 총액
