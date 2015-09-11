@@ -54,7 +54,7 @@ def order():
         return json.dumps(order_manager.get_all_dict())
     elif request.method == 'POST':
         order = order_manager.add_order(request.form['time'], request.form['totalprice'], json.loads(request.form['ordermenus']))
-        return json.dumps({"result": "success", "order": order})
+        return json.dumps({"result": "success", "order": order.convert_dict()})
     return abort(400)
 
 
