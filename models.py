@@ -45,7 +45,7 @@ class Order(Base):
     __tablename__ = 'order'
     id = Column(Integer, primary_key=True)
     time = Column(DateTime)
-    ordermenus = relationship('OrderMenu')
+    ordermenus = relationship('OrderMenu', backref='order')
     totalprice = Column(Integer)
     takeout = Column(Boolean, default=False, nullable=False)
 
