@@ -9,7 +9,7 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
     # endDate = datetime.strptime(str(endYear)+'-'+str(endMonth), '%Y-%m')
     # orders = Order.query.filter(Order.time >= startDate, Order.time < endDate).all()
 
-    available_menus = Menu.query.filter_by(Menu.available==True).all()
+    # available_menus = Menu.query.filter_by(Menu.available==True).all()
     result = {}
 
     while True:
