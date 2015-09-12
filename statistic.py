@@ -12,8 +12,8 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
     # available_menus = Menu.query.filter_by(Menu.available==True).all()
     result = {}
 
+    startDate = datetime.strptime(str(startYear)+'-'+str(startMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S')
     while True:
-        startDate = datetime.strptime(str(startYear)+'-'+str(startMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S')
         endDate = startDate + relativedelta(months=1)
 
         print(startDate, endDate, datetime.strptime(str(endYear)+'-'+str(endMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S'))
