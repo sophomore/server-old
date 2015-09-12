@@ -14,7 +14,7 @@ class Category(Base):
         return {"id": self.id, "name": self.name, "menus": self.menus}
 
     def __init__(self, name):
-        self.name = name
+        self.name = str(name).encode("UTF-8")
 
 
 class Menu(Base):
@@ -45,8 +45,8 @@ class Order(Base):
     __tablename__ = 'order'
     id = Column(Integer, primary_key=True)
     time = Column(DateTime)
-    ordermenus = relationship('OrderMenu', backref='order')
-    totalprice = Column(Integer)
+    # ordermenus = relationship('OrderMenu')
+    totalprice = Column(Integer, nullable=False)
     takeout = Column(Boolean, default=False, nullable=False)
 
     def convert_dict(self):
@@ -57,23 +57,26 @@ class Order(Base):
         self.totalprice = totalprice
         self.takeout = False
 
+        #TODO: 새로 추가한 필드에 대한 리턴, convert_di
+
 
 class OrderMenu(Base):
     __tablename__ = 'ordermenu'
     id = Column(Integer, primary_key=True)
     menu_id = Column(Integer, ForeignKey('menu.id'), nullable=False)
-    order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
+    # order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     pay = Column(Integer, nullable=False)
     curry = Column(Boolean, default=False, nullable=False)
     double = Column(Boolean, default=False, nullable=False)
-    totalprice = Column(Integer)
+    totalprice = Column(Integer, nullable=False)
 
     def convert_dict(self):
-        return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay}
+        # return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay}
+        return {"id": self.id, "menu_id": self.menu_id, "pay": self.pay}
 
     def __init__(self, menu, order, curry=False, double=False):
         self.menu_id = menu
-        self.order_id = order
+        # self.order_id = order
         self.curry = curry
         self.double = double
         self.totalprice = menu.price
