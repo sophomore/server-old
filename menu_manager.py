@@ -12,7 +12,7 @@ def add_menu(name, price, category_id):
 
 
 def modify_menu(id, name, price, category_id):
-    new_menu = add_menu(str(name).encode("UTF-8"), price, category_id)
+    new_menu = add_menu(name, price, category_id)
     db.add(new_menu)
     old_menu = Menu.query.filter_by(id=id).first()
     old_menu.available = False

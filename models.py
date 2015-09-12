@@ -14,7 +14,7 @@ class Category(Base):
         return {"id": self.id, "name": self.name, "menus": self.menus}
 
     def __init__(self, name):
-        self.name = name
+        self.name = str(name).encode("UTF-8")
 
 
 class Menu(Base):
