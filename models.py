@@ -40,7 +40,6 @@ class Menu(Base):
         self.name = name
         self.price = price
         self.category_id = category
-        category.menus.append(self)
         self.available = available
 
     def __repr__(self):
@@ -81,7 +80,7 @@ class OrderMenu(Base):
     def convert_dict(self):
         return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay, "curry": self.curry, "double": self.double, "totalprice": self.totalprice}
 
-    def __init__(self, menu, order, pay=4, curry=False, double=False):
+    def __init__(self, menu, order=None, pay=4, curry=False, double=False):
         self.menu_id = menu
         self.order_id = order
         self.pay = pay
