@@ -3,7 +3,7 @@ from dateutil.relativedelta import relativedelta
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
 
-#in : 기간, out : 월별 메뉴 금액 총합
+#in : 기간, out : 월별로 메뉴별 금액 총합, 월별 전체 총합, etc : 카레추가, 곱배기 금액 포함
 def month_money_sum(startYear, startMonth, endYear, endMonth):
     # startDate = datetime.strptime(str(startYear)+'-'+str(startMonth), '%Y-%m')
     # endDate = datetime.strptime(str(endYear)+'-'+str(endMonth), '%Y-%m')
@@ -21,7 +21,19 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
         if endDate == datetime.strptime(str(endYear)+'-'+str(endMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S'):
             break;
 
-        result[startDate.month.real] = db.query(OrderMenu, Order).filter(Order.time >= startDate, Order.time < endDate).all()
+        orders = db.query(OrderMenu, Order).filter(Order.time >= startDate, Order.time < endDate).all()
+
+        menus = {}
+        total = 0
+        for order in orders:
+            for ordermenu in order.ordermenus:
+                if ordermenu.menu_id in menus:
+                    menus[ordermenu.menu_id] += ordermenu.totalprice
+                else:
+                    menus[ordermenu.menu_id] = ordermenu.totalprice
+                total += ordermenu.totalprice
+
+        result[startDate.year.real] = {startDate.month.real: {"menu": menus, "total": total}}
         startDate = endDate
 
     # result = {}
