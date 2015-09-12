@@ -8,7 +8,7 @@ def add_order(time, totalprice, ordermenus_info):
     order = Order(time, totalprice)
 
     for ordermenu_info in ordermenus_info:
-        order.ordermenus.append(OrderMenu(Menu.query.filter_by(id=ordermenu_info['id']).first(), order, ordermenu_info['curry'], ordermenu_info['double']))
+        order.ordermenus.append(OrderMenu(Menu.query.filter_by(id=ordermenu_info['id']).first(), ordermenu_info['pay'], order, ordermenu_info['curry'], ordermenu_info['double']))
 
     db.add(order)
     db.commit()
@@ -22,9 +22,9 @@ def del_order(id):
     #TODO: 주문 정보에 들어있는 OrderMenu 삭제
 
 
-def pay(id, method):
+def pay(id, pay):
     ordermenu = OrderMenu.query.filter_by(id=id).first()
-    ordermenu.pay = method
+    ordermenu.pay = pay
     db.commit()
 
 
