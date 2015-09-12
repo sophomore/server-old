@@ -44,13 +44,14 @@ class Menu(Base):
 class Order(Base):
     __tablename__ = 'order'
     id = Column(Integer, primary_key=True)
-    time = Column(DateTime)
+    # time = Column(DateTime)
     # ordermenus = relationship('OrderMenu')
     totalprice = Column(Integer, nullable=False)
     takeout = Column(Boolean, default=False, nullable=False)
 
     def convert_dict(self):
-        return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": self.ordermenus, "totalprice": self.totalprice}
+        # return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": self.ordermenus, "totalprice": self.totalprice}
+        return {"id": self.id, "totalprice": self.totalprice}
 
     def __init__(self, time, totalprice):
         self.time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
