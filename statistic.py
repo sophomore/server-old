@@ -21,17 +21,16 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
         if endDate == datetime.strptime(str(endYear)+'-'+str(endMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S'):
             break;
 
-        orders = db.query(OrderMenu, Order).filter(Order.time >= startDate, Order.time < endDate).all()
+        ordermenus = db.query(OrderMenu, Order).filter(Order.time >= startDate, Order.time < endDate).all()
 
         menus = {}
         total = 0
-        for order in orders:
-            for ordermenu in order.ordermenus:
-                if ordermenu.menu_id in menus:
-                    menus[ordermenu.menu_id] += ordermenu.totalprice
-                else:
-                    menus[ordermenu.menu_id] = ordermenu.totalprice
-                total += ordermenu.totalprice
+        for ordermenu in ordermenus:
+            if ordermenu.menu_id in menus:
+                menus[ordermenu.menu_id] += ordermenu.totalprice
+            else:
+                menus[ordermenu.menu_id] = ordermenu.totalprice
+            total += ordermenu.totalprice
 
         result[startDate.year.real] = {startDate.month.real: {"menu": menus, "total": total}}
         startDate = endDate
