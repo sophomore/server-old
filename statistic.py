@@ -22,6 +22,7 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
             break;
 
         result[startDate.month.real] = db.query(OrderMenu, Order).filter(Order.time >= startDate, Order.time < endDate).all()
+        startDate = endDate
 
     # result = {}
     # for order in orders:
