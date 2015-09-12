@@ -1,5 +1,4 @@
 from datetime import datetime
-import json
 from sqlalchemy import Integer, String, ForeignKey, DateTime, Boolean
 from sqlalchemy import Column
 from sqlalchemy.orm import relationship
@@ -12,7 +11,10 @@ class Category(Base):
     menus = relationship('Menu')
 
     def convert_dict(self):
-        return {"id": self.id, "name": self.name, "menus": json.dumps(self.menus)}
+        converted_menus = []
+        for menu in self.menus:
+            converted_menus.append(menu.convert_dict())
+        return {"id": self.id, "name": self.name, "menus": converted_menus}
 
     def __init__(self, name):
         self.name = name
@@ -28,8 +30,11 @@ class Menu(Base):
     available = Column(Boolean, default=True, nullable=False)
 
     def convert_dict(self):
+        converted_ordermenus = []
+        for ordermenu in self.ordermenus:
+            converted_ordermenus.append(ordermenu.convert_dict())
         return {"id": self.id, "name": self.name, "price": self.price, "category_id": self.category_id,
-                "ordermenus": json.dumps(self.ordermenus), "available": self.available}
+                "ordermenus": converted_ordermenus, "available": self.available}
 
     def __init__(self, name, price, category, available=True):
         self.name = name
@@ -51,7 +56,11 @@ class Order(Base):
     takeout = Column(Boolean, default=False, nullable=False)
 
     def convert_dict(self):
-        return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": json.dumps(self.ordermenus), "totalprice": self.totalprice, "takeout": self.takeout}
+        converted_ordermenus = []
+        for ordermenu in self.ordermenus:
+            converted_ordermenus.append(ordermenu.convert_dict())
+        return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": converted_ordermenus,
+                "totalprice": self.totalprice, "takeout": self.takeout}
 
     def __init__(self, time, totalprice):
         self.time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
