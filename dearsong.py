@@ -51,11 +51,11 @@ def one_order(id):
 @app.route('/order', methods=['GET', 'POST'])
 def order():
     if request.method == 'GET':
-        return json.dumps(order_manager.get_all_dict())
+        result = order_manager.get_all_dict()
+        print(result)
+        return json.dumps(result)
     elif request.method == 'POST':
         order = order_manager.add_order(request.form['time'], request.form['totalprice'], json.loads(request.form['ordermenus']))
-        print("object ", order)
-        print("", order.convert_dict())
         return json.dumps({"result": "success", "order": order.convert_dict()})
     return abort(400)
 
