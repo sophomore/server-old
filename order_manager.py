@@ -11,22 +11,11 @@ def add_order(time, totalprice, ordermenus_info):
     db.add(order)
     db.commit()
 
-    print("added order", order.convert_dict())
-
     for ordermenu_info in ordermenus_info:
-        menu = Menu.query.filter_by(id=ordermenu_info['id']).first()
-        print("before ordermenu create", menu.id, order.id, ordermenu_info['pay'], ordermenu_info['curry'], ordermenu_info['double'])
-        ordermenu = OrderMenu(menu=menu, order=order, pay=ordermenu_info['pay'], curry=ordermenu_info['curry'], double=ordermenu_info['double'])
-        print("after ordermenu create", ordermenu.id)
+        ordermenu = OrderMenu(menu=Menu.query.filter_by(id=ordermenu_info['id']).first(), order=order, pay=ordermenu_info['pay'], curry=ordermenu_info['curry'], double=ordermenu_info['double'])
         db.add(ordermenu)
-        print("after ordermenu add", ordermenu.convert_dict())
-    print("end for")
-    try:
-        db.commit()
-    except sqlalchemy.exc.IntegrityError as exc:
-        reason = exc.params
-        print(reason)
-    print("end commit")
+
+    db.commit()
 
     return order
 
@@ -34,6 +23,8 @@ def add_order(time, totalprice, ordermenus_info):
 def del_order(id):
     order = Order.query.filter_by(id=id).first()
     db.delete(order)
+    for ordermenu in order.ordermenus:
+        db.delete(ordermenu)
     db.commit()
     #TODO: 주문 정보에 들어있는 OrderMenu 삭제
 
