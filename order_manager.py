@@ -1,3 +1,4 @@
+import sqlalchemy
 from models import Order, OrderMenu, Menu
 
 __author__ = 'kjydiary'
@@ -18,7 +19,11 @@ def add_order(time, totalprice, ordermenus_info):
         print("after ordermenu add", ordermenu.convert_dict())
     print("end for")
     db.add(order)
-    db.commit()
+    try:
+        db.commit()
+    except sqlalchemy.exe.IntegrityError as exc:
+        reason = exc.message
+        print(reason)
     print("end commit")
 
     return order
