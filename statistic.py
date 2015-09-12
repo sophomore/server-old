@@ -1,14 +1,25 @@
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
 
 #in : 기간, out : 월별 메뉴 금액 총합
 def month_money_sum(startYear, startMonth, endYear, endMonth):
-    startDate = datetime.strptime(str(startYear)+'-'+str(startMonth), '%Y-%m')
-    endDate = datetime.strptime(str(endYear)+'-'+str(endMonth), '%Y-%m')
+    # startDate = datetime.strptime(str(startYear)+'-'+str(startMonth), '%Y-%m')
+    # endDate = datetime.strptime(str(endYear)+'-'+str(endMonth), '%Y-%m')
     # orders = Order.query.filter(Order.time >= startDate, Order.time < endDate).all()
 
-    result = db.query(OrderMenu, Order).filter(Order.time >= startDate, Order.time < endDate).all()
+    available_menus = Menu.query.filter_by(Menu.available==True).all()
+    result = {}
+
+    while True:
+        startDate = datetime.strptime(str(startYear)+'-'+str(startMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S')
+        endDate = startDate + relativedelta(months=1)
+
+        if endDate == datetime.strptime(str(endYear)+'-'+str(endMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S'):
+            break;
+
+        result[startDate.month.real] = db.query(OrderMenu, Order).filter(Order.time >= startDate, Order.time < endDate).all()
 
     # result = {}
     # for order in orders:
