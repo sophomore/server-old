@@ -16,6 +16,8 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
         startDate = datetime.strptime(str(startYear)+'-'+str(startMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S')
         endDate = startDate + relativedelta(months=1)
 
+        print(startDate, endDate, datetime.strptime(str(endYear)+'-'+str(endMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S'))
+
         if endDate == datetime.strptime(str(endYear)+'-'+str(endMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S'):
             break;
 
