@@ -44,20 +44,18 @@ class Menu(Base):
 class Order(Base):
     __tablename__ = 'order'
     id = Column(Integer, primary_key=True)
-    time = Column(DateTime)
+    time = Column(DateTime, nullable=False)
     ordermenus = relationship('OrderMenu')
     totalprice = Column(Integer, nullable=False)
     takeout = Column(Boolean, default=False, nullable=False)
 
     def convert_dict(self):
-        return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": self.ordermenus, "totalprice": self.totalprice}
+        return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": self.ordermenus, "totalprice": self.totalprice, "takeout": self.takeout}
 
     def __init__(self, time, totalprice):
         self.time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
         self.totalprice = totalprice
         self.takeout = False
-
-        #TODO: 새로 추가한 필드에 대한 리턴, convert_di
 
 
 class OrderMenu(Base):
@@ -71,11 +69,11 @@ class OrderMenu(Base):
     totalprice = Column(Integer, nullable=False)
 
     def convert_dict(self):
-        return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay}
+        return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay, "curry": self.curry, "double": self.double, "totalprice": self.totalprice}
 
     def __init__(self, menu, order, curry=False, double=False):
         self.menu_id = menu
-        # self.order_id = order
+        self.order_id = order
         self.curry = curry
         self.double = double
         self.totalprice = menu.price
