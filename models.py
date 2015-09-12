@@ -44,14 +44,13 @@ class Menu(Base):
 class Order(Base):
     __tablename__ = 'order'
     id = Column(Integer, primary_key=True)
-    # time = Column(DateTime)
-    # ordermenus = relationship('OrderMenu')
+    time = Column(DateTime)
+    ordermenus = relationship('OrderMenu')
     totalprice = Column(Integer, nullable=False)
     takeout = Column(Boolean, default=False, nullable=False)
 
     def convert_dict(self):
-        # return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": self.ordermenus, "totalprice": self.totalprice}
-        return {"id": self.id, "totalprice": self.totalprice}
+        return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": self.ordermenus, "totalprice": self.totalprice}
 
     def __init__(self, time, totalprice):
         self.time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
@@ -65,15 +64,14 @@ class OrderMenu(Base):
     __tablename__ = 'ordermenu'
     id = Column(Integer, primary_key=True)
     menu_id = Column(Integer, ForeignKey('menu.id'), nullable=False)
-    # order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
+    order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     pay = Column(Integer, nullable=False)
     curry = Column(Boolean, default=False, nullable=False)
     double = Column(Boolean, default=False, nullable=False)
     totalprice = Column(Integer, nullable=False)
 
     def convert_dict(self):
-        # return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay}
-        return {"id": self.id, "menu_id": self.menu_id, "pay": self.pay}
+        return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay}
 
     def __init__(self, menu, order, curry=False, double=False):
         self.menu_id = menu
