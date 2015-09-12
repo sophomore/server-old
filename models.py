@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 from sqlalchemy import Integer, String, ForeignKey, DateTime, Boolean
 from sqlalchemy import Column
 from sqlalchemy.orm import relationship
@@ -11,7 +12,7 @@ class Category(Base):
     menus = relationship('Menu')
 
     def convert_dict(self):
-        return {"id": self.id, "name": self.name, "menus": self.menus}
+        return {"id": self.id, "name": self.name, "menus": json.dumps(self.menus)}
 
     def __init__(self, name):
         self.name = name
@@ -28,7 +29,7 @@ class Menu(Base):
 
     def convert_dict(self):
         return {"id": self.id, "name": self.name, "price": self.price, "category_id": self.category_id,
-                "ordermenus": self.ordermenus, "available": self.available}
+                "ordermenus": json.dumps(self.ordermenus), "available": self.available}
 
     def __init__(self, name, price, category, available=True):
         self.name = name
@@ -50,7 +51,7 @@ class Order(Base):
     takeout = Column(Boolean, default=False, nullable=False)
 
     def convert_dict(self):
-        return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": self.ordermenus, "totalprice": self.totalprice, "takeout": self.takeout}
+        return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": json.dumps(self.ordermenus), "totalprice": self.totalprice, "takeout": self.takeout}
 
     def __init__(self, time, totalprice):
         self.time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
