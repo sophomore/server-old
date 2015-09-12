@@ -81,8 +81,8 @@ class OrderMenu(Base):
         return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay, "curry": self.curry, "double": self.double, "totalprice": self.totalprice}
 
     def __init__(self, menu, order=None, pay=4, curry=False, double=False):
-        self.menu_id = menu
-        self.order_id = order
+        self.menu_id = menu.id
+        self.order_id = order.id
         self.pay = pay
         self.curry = curry
         self.double = double
