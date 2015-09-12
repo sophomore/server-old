@@ -17,7 +17,7 @@ def add_order(time, totalprice, ordermenus_info):
         ordermenu = OrderMenu(menu=menu, order=order, pay=ordermenu_info['pay'], curry=ordermenu_info['curry'], double=ordermenu_info['double'])
         print("after ordermenu create", ordermenu.id)
         db.add(ordermenu)
-        print("after ordermenu add", ordermenu)
+        print("after ordermenu add", ordermenu.convert_dict())
     print("end for")
     db.commit()
     print("end commit")
