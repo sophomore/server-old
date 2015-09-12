@@ -14,7 +14,7 @@ class Category(Base):
         return {"id": self.id, "name": self.name, "menus": self.menus}
 
     def __init__(self, name):
-        self.name = str(name).encode("UTF-8")
+        self.name = name
 
 
 class Menu(Base):
@@ -31,7 +31,7 @@ class Menu(Base):
                 "ordermenus": self.ordermenus, "available": self.available}
 
     def __init__(self, name, price, category, available=True):
-        self.name = str(name).encode("UTF-8")
+        self.name = name
         self.price = price
         self.category_id = category
         category.menus.append(self)

@@ -75,7 +75,7 @@ def index():
     return "Dear, Song"
 
 
-@app.route('/db/init')
+@app.route('/db/init', methods=['PUT'])
 def initdb():
     import mydb
     mydb.init_db()
