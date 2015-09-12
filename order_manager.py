@@ -9,6 +9,7 @@ def add_order(time, totalprice, ordermenus_info):
     order = Order(time, totalprice)
 
     db.add(order)
+    db.commit()
 
     print("added order", order.convert_dict())
 
