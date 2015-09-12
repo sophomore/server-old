@@ -26,6 +26,7 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
         menus = {}
         total = 0
         for ordermenu in ordermenus:
+            print(menus)
             if ordermenu.menu_id in menus:
                 menus[ordermenu.menu_id] += ordermenu.totalprice
             else:
