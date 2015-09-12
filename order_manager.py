@@ -6,12 +6,21 @@ from mydb import db_session as db
 
 def add_order(time, totalprice, ordermenus_info):
     order = Order(time, totalprice)
-
-    for ordermenu_info in ordermenus_info:
-        db.add(OrderMenu(Menu.query.filter_by(id=ordermenu_info['id']).first(), ordermenu_info['pay'], order, ordermenu_info['curry'], ordermenu_info['double']))
-
     db.add(order)
     db.commit()
+
+    print("added order")
+
+    for ordermenu_info in ordermenus_info:
+        print("before ordermenu create")
+        ordermenu = OrderMenu(Menu.query.filter_by(id=ordermenu_info['id']).first(), ordermenu_info['pay'], order, ordermenu_info['curry'], ordermenu_info['double'])
+        print("after ordermenu create", ordermenu.id)
+        db.add(ordermenu)
+        print("after ordermenu add", ordermenu.id)
+    print("end for")
+    db.commit()
+    print("end commit")
+
     return order
 
 
