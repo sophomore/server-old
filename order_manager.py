@@ -22,7 +22,7 @@ def add_order(time, totalprice, ordermenus_info):
     try:
         db.commit()
     except sqlalchemy.exc.IntegrityError as exc:
-        reason = exc.message
+        reason = exc.params
         print(reason)
     print("end commit")
 
