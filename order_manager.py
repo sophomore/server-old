@@ -12,8 +12,9 @@ def add_order(time, totalprice, ordermenus_info):
     print("added order")
 
     for ordermenu_info in ordermenus_info:
-        print("before ordermenu create")
-        ordermenu = OrderMenu(Menu.query.filter_by(id=ordermenu_info['id']).first(), order, ordermenu_info['pay'], ordermenu_info['curry'], ordermenu_info['double'])
+        menu = Menu.query.filter_by(id=ordermenu_info['id']).first()
+        print("before ordermenu create", menu.id, order.id, ordermenu_info['pay'], ordermenu_info['curry'], ordermenu_info['double'])
+        ordermenu = OrderMenu(menu, order, ordermenu_info['pay'], ordermenu_info['curry'], ordermenu_info['double'])
         print("after ordermenu create", ordermenu.id)
         db.add(ordermenu)
         print("after ordermenu add", ordermenu.id)
