@@ -64,11 +64,9 @@ def order_menu_pay(id):
     return json.dumps({"result", "success"})
 
 
-@app.route('/statistic', methods=['GET'])
-def statistic_month():
-    # return json.dumps(statistic.month_money_sum(2014, 7, 2015, 7))
-    print(statistic.month_money_sum(2015, 7, 2015, 11))
-    return "statictic"
+@app.route('/statistic/<int:startYear>/<int:startMonth>/<int:endYear>/<int:endMonth>', methods=['GET'])
+def statistic_month(startYear, startMonth, endYear, endMonth):
+    return json.dumps(statistic.month_money_sum(startYear, startMonth, endYear, endMonth))
 
 @app.route('/')
 def index():
