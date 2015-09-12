@@ -8,6 +8,8 @@ from mydb import db_session as db
 def add_order(time, totalprice, ordermenus_info):
     order = Order(time, totalprice)
 
+    db.add(order)
+
     print("added order", order.convert_dict())
 
     for ordermenu_info in ordermenus_info:
@@ -18,7 +20,6 @@ def add_order(time, totalprice, ordermenus_info):
         db.add(ordermenu)
         print("after ordermenu add", ordermenu.convert_dict())
     print("end for")
-    db.add(order)
     try:
         db.commit()
     except sqlalchemy.exc.IntegrityError as exc:
