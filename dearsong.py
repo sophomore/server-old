@@ -66,7 +66,7 @@ def order_menu_pay(id):
 
 @app.route('/statistic/<int:startYear>/<int:startMonth>/<int:endYear>/<int:endMonth>', methods=['GET'])
 def statistic_month(startYear, startMonth, endYear, endMonth):
-    return json.dumps(statistic.month_money_sum(startYear, startMonth, endYear, endMonth)) #TODO: 일 추가 -회의!!
+    return json.dumps(statistic.month_money_sum(startYear, startMonth, endYear, endMonth)) #TODO: 일 추가 -회의
 
 @app.route('/')
 def index():
