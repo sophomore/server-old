@@ -47,8 +47,7 @@ def get_one_dict(id):
 
 
 def search(startDate, endDate, ordermenus, pay):
-    pay = None
-    orders = Order.query.join(Order.ordermenus, aliased=True).filter_by(menu_id=ordermenus[0], pay=pay).all()
+    orders = Order.query.join(Order.ordermenus, aliased=True).filter_by(menu_id=ordermenus[0], pay=pay).filter(startDate <= Order.time, Order.time <= endDate).all()
     for order in orders:
         print(order.convert_dict())
         print()
