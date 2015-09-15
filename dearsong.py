@@ -74,9 +74,9 @@ def search_order():
     return json.dumps(order_manager.search(startDate, endDate, request.form['ordermenus'], request.form['pay']))
 
 
-@app.route('/statistic/<int:startYear>/<int:startMonth>/<int:endYear>/<int:endMonth>', methods=['GET'])
-def statistic_month(startYear, startMonth, endYear, endMonth):
-    return json.dumps(statistic.month_money_sum(startYear, startMonth, endYear, endMonth))
+@app.route('/statistic/month_money_sum', methods=['POST'])
+def statistic_month():
+    return json.dumps(statistic.month_money_sum(request.form['startDate'], request.form['endDate']))
 
 @app.route('/')
 def index():
