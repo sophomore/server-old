@@ -64,9 +64,15 @@ def order_menu_pay(id):
     return json.dumps({"result", "success"})
 
 
+@app.route('/order/search', methods=['GET'])
+def search_order():
+    order_manager.search(datetime(2015, 6, 10, 12, 00, 00), datetime(2015, 6, 10, 12, 00, 00), [1, 3], 1)
+    return "searsh"
+
+
 @app.route('/statistic/<int:startYear>/<int:startMonth>/<int:endYear>/<int:endMonth>', methods=['GET'])
 def statistic_month(startYear, startMonth, endYear, endMonth):
-    return json.dumps(statistic.month_money_sum(startYear, startMonth, endYear, endMonth)) #TODO: 일 추가 -회의!!#!
+    return json.dumps(statistic.month_money_sum(startYear, startMonth, endYear, endMonth))
 
 @app.route('/')
 def index():
