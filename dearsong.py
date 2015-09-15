@@ -67,9 +67,9 @@ def order_menu_pay(id):
 
 @app.route('/order/search', methods=['GET'])
 def search_order():
-    startDate = datetime.strptime(request.form['startDate'], '%Y-%m-%d %H:%M:%S')
-    endDate = datetime.strptime(request.form['endDate'], '%Y-%m-%d %H:%M:%S')
-    return json.dumps(order_manager.search(startDate, endDate, request.form['ordermenus'], request.form['pay']))
+    startDate = datetime.strptime(request.args.get('startDate'), '%Y-%m-%d %H:%M:%S')
+    endDate = datetime.strptime(request.args.get('endDate'), '%Y-%m-%d %H:%M:%S')
+    return json.dumps(order_manager.search(startDate, endDate, request.args.get('ordermenus'), request.args.get('pay')))
 
 
 @app.route('/statistic/<int:startYear>/<int:startMonth>/<int:endYear>/<int:endMonth>', methods=['GET'])
