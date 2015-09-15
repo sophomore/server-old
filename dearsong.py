@@ -66,7 +66,7 @@ def order_menu_pay(id):
 
 @app.route('/order/search', methods=['GET'])
 def search_order():
-    order_manager.search(datetime(2015, 6, 10, 12, 00, 00), datetime(2015, 6, 10, 12, 00, 00), [1, 3], 1)
+    order_manager.search(None, None, [1, 3], 1)
     return "searsh"
 
 
