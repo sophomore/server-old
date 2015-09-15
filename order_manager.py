@@ -50,7 +50,7 @@ def search(startDate, endDate, ordermenus, pay):
     print(startDate, endDate, ordermenus, pay)
     orders = []
     for ordermenu in ordermenus:
-        orders.append(Order.query.join(Order.ordermenus, aliased=True).filter_by(menu_id=ordermenu, pay=pay))
+        orders.append(Order.query.join(Order.ordermenus, aliased=True).filter_by(menu_id=ordermenu, pay=pay).all())
 
     result =[]
     for order in orders:
