@@ -5,18 +5,11 @@ from mydb import db_session as db
 
 #in : 기간, out : 월별로 메뉴별 금액 총합, 월별 전체 총합, etc : 카레추가, 곱배기 금액 포함
 def month_money_sum(startYear, startMonth, endYear, endMonth):
-    # startDate = datetime.strptime(str(startYear)+'-'+str(startMonth), '%Y-%m')
-    # endDate = datetime.strptime(str(endYear)+'-'+str(endMonth), '%Y-%m')
-    # orders = Order.query.filter(Order.time >= startDate, Order.time < endDate).all()
-
-    # available_menus = Menu.query.filter_by(Menu.available==True).all()
     result = {}
 
     startDate = datetime.strptime(str(startYear)+'-'+str(startMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S')
     while True:
         endDate = startDate + relativedelta(months=1)
-
-        print(startDate, endDate, datetime.strptime(str(endYear)+'-'+str(endMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S'))
 
         if endDate == datetime.strptime(str(endYear)+'-'+str(endMonth)+'-01 00:00:00', '%Y-%m-%d %H:%M:%S'):
             break;
@@ -34,23 +27,6 @@ def month_money_sum(startYear, startMonth, endYear, endMonth):
 
         result[startDate.year.real] = {startDate.month.real: {"menu": menus, "total": total}}
         startDate = endDate
-
-    # result = {}
-    # for order in orders:
-    #     ordermenus = order.ordermenus
-    #     result[str(startYear)+'-'+str(startMonth)] = []
-    #     menuprice = {}
-    #     for ordermenu in ordermenus:
-    #         if ordermenu.menu_id in menuprice.keys():
-    #             menuprice[ordermenu.menu_id] = (Menu.query.filter_by(id=ordermenu.menu_id).fitst()).totalprice
-    #         else:
-    #             menuprice[ordermenu.menu_id] += (Menu.query.filter_by(id=ordermenu.menu_id).fitst()).totalprice
-    #     result[str(startYear)+'-'+str(startMonth)].append({"totalprice": order.totalprice})
-    #     result[str(startYear)+'-'+str(startMonth)].append({"menutotal": menuprice})
-    #     if startMonth >= 12:
-    #         startYear += 1
-    #         startMonth = 1
-
     return result
 
 
