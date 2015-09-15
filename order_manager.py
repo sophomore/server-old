@@ -53,5 +53,6 @@ def search(startDate, endDate, ordermenus, pay):
 
     result =[]
     for order in orders:
+        print(order)
         result.append(order.convert_dict())
     return result
