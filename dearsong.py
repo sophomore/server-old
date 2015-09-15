@@ -5,7 +5,7 @@ import json
 import order_manager
 import menu_manager
 import statistic
-import datetime
+from datetime import datetime
 
 app = Flask(__name__)
 app.debug = True
@@ -67,8 +67,9 @@ def order_menu_pay(id):
 
 @app.route('/order/search', methods=['GET'])
 def search_order():
-    order_manager.search(datetime.datetime(2015, 8, 10, 10, 10, 10, 00000), datetime.datetime(2015, 10, 10, 10, 10, 10, 00000), [3, 4], 2)
-    return "searsh"
+    startDate = datetime.strptime(request.form['startDate'], '%Y-%m-%d %H:%M:%S')
+    endDate = datetime.strptime(request.form['endDate'], '%Y-%m-%d %H:%M:%S')
+    return json.dumps(order_manager.search(startDate, endDate, request.form['ordermenus'], request.form['pay']))
 
 
 @app.route('/statistic/<int:startYear>/<int:startMonth>/<int:endYear>/<int:endMonth>', methods=['GET'])
