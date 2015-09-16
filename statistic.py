@@ -30,7 +30,7 @@ def month_money_sum(startDateStr, endDateStr):
         #     total += ordermenu.totalprice
         #
         # result[startDate.year.real] = {startDate.month.real: {"menu": menus, "total": total, "count": count}}
-        # startDate = endDate
+        startDate = endDate
     return result
 
 
