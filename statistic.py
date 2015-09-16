@@ -15,22 +15,22 @@ def month_money_sum(startDateStr, endDateStr):
         if endDate >= datetime.strptime(endDateStr+' 00:00:00', '%Y-%m-%d %H:%M:%S'):
             break;
 
-        ordermenus = db.query(OrderMenu).join(Order, Order.id == OrderMenu.order_id).filter(Order.time >= startDate).filter(Order.time <= endDate).all()
+        ordermenus = db.query(OrderMenu).join(Order, Order.id == OrderMenu.order_id).filter(Order.time >= startDate).filter(Order.time <= endDate)
         result['debug2'] += " | "+str(ordermenus)
 
-        menus = {}
-        total = 0
-        count = 0
-        for ordermenu in ordermenus:
-            if ordermenu.menu_id in menus:
-                menus[ordermenu.menu_id] += ordermenu.totalprice
-            else:
-                menus[ordermenu.menu_id] = ordermenu.totalprice
-            count += 1
-            total += ordermenu.totalprice
-
-        result[startDate.year.real] = {startDate.month.real: {"menu": menus, "total": total, "count": count}}
-        startDate = endDate
+        # menus = {}
+        # total = 0
+        # count = 0
+        # for ordermenu in ordermenus:
+        #     if ordermenu.menu_id in menus:
+        #         menus[ordermenu.menu_id] += ordermenu.totalprice
+        #     else:
+        #         menus[ordermenu.menu_id] = ordermenu.totalprice
+        #     count += 1
+        #     total += ordermenu.totalprice
+        #
+        # result[startDate.year.real] = {startDate.month.real: {"menu": menus, "total": total, "count": count}}
+        # startDate = endDate
     return result
 
 
