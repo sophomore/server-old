@@ -11,7 +11,6 @@ def month_money_sum(startDateStr, endDateStr):
     startDate = datetime.strptime(startDateStr+' 00:00:00', '%Y-%m-%d %H:%M:%S')
     while True:
         endDate = startDate + relativedelta(months=1)
-        result['debug'] += str(startDate)+" "+str(endDate)
 
         if endDate == datetime.strptime(endDateStr+' 00:00:00', '%Y-%m-%d %H:%M:%S'):
             break;
@@ -30,6 +29,7 @@ def month_money_sum(startDateStr, endDateStr):
             total += ordermenu.totalprice
 
         result[startDate.year.real] = {startDate.month.real: {"menu": menus, "total": total, "count": count}}
+        result['debug'] += str(startDate)+" "+str(endDate)+" "+str(ordermenus)
         startDate = endDate
     return result
 
