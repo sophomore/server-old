@@ -6,10 +6,12 @@ from mydb import db_session as db
 #in : 기간, out : 월별로 메뉴별 금액 총합, 월별 전체 총합 및 개수, etc : 카레추가, 곱배기 금액 포함
 def month_money_sum(startDateStr, endDateStr):
     result = {}
+    result['debug'] = startDateStr+" "+endDateStr
 
     startDate = datetime.strptime(startDateStr+' 00:00:00', '%Y-%m-%d %H:%M:%S')
     while True:
         endDate = startDate + relativedelta(months=1)
+        result['debug'] += str(startDate)+" "+str(endDate)
 
         if endDate == datetime.strptime(endDateStr+' 00:00:00', '%Y-%m-%d %H:%M:%S'):
             break;
