@@ -20,7 +20,8 @@ def month_money_sum(startDateStr, endDateStr):
         ordermenus = []
         for order in orders:
             ordermenus += order.ordermenus
-        result['debug'] += " | "+str(ordermenus)
+        result['debug1'] += " | "+str(orders)
+        result['debug2'] += " | "+str(ordermenus)
 
         menus = {}
         total = 0
