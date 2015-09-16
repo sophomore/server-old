@@ -12,10 +12,11 @@ def month_money_sum(startDateStr, endDateStr):
     while True:
         endDate = startDate + relativedelta(months=1)
 
-        if endDate == datetime.strptime(endDateStr+' 00:00:00', '%Y-%m-%d %H:%M:%S'):
+        if endDate >= datetime.strptime(endDateStr+' 00:00:00', '%Y-%m-%d %H:%M:%S'):
             break;
 
         ordermenus = db.query(OrderMenu).filter(Order.time >= startDate, Order.time <= endDate).all()
+        ordermenus = OrderMenu.join(Order).filter(startDate <= Order.time, Order.time <= endDate).all()
         result['debug'] += " | "+str(ordermenus)
 
         menus = {}
