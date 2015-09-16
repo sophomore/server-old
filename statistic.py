@@ -16,6 +16,7 @@ def month_money_sum(startDateStr, endDateStr):
             break;
 
         ordermenus = db.query(OrderMenu).filter(Order.time >= startDate, Order.time <= endDate).all()
+        result['debug'] += " | "+str(ordermenus)
 
         menus = {}
         total = 0
@@ -29,7 +30,6 @@ def month_money_sum(startDateStr, endDateStr):
             total += ordermenu.totalprice
 
         result[startDate.year.real] = {startDate.month.real: {"menu": menus, "total": total, "count": count}}
-        result['debug'] += str(startDate)+" "+str(endDate)+" "+str(ordermenus)
         startDate = endDate
     return result
 
