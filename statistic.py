@@ -6,7 +6,8 @@ from mydb import db_session as db
 #in : 기간, out : 월별로 메뉴별 금액 총합, 월별 전체 총합 및 개수, etc : 카레추가, 곱배기 금액 포함
 def month_money_sum(startDateStr, endDateStr):
     result = {}
-    result['debug'] = startDateStr+" "+endDateStr
+    result['debug1'] = ""
+    result['debug2'] = ""
 
     startDate = datetime.strptime(startDateStr+' 00:00:00', '%Y-%m-%d %H:%M:%S')
     while True:
@@ -20,6 +21,7 @@ def month_money_sum(startDateStr, endDateStr):
         ordermenus = []
         for order in orders:
             ordermenus += order.ordermenus
+        result['debug1'] = ""
         result['debug1'] += " | "+str(orders)
         result['debug2'] += " | "+str(ordermenus)
 
