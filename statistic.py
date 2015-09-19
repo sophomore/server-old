@@ -38,34 +38,39 @@ def month_money_sum(startDateStr, endDateStr):
 #in 기간, 메뉴리스트, 단위 out 단위에 맞춰서 각 메뉴별 총액 및 개수
 #unit : 1. 시간, 2. 일, 3. 요일, 4. 월, 5. 분기, 6. 년
 def unit_menu_sum(startDate, endDate, menus, unit):
+    if unit<1 or unit>6:
+        return {"error": "unit value is invalid"}
 
+    startDateStart = datetime.strptime(startDate + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
+    endDate = datetime.strptime(endDate + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
+    currentDate = startDateStart
+    def last_day_of_month(date):
+        if date.month == 12:
+            return date.replace(day=31)
+        return date.replace(month=date.month+1, day=1) - datetime.timedelta(days=1)
     def increaseDate(unit):
         if unit == 1:
-            return startDate + relativedelta(hours=1)
+            return currentDate + relativedelta(hours=1)
         elif unit == 2:
-            return startDate + relativedelta(days=1)
+            return currentDate + relativedelta(days=1)
         elif unit == 3:
-            return startDate + relativedelta(weeks=1)
+            return currentDate + relativedelta(weeks=1)
         elif unit == 4:
-            return startDate + relativedelta(months=1)
+            return currentDate + relativedelta(months=1)
         elif unit == 5:
-            return startDate + relativedelta(months=3)
+            return currentDate + relativedelta(months=3)
         elif unit == 6:
-            return startDate + relativedelta(years=1)
-
+            return currentDate + relativedelta(years=1)
     result = {}
-    while True:
-        if unit == 3:
-            pass
-        elif unit == 5:
-            pass
-        currentDate = increaseDate(unit)
+    result[currentDate.year][currentDate.month]["total"] = 0
+    result[currentDate.year][currentDate.month]["cashtotal"] = 0
+    result[currentDate.year][currentDate.month]["cardtotal"] = 0
+    result[currentDate.year][currentDate.month]["servicetotal"] = 0
+    result[currentDate.year][currentDate.month]["credittotal"] = 0
+    result[currentDate.year][currentDate.month]["count"] = 0
 
-        if currentDate >= endDate:
-            break;
-
-        ordermenus = db.query(OrderMenu).filter(startDate <= Order.time, Order.time <= currentDate).all()
-
+    while currentDate<=endDate:
+        ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate).all()
         menus = {}
         total = 0
         count = 0
@@ -74,8 +79,17 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 menus[ordermenu.menu_id] += ordermenu.totalprice
             else:
                 menus[ordermenu.menu_id] = ordermenu.totalprice
+
             count += 1
             total += ordermenu.totalprice
+            if unit == 4:
+
+                if ordermenu.pay == 1:
+                    result[currentDate.year][currentDate.month]["cashtotal"] += ordermenu.totalprice
+                elif ordermenu.pay == 2:
+                    result[currentDate.year][currentDate.month]["cardtotal"] += ordermenu.totalprice
+                result[currentDate.year][currentDate.month]["total"] += ordermenu.totalprice
+
         if unit == 6:
             result[startDate.year.real] = {"menu": menus, "total": total, "count":count}
         else:
@@ -86,19 +100,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             else:
                 # if not startDate.month.real in result[]
                 pass
-    if unit == 1:
-        pass
-    elif unit == 2:
-        pass
-    elif unit == 3:
-        pass
-    elif unit == 4:
-        pass
-    elif unit == 5:
-        pass
-    elif unit == 6:
-        pass
-    else:
-        return {"error": "unit value is invalid"}
+        currentDate = increaseDate(unit)
+    return result
 
 #단위별 결제 방식, 총 결제방식 별 총액
