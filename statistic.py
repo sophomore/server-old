@@ -71,6 +71,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         elif unit == 6:
             return currentDate + relativedelta(years=1)
     result = {}
+    result[currentDate.year]={}
     result[currentDate.year][currentDate.month]["total"] = 0
     result[currentDate.year][currentDate.month]["cashtotal"] = 0
     result[currentDate.year][currentDate.month]["cardtotal"] = 0
