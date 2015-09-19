@@ -48,6 +48,15 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         if date.month == 12:
             return date.replace(day=31)
         return date.replace(month=date.month+1, day=1) - datetime.timedelta(days=1)
+
+    def first_day_of_month(date):
+        return date.replace(month=date.month, day=1)
+
+    def first_day_of_next_month(date):
+        if date.month ==12:
+            return date.replace(year=date.year+1,month=1,day=1)
+        return date.replace(month=date.month+1,day =1)
+
     def increaseDate(unit):
         if unit == 1:
             return currentDate + relativedelta(hours=1)
@@ -70,7 +79,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     result[currentDate.year][currentDate.month]["count"] = 0
 
     while currentDate<=endDate:
-        ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate).all()
+        ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
         menus = {}
         total = 0
         count = 0
@@ -83,7 +92,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             count += 1
             total += ordermenu.totalprice
             if unit == 4:
-
                 if ordermenu.pay == 1:
                     result[currentDate.year][currentDate.month]["cashtotal"] += ordermenu.totalprice
                 elif ordermenu.pay == 2:
@@ -100,7 +108,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             else:
                 # if not startDate.month.real in result[]
                 pass
-        currentDate = increaseDate(unit)
+        currentDate = increaseDate(2)
     return result
 
 #단위별 결제 방식, 총 결제방식 별 총액
