@@ -71,18 +71,19 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         elif unit == 6:
             return currentDate + relativedelta(years=1)
     result = {}
-    result[currentDate.year]={}
-    result[currentDate.year][currentDate.month]={}
-    result[currentDate.year][currentDate.month]["total"] = 0
-    result[currentDate.year][currentDate.month]["cashtotal"] = 0
-    result[currentDate.year][currentDate.month]["cardtotal"] = 0
-    result[currentDate.year][currentDate.month]["servicetotal"] = 0
-    result[currentDate.year][currentDate.month]["credittotal"] = 0
-    result[currentDate.year][currentDate.month]["count"] = 0
+    result[currentDate.year.real]={}
+    result[currentDate.year.real][currentDate.month.real]={}
+    result[currentDate.year.real][currentDate.month.real]["total"] = 0
+    result[currentDate.year.real][currentDate.month.real]["cashtotal"] = 0
+    result[currentDate.year.real][currentDate.month.real]["cardtotal"] = 0
+    result[currentDate.year.real][currentDate.month.real]["servicetotal"] = 0
+    result[currentDate.year.real][currentDate.month.real]["credittotal"] = 0
+    result[currentDate.year.real][currentDate.month.real]["count"] = 0
     result['debug'] = 'start'
+    count2 = 0
     while currentDate<=endDate:
         ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
-
+        count2 +=1
         menus = {}
         total = 0
         count = 0
@@ -94,27 +95,20 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
             count += 1
             total += ordermenu.totalprice
-            result['debug'] += str(total) +'#'
+            result['debug'] += str(count2) +'#'
             if unit == 4:
                 if ordermenu.pay == 1:
-                    result[currentDate.year][currentDate.month]["cashtotal"] += ordermenu.totalprice
+                    result[currentDate.year.real.real][currentDate.month.real.real]["cashtotal"] += ordermenu.totalprice
                 elif ordermenu.pay == 2:
-                    result[currentDate.year][currentDate.month]["cardtotal"] += ordermenu.totalprice
+                    result[currentDate.year.real][currentDate.month.real]["cardtotal"] += ordermenu.totalprice
                 elif ordermenu.pay == 3:
-                    result[currentDate.year][currentDate.month]["servicetotal"] += ordermenu.totalprice
-                result[currentDate.year][currentDate.month]["total"] += ordermenu.totalprice
+                    result[currentDate.year.real][currentDate.month.real]["servicetotal"] += ordermenu.totalprice
+                result[currentDate.year.real][currentDate.month.real]["total"] += ordermenu.totalprice
 
-        if unit == 6:
-            result[startDateStart.year] = {"menu": menus, "total": total, "count":count}
-        else:
-            if not startDateStart.year in result:
-                result[startDateStart.year] = {}
-            if unit == 4:
-                result[currentDate.year][currentDate.month]['menu'] = menus
-                result[currentDate.year][currentDate.month]['total'] = total
-            else:
-                # if not startDate.month.real in result[]
-                pass
+        if unit == 4:
+            result[currentDate.year.real][currentDate.month.real]['menu'] = menus
+            result[currentDate.year.real][currentDate.month.real]['total'] = total
+
         currentDate = increaseDate(2)
     return result
 
