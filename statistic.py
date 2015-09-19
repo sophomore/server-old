@@ -82,6 +82,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
     while currentDate<=endDate:
         ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
+        result['debug'] = ordermenus
         menus = {}
         total = 0
         count = 0
