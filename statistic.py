@@ -62,22 +62,22 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
 
     def increaseTotalPrice(unit,ordermenu,dic):
-        if unit ==4:
-            if ordermenu.pay == 1:
-                if "cashtotal" in dic:
-                    dic["cashtotal"] += ordermenu.totalprice
-                else:
-                    dic["cashtotal"] = ordermenu.totalprice
-            elif ordermenu.pay == 2:
-                if "cardtotal" in dic:
-                    dic["cardtotal"] += ordermenu.totalprice
-                else:
-                    dic["cardtotal"] = ordermenu.totalprice
-            elif ordermenu.pay == 3:
-                if "servicetotal" in dic:
-                    dic["servicetotal"] += ordermenu.totalprice
-                else:
-                    dic["servicetotal"] = ordermenu.totalprice
+
+        if ordermenu.pay == 1:
+            if "cashtotal" in dic:
+                dic["cashtotal"] += ordermenu.totalprice
+            else:
+                dic["cashtotal"] = ordermenu.totalprice
+        elif ordermenu.pay == 2:
+            if "cardtotal" in dic:
+                dic["cardtotal"] += ordermenu.totalprice
+            else:
+                dic["cardtotal"] = ordermenu.totalprice
+        elif ordermenu.pay == 3:
+            if "servicetotal" in dic:
+                dic["servicetotal"] += ordermenu.totalprice
+            else:
+                dic["servicetotal"] = ordermenu.totalprice
         return dic
     def createResultDic(result,unit,currentDate):
         if not currentDate.year.real in result:
