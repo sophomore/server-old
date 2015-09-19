@@ -66,7 +66,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 dic["servicetotal"] += ordermenu.totalprice
             else:
                 dic["servicetotal"] = ordermenu.totalprice
-        
+
     def createResultDic(result,unit,currentDate):
         if not currentDate.year.real in result:
             result[currentDate.year.real] = {}
@@ -110,7 +110,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
 
     result = createResultDic(result,unit,currentDate)
-    result[currentDate.year.real][currentDate.month.real]['debug']='suc'
 
     while currentDate<=endDate:
         result = createResultDic(result,unit,currentDate)
@@ -127,7 +126,8 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             count += 1
             total += ordermenu.totalprice
             if unit == 1:
-                pass
+                order = db.query(Order).filter(id == ordermenu.order_id).all()
+                result['debug2'] = order.time
             elif unit == 2:
                 increaseTotalPrice(ordermenu,result[currentDate.year.real][currentDate.month.real][currentDate.day.real])
             elif unit == 3:
