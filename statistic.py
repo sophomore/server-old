@@ -38,8 +38,8 @@ def month_money_sum(startDateStr, endDateStr):
 #in 기간, 메뉴리스트, 단위 out 단위에 맞춰서 각 메뉴별 총액 및 개수
 #unit : 1. 시간, 2. 일, 3. 요일, 4. 월, 5. 분기, 6. 년
 def unit_menu_sum(startDate, endDate, menus, unit):
-    if unit<1 or unit>6:
-        return {"error": "unit value is invalid"}
+    # if unit<1 or unit>6:
+    return {"error": "unit value is invalid"}
 
     startDateStart = datetime.strptime(startDate + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
     endDate = datetime.strptime(endDate + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
