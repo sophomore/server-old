@@ -79,7 +79,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     result[currentDate.year.real][currentDate.month.real]["servicetotal"] = 0
     result[currentDate.year.real][currentDate.month.real]["credittotal"] = 0
     result[currentDate.year.real][currentDate.month.real]["count"] = 0
-    result['debug'] = 'start'
+    result['debug'] = 0
     count2 = 0
     while currentDate<=endDate:
         ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
@@ -92,7 +92,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 menus[ordermenu.menu_id] += ordermenu.totalprice
             else:
                 menus[ordermenu.menu_id] = ordermenu.totalprice
-            result['debug'] += str(ordermenu.pay)+"#"
+            result['debug'] += ordermenu.pay
             count += 1
             total += ordermenu.totalprice
             if unit == 4:
