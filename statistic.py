@@ -101,12 +101,12 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 result[currentDate.year][currentDate.month]["total"] += ordermenu.totalprice
 
         if unit == 6:
-            result[startDate.year.real] = {"menu": menus, "total": total, "count":count}
+            result[startDateStart.year] = {"menu": menus, "total": total, "count":count}
         else:
-            if not startDate.year.real in result:
-                result[startDate.year.real] = {}
+            if not startDateStart.year in result:
+                result[startDateStart.year] = {}
             if unit == 4:
-                result[startDate.year.real][startDate.month.real] = {"menu": menus, "total": total, "count":count}
+                result[startDateStart.year][startDate.month.real] = {"menu": menus, "total": total, "count":count}
             else:
                 # if not startDate.month.real in result[]
                 pass

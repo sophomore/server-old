@@ -70,8 +70,8 @@
       <file leaf-file-name="statistic.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/statistic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53156143">
-              <caret line="74" column="50" selection-start-line="74" selection-start-column="50" selection-end-line="74" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.73421925">
+              <caret line="105" column="19" selection-start-line="105" selection-start-column="19" selection-end-line="105" selection-end-column="19" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -130,8 +130,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="260" />
-    <option name="y" value="77" />
+    <option name="x" value="138" />
+    <option name="y" value="76" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
@@ -207,7 +207,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="260" y="77" width="1400" height="1000" extended-state="0" />
+    <frame x="138" y="76" width="1400" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -314,8 +314,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/statistic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53156143">
-          <caret line="74" column="50" selection-start-line="74" selection-start-column="50" selection-end-line="74" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.73421925">
+          <caret line="105" column="19" selection-start-line="105" selection-start-column="19" selection-end-line="105" selection-end-column="19" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
