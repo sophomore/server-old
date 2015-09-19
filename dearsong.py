@@ -76,7 +76,7 @@ def search_order():
 
 @app.route('/statistic/unit_menu_sum', methods=['POST'])
 def statistic_month():
-    return json.dumps(statistic.month_money_sum(request.form['startDate'], request.form['endDate']))
+    return json.dumps(statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'],None,request.form['unit']))
 
 @app.route('/')
 def index():
