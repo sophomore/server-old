@@ -45,6 +45,8 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     startDateStart = datetime.strptime(startDate + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
     endDate = datetime.strptime(endDate + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
     currentDate = startDateStart
+    result = {}
+
     def last_day_of_month(date):
         if date.month == 12:
             return date.replace(day=31)
@@ -57,6 +59,43 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         if date.month ==12:
             return date.replace(year=date.year+1,month=1,day=1)
         return date.replace(month=date.month+1,day =1)
+
+
+
+    def increaseTotalPrice(unit,ordermenu,dic):
+        if unit ==4:
+            if ordermenu.pay == 1:
+                if "cashtotal" in dic:
+                    dic["cashtotal"] += ordermenu.totalprice
+                else:
+                    dic["cashtotal"] = ordermenu.totalprice
+            elif ordermenu.pay == 2:
+                if "cardtotal" in dic:
+                    dic["cardtotal"] += ordermenu.totalprice
+                else:
+                    dic["cardtotal"] = ordermenu.totalprice
+            elif ordermenu.pay == 3:
+                if "servicetotal" in dic:
+                    dic["servicetotal"] += ordermenu.totalprice
+                else:
+                    dic["servicetotal"] = ordermenu.totalprice
+
+    def createResultDic(result,unit,currentDate):
+        if unit == 1:
+            for i in range(1,23):
+                result[i] = {}
+        elif unit == 2:
+            result[currentDate.year.real][currentDate.month.real][currentDate.day.real] = {}
+        elif unit == 3:
+            for i in ["일","월","화","수","목","금","토"]:
+                result[i]={}
+        elif unit == 4:
+            result[currentDate.year.real][currentDate.month.real]={}
+        elif unit == 5:
+            result[currentDate.year.real][1]={}
+            result[currentDate.year.real][2]={}
+            result[currentDate.year.real][3]={}
+            result[currentDate.year.real][4]={}
 
     def increaseDate(unit):
         if unit == 1:
@@ -71,23 +110,16 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             return currentDate + relativedelta(months=3)
         elif unit == 6:
             return currentDate + relativedelta(years=1)
-    result = {}
-    result[currentDate.year.real]={}
-    result[currentDate.year.real][currentDate.month.real]={}
-    result[currentDate.year.real][currentDate.month.real]["total"] = 0
-    result[currentDate.year.real][currentDate.month.real]["cashtotal"] = 0
-    result[currentDate.year.real][currentDate.month.real]["cardtotal"] = 0
-    result[currentDate.year.real][currentDate.month.real]["servicetotal"] = 0
-    result[currentDate.year.real][currentDate.month.real]["credittotal"] = 0
-    result[currentDate.year.real][currentDate.month.real]["count"] = 0
-    count2 = 0
+
+
+
+
+
     while currentDate<=endDate:
         ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
-        count2 +=1
         menus = {}
         total = 0
         count = 0
-        result['debug'] = unit
         for ordermenu in ordermenus:
             if ordermenu.menu_id in menus:
                 menus[ordermenu.menu_id] += ordermenu.totalprice
@@ -96,20 +128,33 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
             count += 1
             total += ordermenu.totalprice
-            if unit == 4:
-                if ordermenu.pay == 1:
-                    result[currentDate.year.real.real][currentDate.month.real.real]["cashtotal"] += ordermenu.totalprice
-                elif ordermenu.pay == 2:
-                    result[currentDate.year.real][currentDate.month.real]["cardtotal"] += ordermenu.totalprice
-                elif ordermenu.pay == 3:
-                    result[currentDate.year.real][currentDate.month.real]["servicetotal"] += ordermenu.totalprice
-                result[currentDate.year.real][currentDate.month.real]["total"] += ordermenu.totalprice
-
+            if unit == 1:
+                pass
+            elif unit == 2:
+                increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][currentDate.month.real][currentDate.day.real])
+            elif unit == 3:
+                pass
+            elif unit == 4:
+                increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][currentDate.month.real])
+            elif unit == 5:
+                if(currentDate.month.real>=1 and currentDate.month.real<=3):
+                    increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][1])
+                elif(currentDate.month.real>=4 and currentDate.month.real<=6):
+                    increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][2])
+                elif(currentDate.month.real>=7 and currentDate.month.real<=9):
+                    increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][3])
+                elif(currentDate.month.real>=10 and currentDate.month.real<=12):
+                    increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][4])
+            elif unit == 6:
+                increaseTotalPrice(unit,ordermenu,result[currentDate.year])
         if unit == 4:
+            result[currentDate.year.real][currentDate.month.real]['count'] = count
             result[currentDate.year.real][currentDate.month.real]['menu'] = menus
             result[currentDate.year.real][currentDate.month.real]['total'] = total
-
-        currentDate = increaseDate(2)
+        nextDate = increaseDate(2)
+        if nextDate.month.real > currentDate.month.real:
+            result = createResultDic(result,unit,nextDate)
+        currentDate = nextDate
     return result
 
 #단위별 결제 방식, 총 결제방식 별 총액
