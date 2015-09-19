@@ -95,12 +95,14 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             for i in ["일","월","화","수","목","금","토"]:
                 result[i]={}
         elif unit == 4:
-            result[currentDate.year.real][currentDate.month.real]={}
+            if not currentDate.month.real in result[currentDate.year.real]:
+                result[currentDate.year.real][currentDate.month.real]={}
         elif unit == 5:
-            result[currentDate.year.real][1]={}
-            result[currentDate.year.real][2]={}
-            result[currentDate.year.real][3]={}
-            result[currentDate.year.real][4]={}
+            if not 1 in result[currentDate.year.real]:
+                result[currentDate.year.real][1]={}
+                result[currentDate.year.real][2]={}
+                result[currentDate.year.real][3]={}
+                result[currentDate.year.real][4]={}
         return result
 
     def increaseDate(unit):
@@ -159,8 +161,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             result[currentDate.year.real][currentDate.month.real]['menu'] = menus
             result[currentDate.year.real][currentDate.month.real]['total'] = total
         nextDate = increaseDate(2)
-        if nextDate.month.real > currentDate.month.real:
-            result = createResultDic(result,unit,nextDate)
+        result = createResultDic(result,unit,nextDate)
         currentDate = nextDate
     return result
 
