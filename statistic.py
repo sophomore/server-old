@@ -112,7 +112,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             return currentDate + relativedelta(years=1)
 
 
-
+    result = createResultDic(result,unit,currentDate)
 
 
     while currentDate<=endDate:
