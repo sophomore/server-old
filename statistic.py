@@ -62,10 +62,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
 
     def increaseTotalPrice(unit,ordermenu,dic):
-
+        result['debug'] = 'come'
         if ordermenu.pay == 1:
             if "cashtotal" in dic:
                 dic["cashtotal"] += ordermenu.totalprice
+                result['debug2'] = dic['cashtotal']
             else:
                 dic["cashtotal"] = ordermenu.totalprice
         elif ordermenu.pay == 2:
