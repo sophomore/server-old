@@ -46,22 +46,9 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     endDate = datetime.strptime(endDate + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
     currentDate = startDateStart
     result = {}
-    def last_day_of_month(date):
-        if date.month == 12:
-            return date.replace(day=31)
-        return date.replace(month=date.month+1, day=1) - datetime.timedelta(days=1)
-
-    def first_day_of_month(date):
-        return date.replace(month=date.month, day=1)
-
-    def first_day_of_next_month(date):
-        if date.month ==12:
-            return date.replace(year=date.year+1,month=1,day=1)
-        return date.replace(month=date.month+1,day =1)
 
 
-
-    def increaseTotalPrice(unit,ordermenu,dic):
+    def increaseTotalPrice(ordermenu,dic):
         result['debug'] = 'come'
         if ordermenu.pay == 1:
             if "cashtotal" in dic:
@@ -79,7 +66,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 dic["servicetotal"] += ordermenu.totalprice
             else:
                 dic["servicetotal"] = ordermenu.totalprice
-        return dic
+        
     def createResultDic(result,unit,currentDate):
         if not currentDate.year.real in result:
             result[currentDate.year.real] = {}
@@ -142,22 +129,22 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             if unit == 1:
                 pass
             elif unit == 2:
-                result[currentDate.year.real][currentDate.month.real][currentDate.day.real] = increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][currentDate.month.real][currentDate.day.real])
+                increaseTotalPrice(ordermenu,result[currentDate.year.real][currentDate.month.real][currentDate.day.real])
             elif unit == 3:
                 pass
             elif unit == 4:
-                increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][currentDate.month.real])
+                increaseTotalPrice(ordermenu,result[currentDate.year.real][currentDate.month.real])
             elif unit == 5:
                 if(currentDate.month.real>=1 and currentDate.month.real<=3):
-                    result[currentDate.year.real] = increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][1])
+                    result[currentDate.year.real] = increaseTotalPrice(ordermenu,result[currentDate.year.real][1])
                 elif(currentDate.month.real>=4 and currentDate.month.real<=6):
-                    result[currentDate.year.real] = increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][2])
+                    result[currentDate.year.real] = increaseTotalPrice(ordermenu,result[currentDate.year.real][2])
                 elif(currentDate.month.real>=7 and currentDate.month.real<=9):
-                    result[currentDate.year.real] = increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][3])
+                    result[currentDate.year.real] = increaseTotalPrice(ordermenu,result[currentDate.year.real][3])
                 elif(currentDate.month.real>=10 and currentDate.month.real<=12):
-                    result[currentDate.year.real] = increaseTotalPrice(unit,ordermenu,result[currentDate.year.real][4])
+                    result[currentDate.year.real] = increaseTotalPrice(ordermenu,result[currentDate.year.real][4])
             elif unit == 6:
-                increaseTotalPrice(unit,ordermenu,result[currentDate.year])
+                increaseTotalPrice(ordermenu,result[currentDate.year])
         if unit == 4:
             result[currentDate.year.real][currentDate.month.real]['count'] = count
             result[currentDate.year.real][currentDate.month.real]['menu'] = menus
