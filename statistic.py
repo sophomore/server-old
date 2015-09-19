@@ -96,6 +96,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             result[currentDate.year.real][2]={}
             result[currentDate.year.real][3]={}
             result[currentDate.year.real][4]={}
+        return result
 
     def increaseDate(unit):
         if unit == 1:
