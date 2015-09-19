@@ -71,7 +71,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         if not currentDate.year.real in result:
             result[currentDate.year.real] = {}
         if unit == 1:
-            result = {}
             for i in range(1,23):
                 result[i] = {}
         elif unit == 2:
