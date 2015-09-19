@@ -46,7 +46,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     endDate = datetime.strptime(endDate + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
     currentDate = startDateStart
     result = {}
-
+    result[currentDate.year.real]={}
     def last_day_of_month(date):
         if date.month == 12:
             return date.replace(day=31)
@@ -112,9 +112,9 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             return currentDate + relativedelta(years=1)
 
 
+
     result = createResultDic(result,unit,currentDate)
-
-
+    
     while currentDate<=endDate:
         ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
         menus = {}
