@@ -87,7 +87,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         total = 0
         count = 0
         for ordermenu in ordermenus:
-            result['debug'] += str(ordermenu.pay)+"@"
             if ordermenu.menu_id in menus:
                 menus[ordermenu.menu_id] += ordermenu.totalprice
             else:
@@ -95,6 +94,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
             count += 1
             total += ordermenu.totalprice
+            result['debug'] += str(total) +'#'
             if unit == 4:
                 if ordermenu.pay == 1:
                     result[currentDate.year][currentDate.month]["cashtotal"] += ordermenu.totalprice
