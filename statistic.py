@@ -46,7 +46,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     endDate = datetime.strptime(endDate + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
     currentDate = startDateStart
     result = {}
-    result[currentDate.year.real]={}
     def last_day_of_month(date):
         if date.month == 12:
             return date.replace(day=31)
@@ -81,12 +80,18 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                     dic["servicetotal"] = ordermenu.totalprice
 
     def createResultDic(result,unit,currentDate):
+        if not currentDate.year.real in result:
+            result[currentDate.year.real] = {}
         if unit == 1:
+            result = {}
             for i in range(1,23):
                 result[i] = {}
         elif unit == 2:
+            if not currentDate.month.real in result[currentDate.year.real]:
+                result[currentDate.year.real][currentDate.month.real] = {}
             result[currentDate.year.real][currentDate.month.real][currentDate.day.real] = {}
         elif unit == 3:
+            result = {}
             for i in ["일","월","화","수","목","금","토"]:
                 result[i]={}
         elif unit == 4:
