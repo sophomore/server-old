@@ -87,7 +87,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         total = 0
         count = 0
         for ordermenu in ordermenus:
-            result['debug'] += ordermenu.totalprice+"@"
+            result['debug'] += str(ordermenu.totalprice)+"@"
             if ordermenu.menu_id in menus:
                 menus[ordermenu.menu_id] += ordermenu.totalprice
             else:
