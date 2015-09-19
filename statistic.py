@@ -79,10 +79,10 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     result[currentDate.year][currentDate.month]["servicetotal"] = 0
     result[currentDate.year][currentDate.month]["credittotal"] = 0
     result[currentDate.year][currentDate.month]["count"] = 0
-    result['debug'] = "1@"
+
     while currentDate<=endDate:
         ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
-        result['debug'] += ordermenus
+        result['debug'] = ordermenus
         menus = {}
         total = 0
         count = 0
