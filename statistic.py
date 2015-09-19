@@ -126,7 +126,8 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             total += ordermenu.totalprice
             if unit == 1:
                 order = db.query(Order).filter(id == ordermenu.order_id).all()
-                result['debug'] = order.id+"@"
+                if order != None:
+                    result['debug'] = order.id+"@"
             elif unit == 2:
                 increaseTotalPrice(ordermenu,result[currentDate.year.real][currentDate.month.real][currentDate.day.real])
             elif unit == 3:
