@@ -73,6 +73,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         if unit == 1:
             for i in range(1,23):
                 result[i] = {}
+                result[i]['menu'] = {}
         elif unit == 2:
             if not currentDate.month.real in result[currentDate.year.real]:
                 result[currentDate.year.real][currentDate.month.real] = {}
@@ -91,6 +92,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 result[currentDate.year.real][3]={}
                 result[currentDate.year.real][4]={}
         return result
+
+    def setTotalAndMenus(dic,count,total,menus):
+        dic['count'] = count
+        dic['menu'] = menus
+        dic['total'] = total
 
     def increaseDate(unit):
         if unit == 1:
@@ -117,12 +123,17 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         total = 0
         count = 0
         if unit == 1:
-            orders = db.query(Order).all()
+            orders = db.query(Order).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour =23,meinute = 59,second = 59)).all()
             for order in orders:
                 for ordermenu in order.ordermenus:
+                    if ordermenu.menu_id in result[order.time.hour.real]:
+                        result[order.time.hour.real][ordermenu.menu_id] += ordermenu.totalprice
+                    else:
+                        result[order.time.hour.real][ordermenu.menu_id] = ordermenu.totalprice
                     increaseTotalPrice(ordermenu,result[order.time.hour.real])
                     count +=1
                     total += ordermenu.totalprice
+
             result['debug2']+= order.__sizeof__()
         else:
             ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
@@ -153,9 +164,8 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 elif unit == 6:
                     increaseTotalPrice(ordermenu,result[currentDate.year])
         if unit == 4:
-            result[currentDate.year.real][currentDate.month.real]['count'] = count
-            result[currentDate.year.real][currentDate.month.real]['menu'] = menus
-            result[currentDate.year.real][currentDate.month.real]['total'] = total
+            setTotalAndMenus(result[currentDate.year.real][currentDate.month.real],count,total,menus)
+            
         currentDate = increaseDate(2)
     return result
 
