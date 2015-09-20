@@ -82,8 +82,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             for i in ["일","월","화","수","목","금","토"]:
                 result[i]={}
         elif unit == 4:
-            if not currentDate.month.real in temp[currentDate.year.real]:
-                temp[currentDate.year.real][currentDate.month.real] = {}
+            if not currentDate.month.real in result[currentDate.year.real]:
                 result[currentDate.year.real][currentDate.month.real]={}
         elif unit == 5:
             if not 1 in result[currentDate.year.real]:
@@ -117,6 +116,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     result = createResultDic(result,unit,currentDate)
     while currentDate<=endDate:
         result = createResultDic(result,unit,currentDate)
+        temp = createResultDic(temp,unit,currentDate)
         menus = {}
         total = 0
         count = 0
@@ -124,11 +124,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             orders = db.query(Order).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour =23,minute = 59,second = 59)).all()
             for order in orders:
                 for ordermenu in order.ordermenus:
-                    if ordermenu.menu_id in result[order.time.hour.real]:
-                        result[order.time.hour.real][ordermenu.menu_id] += ordermenu.totalprice
+                    if ordermenu.menu_id in temp[order.time.hour.real]:
+                        temp[order.time.hour.real][ordermenu.menu_id] += ordermenu.totalprice
                     else:
-                        result[order.time.hour.real][ordermenu.menu_id] = ordermenu.totalprice
-                    increaseTotalPrice(ordermenu,result[order.time.hour.real])
+                        temp[order.time.hour.real][ordermenu.menu_id] = ordermenu.totalprice
+                    increaseTotalPrice(ordermenu,temp[order.time.hour.real])
                     count +=1
                     total += ordermenu.totalprice
 
@@ -144,26 +144,27 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 total += ordermenu.totalprice
 
                 if unit == 2:
-                    increaseTotalPrice(ordermenu,result[currentDate.year.real][currentDate.month.real][currentDate.day.real])
+                    increaseTotalPrice(ordermenu,temp[currentDate.year.real][currentDate.month.real][currentDate.day.real])
                 elif unit == 3:
                     pass
                 elif unit == 4:
-                    increaseTotalPrice(ordermenu,result[currentDate.year.real][currentDate.month.real])
+                    increaseTotalPrice(ordermenu,temp[currentDate.year.real][currentDate.month.real])
                 elif unit == 5:
                     if(currentDate.month.real>=1 and currentDate.month.real<=3):
-                        increaseTotalPrice(ordermenu,result[currentDate.year.real][1])
+                        increaseTotalPrice(ordermenu,temp[currentDate.year.real][1])
                     elif(currentDate.month.real>=4 and currentDate.month.real<=6):
-                        increaseTotalPrice(ordermenu,result[currentDate.year.real][2])
+                        increaseTotalPrice(ordermenu,temp[currentDate.year.real][2])
                     elif(currentDate.month.real>=7 and currentDate.month.real<=9):
-                        increaseTotalPrice(ordermenu,result[currentDate.year.real][3])
+                        increaseTotalPrice(ordermenu,temp[currentDate.year.real][3])
                     elif(currentDate.month.real>=10 and currentDate.month.real<=12):
-                        increaseTotalPrice(ordermenu,result[currentDate.year.real][4])
+                        increaseTotalPrice(ordermenu,temp[currentDate.year.real][4])
                 elif unit == 6:
-                    increaseTotalPrice(ordermenu,result[currentDate.year])
+                    increaseTotalPrice(ordermenu,temp[currentDate.year])
         if unit == 4:
-            setTotalAndMenus(result[currentDate.year.real][currentDate.month.real],count,total,menus)
+            setTotalAndMenus(temp[currentDate.year.real][currentDate.month.real],count,total,menus)
 
         currentDate = increaseDate(2)
+    result['temp'] = temp
     return result
 
 #단위별 결제 방식, 총 결제방식 별 총액
