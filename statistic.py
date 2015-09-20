@@ -178,6 +178,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             if dic != None:
                 print(count,total,menus)
                 setTotalAndMenus(dic,count,total,menus)
+                print(dic)
             else:
                 print (dic)
         currentDate = increaseDate(2)
