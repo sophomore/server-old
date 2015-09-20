@@ -86,13 +86,19 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             dic = getItem(result[currentDate.year.real],currentDate.month.real)
             if dic != None:
                 dic[currentDate.month.real][currentDate.day.real] = {}
+
         elif unit == 3:
             result = {}
             for i in ["일","월","화","수","목","금","토"]:
                 result[i]={}
         elif unit == 4:
-            if getItem(result[currentDate.year.real],currentDate.month.real) == None:
+            dic = getItem(result[currentDate.year.real],currentDate.month.real)
+            if dic  == None:
                 result[currentDate.year.real].append({currentDate.month.real : {}})
+                dic = getItem(result[currentDate.year.real],currentDate.month.real)
+                dic[currentDate.month.real]['cashtotal'] = 0
+                dic[currentDate.month.real]['cardtotal'] = 0
+                dic[currentDate.month.real]['servicetotal'] = 0
         elif unit == 5:
             if not 1 in result[currentDate.year.real]:
                 result[currentDate.year.real][1]={}
