@@ -45,8 +45,8 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     startDateStart = datetime.strptime(startDate + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
     endDate = datetime.strptime(endDate + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
     currentDate = startDateStart
-    result = []
-
+    result = {}
+    temp = {}
 
     def increaseTotalPrice(ordermenu,dic):
         result['debug'] = 'come'
@@ -68,29 +68,31 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 dic["servicetotal"] = ordermenu.totalprice
 
     def createResultDic(result,unit,currentDate):
-        if not currentDate.year.real in result:
-            result[currentDate.year.real] = []
+        if not currentDate.year.real in temp:
+            temp[currentDate.year.real] = {}
+            result[currentDate.year.real] = {}
         if unit == 1:
             for i in range(1,24):
-                result[i] = []
-                result[i]['menu'] = []
+                result[i] = {}
+                result[i]['menu'] = {}
         elif unit == 2:
             if not currentDate.month.real in result[currentDate.year.real]:
-                result[currentDate.year.real][currentDate.month.real] = []
-            result[currentDate.year.real][currentDate.month.real][currentDate.day.real] = []
+                result[currentDate.year.real][currentDate.month.real] = {}
+            result[currentDate.year.real][currentDate.month.real][currentDate.day.real] = {}
         elif unit == 3:
-            result = []
+            result = {}
             for i in ["일","월","화","수","목","금","토"]:
-                result[i]=[]
+                result[i]={}
         elif unit == 4:
-            if not currentDate.month.real in result[currentDate.year.real]:
+            if not currentDate.month.real in temp[currentDate.year.real]:
+                temp[currentDate.year.real][currentDate.month.real] = {}
                 result[currentDate.year.real][currentDate.month.real]={}
         elif unit == 5:
             if not 1 in result[currentDate.year.real]:
-                result[currentDate.year.real][1]=[]
-                result[currentDate.year.real][2]=[]
-                result[currentDate.year.real][3]=[]
-                result[currentDate.year.real][4]=[]
+                result[currentDate.year.real][1]={}
+                result[currentDate.year.real][2]={}
+                result[currentDate.year.real][3]={}
+                result[currentDate.year.real][4]={}
         return result
 
     def setTotalAndMenus(dic,count,total,menus):
