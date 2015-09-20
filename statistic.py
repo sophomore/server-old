@@ -143,13 +143,13 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                     increaseTotalPrice(ordermenu,result[currentDate.year.real][currentDate.month.real])
                 elif unit == 5:
                     if(currentDate.month.real>=1 and currentDate.month.real<=3):
-                        result[currentDate.year.real] = increaseTotalPrice(ordermenu,result[currentDate.year.real][1])
+                        increaseTotalPrice(ordermenu,result[currentDate.year.real][1])
                     elif(currentDate.month.real>=4 and currentDate.month.real<=6):
-                        result[currentDate.year.real] = increaseTotalPrice(ordermenu,result[currentDate.year.real][2])
+                        increaseTotalPrice(ordermenu,result[currentDate.year.real][2])
                     elif(currentDate.month.real>=7 and currentDate.month.real<=9):
-                        result[currentDate.year.real] = increaseTotalPrice(ordermenu,result[currentDate.year.real][3])
+                        increaseTotalPrice(ordermenu,result[currentDate.year.real][3])
                     elif(currentDate.month.real>=10 and currentDate.month.real<=12):
-                        result[currentDate.year.real] = increaseTotalPrice(ordermenu,result[currentDate.year.real][4])
+                        increaseTotalPrice(ordermenu,result[currentDate.year.real][4])
                 elif unit == 6:
                     increaseTotalPrice(ordermenu,result[currentDate.year])
         if unit == 4:
