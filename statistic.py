@@ -114,7 +114,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     def resetMenus(menu):
         menus = db.query(Menu).all()
         for m in menus:
-            menu.append(m.id)
+            menu.append({m.id : 0})
         return menu
 
     temp = createResultDic(result,unit,currentDate)
