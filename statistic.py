@@ -115,7 +115,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
     result = createResultDic(result,unit,currentDate)
     while currentDate<=endDate:
-        result = createResultDic(result,unit,currentDate)
+        # result = createResultDic(result,unit,currentDate)
         temp = createResultDic(temp,unit,currentDate)
         menus = {}
         total = 0
@@ -162,7 +162,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                     increaseTotalPrice(ordermenu,temp[currentDate.year])
         if unit == 4:
             setTotalAndMenus(temp[currentDate.year.real][currentDate.month.real],count,total,menus)
-
         currentDate = increaseDate(2)
     result['temp'] = temp
     return result
