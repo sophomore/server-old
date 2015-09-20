@@ -120,7 +120,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             orders = db.query(Order).all()
             for order in orders:
                 for ordermenu in order.ordermenus:
-                    result[order.time.hour.real] += ordermenu.totalprice
+                    increaseTotalPrice(ordermenu,result[order.time.hour.real])
                     count +=1
                     total += ordermenu.totalprice
             result['debug2']+= order.__sizeof__()
