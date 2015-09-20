@@ -67,7 +67,9 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
     def getItem(result,item):
         for i in result:
+            print(i)
             if item in i:
+                print(item)
                 return i
         return None
     def createResultDic(result,unit,currentDate):
@@ -128,7 +130,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         temp = createResultDic(temp,unit,currentDate)
         menus = {}
         # resetMenus(menus)
-        print(menus)
         total = 0
         count = 0
         if unit == 1:
