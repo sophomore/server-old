@@ -126,17 +126,19 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             menu.append({m.id : 0})
     total = 0
     count = 0
-    def resetTotalAndCount(unit,currentDate,total,count):
+    menus = {}
+
+    def resetTotalAndCount(unit,currentDate,total,count,menus):
         if unit == 4:
             if increaseDate(2).month != currentDate.month:
                 total =0
                 count = 0
-                return total,count
+                menus = {}
+                return total,count,menus
         return total,count
     temp = createResultDic(temp,unit,currentDate)
     while currentDate<=endDate:
         temp = createResultDic(temp,unit,currentDate)
-        menus = {}
         # resetMenus(menus)
 
         if unit == 1:
@@ -187,7 +189,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 print(dic)
             else:
                 print (dic)
-        total, count = resetTotalAndCount(unit,currentDate,total,count)
+        total, count,menus = resetTotalAndCount(unit,currentDate,total,count,menus)
         currentDate = increaseDate(2)
     result = temp
     return result
