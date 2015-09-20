@@ -124,14 +124,21 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         menus = db.query(Menu).all()
         for m in menus:
             menu.append({m.id : 0})
-
+    total = 0
+    count = 0
+    def resetTotalAndCount(unit,currentDate,total,count):
+        if unit == 4:
+            if increaseDate(2).month != currentDate.month:
+                total =0
+                count = 0
+                return total,count
+        return total,count
     temp = createResultDic(temp,unit,currentDate)
     while currentDate<=endDate:
         temp = createResultDic(temp,unit,currentDate)
         menus = {}
         # resetMenus(menus)
-        total = 0
-        count = 0
+
         if unit == 1:
             orders = db.query(Order).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour =23,minute = 59,second = 59)).all()
             for order in orders:
@@ -176,11 +183,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         if unit == 4:
             dic = getItem(temp[currentDate.year.real],currentDate.month.real)
             if dic != None:
-                print(count,total,menus)
                 setTotalAndMenus(dic,count,total,menus)
                 print(dic)
             else:
                 print (dic)
+        total, count = resetTotalAndCount(unit,currentDate,total,count)
         currentDate = increaseDate(2)
     result = temp
     return result
