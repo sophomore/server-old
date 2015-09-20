@@ -117,7 +117,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         total = 0
         count = 0
         if unit == 1:
-            orders = db.query(Order).filter(Order.time.hour ==1).all()
+            orders = db.query(Order).all()
             for order in orders:
                 for ordermenu in order.ordermenus:
                     result[order.time.hour.real] += ordermenu.totalprice
