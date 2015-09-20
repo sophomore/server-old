@@ -89,7 +89,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             for i in ["일","월","화","수","목","금","토"]:
                 result[i]={}
         elif unit == 4:
-            if not currentDate.month.real in result[currentDate.year.real]:
+            if len(result[currentDate.year.real])==0:
                 result[currentDate.year.real].append({currentDate.month.real : {}})
         elif unit == 5:
             if not 1 in result[currentDate.year.real]:
