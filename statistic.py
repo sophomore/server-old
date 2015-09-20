@@ -113,9 +113,8 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
 
 
-    temp = createResultDic(result,unit,currentDate)
+    temp = createResultDic(temp,unit,currentDate)
     while currentDate<=endDate:
-        result = createResultDic(result,unit,currentDate)
         temp = createResultDic(temp,unit,currentDate)
         menus = {}
         total = 0
