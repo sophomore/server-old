@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8dc03c24-3e62-4bbc-9080-fb0b19b04d04" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/statistic.py" afterPath="$PROJECT_DIR$/statistic.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="server.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,8 +70,8 @@
       <file leaf-file-name="statistic.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/statistic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.551495">
-              <caret line="92" column="83" selection-start-line="92" selection-start-column="83" selection-end-line="92" selection-end-column="83" />
+            <state vertical-scroll-proportion="0.78405315">
+              <caret line="176" column="21" selection-start-line="176" selection-start-column="21" selection-end-line="176" selection-end-column="21" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -439,8 +438,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/statistic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.551495">
-          <caret line="92" column="83" selection-start-line="92" selection-start-column="83" selection-end-line="92" selection-end-column="83" />
+        <state vertical-scroll-proportion="0.78405315">
+          <caret line="176" column="21" selection-start-line="176" selection-start-column="21" selection-end-line="176" selection-end-column="21" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
