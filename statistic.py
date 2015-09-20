@@ -45,7 +45,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     startDateStart = datetime.strptime(startDate + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
     endDate = datetime.strptime(endDate + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
     currentDate = startDateStart
-    result = {}
+    result = []
     temp = {}
 
     def increaseTotalPrice(ordermenu,dic):
@@ -183,7 +183,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             else:
                 print (dic)
         currentDate = increaseDate(2)
-    result['temp'] = temp
+    result = temp
     return result
 
 #단위별 결제 방식, 총 결제방식 별 총액
