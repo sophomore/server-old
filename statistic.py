@@ -127,18 +127,18 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             return currentDate + relativedelta(years=1)
 
     def resetMenus(menu):
-        menus = db.query(Menu).all()
         for m in menus:
-            menu[m.id] = 0
+            menu[m]  = 0
+
     total = 0
     count = 0
-    menus = {}
+    menu = {}
     def resetTotalAndCount(unit,currentDate,total,count,menus):
         if unit == 4:
             if increaseDate(2).month != currentDate.month:
                 total =0
                 count = 0
-                menus = {}
+                resetMenus(menus)
                 return total,count,menus
         return total,count,menus
     temp = createResultDic(temp,unit,currentDate)
@@ -160,10 +160,10 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         else:
             ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
             for ordermenu in ordermenus:
-                if ordermenu.menu_id in menus:
-                    menus[ordermenu.menu_id] += ordermenu.totalprice
+                if ordermenu.menu_id in menu:
+                    menu[ordermenu.menu_id] += ordermenu.totalprice
                 else:
-                    menus[ordermenu.menu_id] = ordermenu.totalprice
+                    menu[ordermenu.menu_id] = ordermenu.totalprice
                 count += 1
                 total += ordermenu.totalprice
 
@@ -189,11 +189,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         if unit == 4:
             dic = getItem(temp[currentDate.year.real],currentDate.month.real)
             if dic != None:
-                setTotalAndMenus(dic,count,total,menus)
+                setTotalAndMenus(dic,count,total,menu)
                 print(dic)
             else:
                 print (dic)
-        total, count,menus = resetTotalAndCount(unit,currentDate,total,count,menus)
+        total, count,menu = resetTotalAndCount(unit,currentDate,total,count,menu)
         currentDate = increaseDate(2)
     result = temp
     return result
