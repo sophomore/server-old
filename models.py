@@ -80,22 +80,22 @@ class OrderMenu(Base):
     order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     pay = Column(Integer, nullable=False)
     curry = Column(Boolean, default=False, nullable=False)
-    double = Column(Boolean, default=False, nullable=False)
+    twice = Column(Boolean, default=False, nullable=False)
     totalprice = Column(Integer, nullable=False)
 
     def convert_dict(self):
-        return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay, "curry": self.curry, "double": self.double, "totalprice": self.totalprice}
+        return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay, "curry": self.curry, "twice": self.twice, "totalprice": self.totalprice}
 
-    def __init__(self, menu, order, pay=4, curry=False, double=False):
+    def __init__(self, menu, order, pay=4, curry=False, twice=False):
         self.menu_id = menu.id
         self.order_id = order.id
         self.pay = pay
         self.curry = curry
-        self.double = double
+        self.twice = twice
         self.totalprice = menu.price
         if curry:
             self.totalprice += 1000
-        if double:
+        if twice:
             self.totalprice += 500
         #TODO: 가격 확인
         # order.ordermenus.append(self)
