@@ -129,11 +129,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     def resetMenus(menu):
         menus = db.query(Menu).all()
         for m in menus:
-            menu.append({m.id : 0})
+            menu[m.id] = 0
     total = 0
     count = 0
     menus = {}
-
+    resetMenus(menus)
     def resetTotalAndCount(unit,currentDate,total,count,menus):
         if unit == 4:
             if increaseDate(2).month != currentDate.month:
