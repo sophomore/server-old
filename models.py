@@ -29,12 +29,18 @@ class Menu(Base):
     ordermenus = relationship('OrderMenu')
     available = Column(Boolean, default=True, nullable=False)
 
-    def convert_dict(self):
+    def detail_convert_dict(self):
         converted_ordermenus = []
         for ordermenu in self.ordermenus:
             converted_ordermenus.append(ordermenu.convert_dict())
         return {"id": self.id, "name": self.name, "price": self.price, "category_id": self.category_id,
                 "ordermenus": converted_ordermenus, "available": self.available}
+
+    def convert_dict(self):
+        converted_ordermenus = []
+        for ordermenu in self.ordermenus:
+            converted_ordermenus.append(ordermenu.convert_dict())
+        return {"id": self.id, "name": self.name, "price": self.price, "category_id": self.category_id}
 
     def __init__(self, name, price, category, available=True):
         self.name = name
