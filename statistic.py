@@ -128,7 +128,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
     def resetMenus(menu):
         for m in menus:
-            menu[m]  = 0
+            menu[m] = 0
 
     total = 0
     count = 0
