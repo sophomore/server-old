@@ -2,6 +2,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
+import json
 
 #in : 기간, out : 월별로 메뉴별 금액 총합, 월별 전체 총합 및 개수, etc : 카레추가, 곱배기 금액 포함
 def month_money_sum(startDateStr, endDateStr):
@@ -38,6 +39,7 @@ def month_money_sum(startDateStr, endDateStr):
 #in 기간, 메뉴리스트, 단위 out 단위에 맞춰서 각 메뉴별 총액 및 개수
 #unit : 1. 시간, 2. 일, 3. 요일, 4. 월, 5. 분기, 6. 년
 def unit_menu_sum(startDate, endDate, menus, unit):
+    menus = json.loads(menus)
     unit = int(unit)
     if unit<1 or unit>6:
         return {"error": "unit value is invalid"}
@@ -45,7 +47,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     startDateStart = datetime.strptime(startDate + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
     endDate = datetime.strptime(endDate + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
     currentDate = startDateStart
-    result = []
     temp = {}
 
     def increaseTotalPrice(ordermenu,dic):
@@ -72,6 +73,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 # print(item)
                 return i
         return None
+
     def createResultDic(result,unit,currentDate):
         if not currentDate.year.real in temp:
             result[currentDate.year.real] = []
