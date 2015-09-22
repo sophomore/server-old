@@ -5,7 +5,7 @@ __author__ = 'kjydiary'
 from mydb import db_session as db
 
 def add_menu(name, price, category_id):
-    menu = Menu(str(name).encode('UTF-8'), price, Category.query.filter_by(id=category_id).first())
+    menu = Menu(str(name).encode('UTF-8'), price, category_id)
     db.add(menu)
     db.commit()
     return menu
