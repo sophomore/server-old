@@ -128,7 +128,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         elif unit == 6:
             return currentDate + relativedelta(years=1)
 
-    def resetMenus(menu):
+    def resetMenus(menu,count):
         for i in len(menu):
             menu[i] = 0
             count[i] = 0
@@ -140,8 +140,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         if unit == 4:
             if increaseDate(2).month != currentDate.month:
                 total =0
-
-                resetMenus(menus)
+                resetMenus(menus,count)
                 return total,count,menus
         return total,count,menus
     temp = createResultDic(temp,unit,currentDate)
