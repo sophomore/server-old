@@ -89,10 +89,10 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             dic = getItem(result[currentDate.year.real],currentDate.month.real)
             if dic != None:
                 if not currentDate.day.real in dic:
-                    dic[currentDate.day.real] = {}
-                    dic[currentDate.day.real]['cashtotal'] = 0
-                    dic[currentDate.day.real]['cardtotal'] = 0
-                    dic[currentDate.day.real]['servicetotal'] = 0
+                    dic[currentDate.month.real][currentDate.day.real] = {}
+                    dic[currentDate.month.real][currentDate.day.real]['cashtotal'] = 0
+                    dic[currentDate.month.real][currentDate.day.real]['cardtotal'] = 0
+                    dic[currentDate.month.real][currentDate.day.real]['servicetotal'] = 0
 
         elif unit == 3:
             result = {}
@@ -211,7 +211,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         if unit == 2:
             dic = getItem(temp[currentDate.year.real],currentDate.month.real)
             if dic!=None:
-                setTotalAndMenus(dic[currentDate.day.real],count,total,menu)
+                setTotalAndMenus(dic[currentDate.day.real][currentDate.month.real],count,total,menu)
         elif unit == 4:
             dic = getItem(temp[currentDate.year.real],currentDate.month.real)
             if dic != None:
