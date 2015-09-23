@@ -138,7 +138,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
     total = 0
     def resetTotalAndCount(unit,currentDate,total,count,menus):
-        if unit == 4:
+        if unit == 2:
+            if increaseDate(2).day != currentDate.day:
+                total = 0
+                menus, count = resetMenus()
+        elif unit == 4:
             if increaseDate(2).month != currentDate.month:
                 total =0
                 menus ,count = resetMenus()
@@ -198,8 +202,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                         increaseTotalPrice(ordermenu,temp[currentDate.year.real][4])
                 elif unit == 6:
                     increaseTotalPrice(ordermenu,temp[currentDate.year])
-
-        if unit == 4:
+        if unit == 2:
+            dic = getItem(temp[currentDate.year.real],currentDate.month.real)
+            if dic!=None:
+                setTotalAndMenus(dic[currentDate.day.real],count,total,menus)
+        elif unit == 4:
             dic = getItem(temp[currentDate.year.real],currentDate.month.real)
             if dic != None:
                 print(total)
