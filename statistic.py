@@ -87,8 +87,9 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             if dic == None:
                 result[currentDate.year.real].append({currentDate.month.real : {}})
             dic = getItem(result[currentDate.year.real],currentDate.month.real)
+            print(dic)
             if dic != None:
-                if not currentDate.day.real in dic:
+                if not currentDate.day.real in dic[currentDate.month.real]:
                     dic[currentDate.month.real][currentDate.day.real] = {}
                     dic[currentDate.month.real][currentDate.day.real]['cashtotal'] = 0
                     dic[currentDate.month.real][currentDate.day.real]['cardtotal'] = 0
