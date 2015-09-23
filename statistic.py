@@ -166,7 +166,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             for ordermenu in ordermenus:
                 if ordermenu.menu_id in menu:
                     menu[ordermenu.menu_id] += ordermenu.totalprice
-                    menu[ordermenu.menu_id] += ordermenu.totalprice
+                    count[ordermenu.menu_id] += ordermenu.totalprice
                 else:
                     menu[ordermenu.menu_id] = ordermenu.totalprice
                     count[ordermenu.menu_id] = 1
@@ -195,7 +195,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             dic = getItem(temp[currentDate.year.real],currentDate.month.real)
             if dic != None:
                 setTotalAndMenus(dic,count,total,menu)
-                print(dic)
             else:
                 print (dic)
         total, count,menu = resetTotalAndCount(unit,currentDate,total,count,menu)
