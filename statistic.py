@@ -128,10 +128,13 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         elif unit == 6:
             return currentDate + relativedelta(years=1)
 
-    def resetMenus(menu,count):
+    def resetMenus():
+        menu = {}
+        count = {}
         for m in menus:
             menu[m] = 0
             count[m] = 0
+        return menu,count
 
     total = 0
     count = {}
@@ -140,9 +143,10 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         if unit == 4:
             if increaseDate(2).month != currentDate.month:
                 total =0
-                resetMenus(menus,count)
+                menus ,count = resetMenus(menus,count)
                 return total,count,menus
         return total,count,menus
+
     temp = createResultDic(temp,unit,currentDate)
 
     while currentDate<=endDate:
@@ -196,6 +200,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                         increaseTotalPrice(ordermenu,temp[currentDate.year.real][4])
                 elif unit == 6:
                     increaseTotalPrice(ordermenu,temp[currentDate.year])
+
         if unit == 4:
             dic = getItem(temp[currentDate.year.real],currentDate.month.real)
             if dic != None:
