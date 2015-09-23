@@ -137,8 +137,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         return menu,count
 
     total = 0
-    count = {}
-    menu = {}
     def resetTotalAndCount(unit,currentDate,total,count,menus):
         if unit == 4:
             if increaseDate(2).month != currentDate.month:
@@ -148,7 +146,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         return total,count,menus
 
     temp = createResultDic(temp,unit,currentDate)
-
+    menu,count = resetMenus()
     while currentDate<=endDate:
 
         temp = createResultDic(temp,unit,currentDate)
