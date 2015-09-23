@@ -143,7 +143,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         if unit == 4:
             if increaseDate(2).month != currentDate.month:
                 total =0
-                menus ,count = resetMenus(menus,count)
+                menus ,count = resetMenus()
                 return total,count,menus
         return total,count,menus
 
