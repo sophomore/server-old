@@ -166,36 +166,37 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         else:
             print(currentDate)
             print(currentDate.replace(hour=23,minute=59,second=59))
-            ordermenus = db.query(Order.ordermenus).filter(currentDate<= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59))
+            order = db.query(Order.ordermenus).filter(currentDate<= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59))
             print(ordermenus)
-            for ordermenu in ordermenus:
-                if ordermenu.menu_id in menu:
-                    menu[ordermenu.menu_id] += ordermenu.totalprice
-                    count[ordermenu.menu_id] += ordermenu.totalprice
-                else:
-                    menu[ordermenu.menu_id] = ordermenu.totalprice
-                    count[ordermenu.menu_id] = 1
-                total += ordermenu.totalprice
+            for ordermenus in order:
+                for ordermenu in ordermenus:
+                    if ordermenu.menu_id in menu:
+                        menu[ordermenu.menu_id] += ordermenu.totalprice
+                        count[ordermenu.menu_id] += ordermenu.totalprice
+                    else:
+                        menu[ordermenu.menu_id] = ordermenu.totalprice
+                        count[ordermenu.menu_id] = 1
+                    total += ordermenu.totalprice
 
-                if unit == 2:
-                    increaseTotalPrice(ordermenu,temp[currentDate.year.real][currentDate.month.real][currentDate.day.real])
-                elif unit == 3:
-                    pass
-                elif unit == 4:
-                    dic = getItem(temp[currentDate.year.real],currentDate.month.real)
-                    if dic != None:
-                        increaseTotalPrice(ordermenu,dic[currentDate.month.real])
-                elif unit == 5:
-                    if(currentDate.month.real>=1 and currentDate.month.real<=3):
-                        increaseTotalPrice(ordermenu,temp[currentDate.year.real][1])
-                    elif(currentDate.month.real>=4 and currentDate.month.real<=6):
-                        increaseTotalPrice(ordermenu,temp[currentDate.year.real][2])
-                    elif(currentDate.month.real>=7 and currentDate.month.real<=9):
-                        increaseTotalPrice(ordermenu,temp[currentDate.year.real][3])
-                    elif(currentDate.month.real>=10 and currentDate.month.real<=12):
-                        increaseTotalPrice(ordermenu,temp[currentDate.year.real][4])
-                elif unit == 6:
-                    increaseTotalPrice(ordermenu,temp[currentDate.year])
+                    if unit == 2:
+                        increaseTotalPrice(ordermenu,temp[currentDate.year.real][currentDate.month.real][currentDate.day.real])
+                    elif unit == 3:
+                        pass
+                    elif unit == 4:
+                        dic = getItem(temp[currentDate.year.real],currentDate.month.real)
+                        if dic != None:
+                            increaseTotalPrice(ordermenu,dic[currentDate.month.real])
+                    elif unit == 5:
+                        if(currentDate.month.real>=1 and currentDate.month.real<=3):
+                            increaseTotalPrice(ordermenu,temp[currentDate.year.real][1])
+                        elif(currentDate.month.real>=4 and currentDate.month.real<=6):
+                            increaseTotalPrice(ordermenu,temp[currentDate.year.real][2])
+                        elif(currentDate.month.real>=7 and currentDate.month.real<=9):
+                            increaseTotalPrice(ordermenu,temp[currentDate.year.real][3])
+                        elif(currentDate.month.real>=10 and currentDate.month.real<=12):
+                            increaseTotalPrice(ordermenu,temp[currentDate.year.real][4])
+                    elif unit == 6:
+                        increaseTotalPrice(ordermenu,temp[currentDate.year])
         if unit == 4:
             dic = getItem(temp[currentDate.year.real],currentDate.month.real)
             if dic != None:
