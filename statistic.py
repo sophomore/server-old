@@ -86,6 +86,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             if not currentDate.month.real in result[currentDate.year.real]:
                 result[currentDate.year.real].append({currentDate.month.real : {}})
             dic = getItem(result[currentDate.year.real],currentDate.month.real)
+            print(dic)
             if dic != None:
                 if not currentDate.day.real in dic:
                     dic[currentDate.day.real] = {}
@@ -215,7 +216,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         elif unit == 4:
             dic = getItem(temp[currentDate.year.real],currentDate.month.real)
             if dic != None:
-                print(total)
+
                 setTotalAndMenus(dic,count,total,menu)
             else:
                 print (dic)
