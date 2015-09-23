@@ -163,6 +163,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
         else:
             ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
+            print(ordermenus)
             for ordermenu in ordermenus:
                 if ordermenu.menu_id in menu:
                     menu[ordermenu.menu_id] += ordermenu.totalprice
