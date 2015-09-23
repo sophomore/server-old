@@ -184,7 +184,9 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
 
                 if unit == 2:
-                    increaseTotalPrice(ordermenu,temp[currentDate.year.real][currentDate.month.real][currentDate.day.real])
+                    dic = getItem(temp[currentDate.year.real],currentDate.month.real)
+                    if dic != None:
+                        increaseTotalPrice(ordermenu,dic[currentDate.day.real])
                 elif unit == 3:
                     pass
                 elif unit == 4:
