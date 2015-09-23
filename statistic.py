@@ -129,11 +129,9 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             return currentDate + relativedelta(years=1)
 
     def resetMenus(menu,count):
-        menu = {}
-        count = {}
         for m in menus:
-            count[m] = 0
             menu[m] = 0
+            count[m] = 0
 
     total = 0
     count = {}
@@ -153,18 +151,25 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             orders = db.query(Order).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour =23,minute = 59,second = 59)).all()
             for order in orders:
                 for ordermenu in order.ordermenus:
-                    temp[order.time.hour.real][ordermenu.menu_id] += ordermenu.totalprice
-                    count[ordermenu.menu_id] += 1
+                    if ordermenu.menu_id in temp[order.time.hour.real]:
+                        temp[order.time.hour.real][ordermenu.menu_id] += ordermenu.totalprice
+                        count[ordermenu.time.hour.real][ordermenu.menu_id] +=1
+                    else:
+                        temp[order.time.hour.real][ordermenu.menu_id] = ordermenu.totalprice
+                        count[ordermenu.time.hour.real][ordermenu.menu_id] = 1
                     increaseTotalPrice(ordermenu,temp[order.time.hour.real])
-
+                    count +=1
                     total += ordermenu.totalprice
 
         else:
             ordermenus = db.query(OrderMenu).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
-            print (ordermenus);
             for ordermenu in ordermenus:
-                menu[ordermenu.menu_id] += ordermenu.totalprice
-                count[ordermenu.menu_id] += 1
+                if ordermenu.menu_id in menu:
+                    menu[ordermenu.menu_id] += ordermenu.totalprice
+                    menu[ordermenu.menu_id] += ordermenu.totalprice
+                else:
+                    menu[ordermenu.menu_id] = ordermenu.totalprice
+                    count[ordermenu.menu_id] = 1
                 total += ordermenu.totalprice
 
                 if unit == 2:
