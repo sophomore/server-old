@@ -129,9 +129,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             return currentDate + relativedelta(years=1)
 
     def resetMenus(menu,count):
-        for i in len(menu):
-            menu[i] = 0
-            count[i] = 0
+        menu = {}
+        count = {}
+        for m in menus:
+            count[m] = 0
+            menu[m] = 0
 
     total = 0
     count = {}
@@ -154,6 +156,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                     temp[order.time.hour.real][ordermenu.menu_id] += ordermenu.totalprice
                     count[ordermenu.menu_id] += 1
                     increaseTotalPrice(ordermenu,temp[order.time.hour.real])
+
                     total += ordermenu.totalprice
 
         else:
