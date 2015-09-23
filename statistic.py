@@ -144,7 +144,9 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 return total,count,menus
         return total,count,menus
     temp = createResultDic(temp,unit,currentDate)
+    i = 0
     while currentDate<=endDate:
+        print(i)
         temp = createResultDic(temp,unit,currentDate)
 
         if unit == 1:
@@ -200,6 +202,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 print (dic)
         total, count,menu = resetTotalAndCount(unit,currentDate,total,count,menu)
         currentDate = increaseDate(2)
+        i+=1
     result = temp
     return result
 
