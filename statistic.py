@@ -83,7 +83,8 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 result[i] = {}
                 result[i]['menu'] = {}
         elif unit == 2:
-            if not currentDate.month.real in result[currentDate.year.real]:
+            dic = getItem(result[currentDate.year.real],currentDate.month.real)
+            if dic == None:
                 result[currentDate.year.real].append({currentDate.month.real : {}})
             dic = getItem(result[currentDate.year.real],currentDate.month.real)
             print(dic)
