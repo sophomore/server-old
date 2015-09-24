@@ -166,10 +166,10 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 for ordermenu in order.ordermenus:
                     if ordermenu.menu_id in temp[order.time.hour.real]:
                         temp[order.time.hour.real]['menu'][ordermenu.menu_id] += ordermenu.totalprice
-                        count[ordermenu.time.hour.real]['menu'][ordermenu.menu_id] +=1
+                        count[order.time.hour.real]['menu'][ordermenu.menu_id] +=1
                     else:
                         temp[order.time.hour.real]['menu'][ordermenu.menu_id] = ordermenu.totalprice
-                        count[ordermenu.time.hour.real]['menu'][ordermenu.menu_id] = 1
+                        count[order.time.hour.real]['menu'][ordermenu.menu_id] = 1
                     increaseTotalPrice(ordermenu,temp[order.time.hour.real])
                     total += ordermenu.totalprice
 
