@@ -82,6 +82,10 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             for i in range(1,24):
                 result[i] = {}
                 result[i]['menu'] = {}
+                result[i]['total'] = 0
+                result[i]['cashtotal'] = 0
+                result[i]['cardtotal'] = 0
+                result[i]['servicetotal'] = 0
         elif unit == 2:
             dic = getItem(result[currentDate.year.real],currentDate.month.real)
             if dic == None:
@@ -144,6 +148,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
     total = 0
     def resetTotalAndCount(unit,currentDate,total,count,menus):
+
         if unit == 2:
             if increaseDate(2).day != currentDate.day:
                 total = 0
@@ -158,21 +163,18 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     temp = createResultDic(temp,unit,currentDate)
     menu,count = resetMenus()
     while currentDate<=endDate:
-        print(currentDate)
         temp = createResultDic(temp,unit,currentDate)
-
         if unit == 1:
-            orders = db.query(Order).filter(currentDate <= Order.time, Order.time <= currentDate.replace(hour =23,minute = 59,second = 59)).all()
+            orders = db.query(Order).filter(startDate <= Order.time, Order.time <= currentDate.replace(hour =23,minute = 59,second = 59)).all()
             for order in orders:
                 for ordermenu in order.ordermenus:
                     if ordermenu.menu_id in temp[order.time.hour.real]:
-                        temp[order.time.hour.real][ordermenu.menu_id] += ordermenu.totalprice
-                        count[ordermenu.time.hour.real][ordermenu.menu_id] +=1
+                        temp[order.time.hour.real]['menu'][ordermenu.menu_id] += ordermenu.totalprice
+                        count[ordermenu.time.hour.real]['menu'][ordermenu.menu_id] +=1
                     else:
-                        temp[order.time.hour.real][ordermenu.menu_id] = ordermenu.totalprice
-                        count[ordermenu.time.hour.real][ordermenu.menu_id] = 1
+                        temp[order.time.hour.real]['menu'][ordermenu.menu_id] = ordermenu.totalprice
+                        count[ordermenu.time.hour.real]['menu'][ordermenu.menu_id] = 1
                     increaseTotalPrice(ordermenu,temp[order.time.hour.real])
-                    count +=1
                     total += ordermenu.totalprice
 
         else:
@@ -206,18 +208,16 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                         increaseTotalPrice(ordermenu,temp[currentDate.year.real][4])
                 elif unit == 6:
                     increaseTotalPrice(ordermenu,temp[currentDate.year])
-        if unit == 2:
-            dic = getItem(temp[currentDate.year.real],currentDate.month.real)
-            if dic!=None:
-                setTotalAndMenus(dic[currentDate.month.real][currentDate.day.real],count,total,menu)
-        elif unit == 4:
-            dic = getItem(temp[currentDate.year.real],currentDate.month.real)
-            if dic != None:
-
-                setTotalAndMenus(dic,count,total,menu)
-
-        total, count,menu = resetTotalAndCount(unit,currentDate,total,count,menu)
-        currentDate = increaseDate(2)
+            if unit == 2:
+                dic = getItem(temp[currentDate.year.real],currentDate.month.real)
+                if dic!=None:
+                    setTotalAndMenus(dic[currentDate.month.real][currentDate.day.real],count,total,menu)
+            elif unit == 4:
+                dic = getItem(temp[currentDate.year.real],currentDate.month.real)
+                if dic != None:
+                    setTotalAndMenus(dic,count,total,menu)
+            total, count,menu = resetTotalAndCount(unit,currentDate,total,count,menu)
+            currentDate = increaseDate(2)
 
     result = temp
     return result
