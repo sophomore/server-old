@@ -183,9 +183,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 if ordermenu.menu_id in menus:
                     menu[ordermenu.menu_id] += ordermenu.totalprice
                     count[ordermenu.menu_id] += 1
-                else:
-                    menu[ordermenu.menu_id] = ordermenu.totalprice
-                    count[ordermenu.menu_id] = 1
 
 
                 if unit == 2:
