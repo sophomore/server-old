@@ -77,15 +77,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     def createResultDic(result,unit,currentDate):
         if not currentDate.year.real in temp:
             result[currentDate.year.real] = []
-
         if unit == 1:
-            for i in range(1,24):
+            result = {}
+            for i in range(0,24):
                 result[i] = {}
                 result[i]['menu'] = {}
-                result[i]['total'] = 0
-                result[i]['cashtotal'] = 0
-                result[i]['cardtotal'] = 0
-                result[i]['servicetotal'] = 0
         elif unit == 2:
             dic = getItem(result[currentDate.year.real],currentDate.month.real)
             if dic == None:
