@@ -142,6 +142,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             menu[m] = 0
             count[m] = 0
         return menu,count
+    def resetHourMenu():
+        menu = {}
+        for m in menus:
+            menu[m] = 0
+        return menu
 
     total = 0
     def resetTotalAndCount(unit,currentDate,total,count,menus):
@@ -164,11 +169,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             for order in orders:
                 for ordermenu in order.ordermenus:
                     if ordermenu.menu_id in temp[order.time.hour.real]:
-                        temp[order.time.hour.real]['menu'][ordermenu.menu_id]['total'] += ordermenu.totalprice
+                        temp[order.time.hour.real]['menu'][ordermenu.menu_id]['price'] += ordermenu.totalprice
                         temp[order.time.hour.real]['menu'][ordermenu.menu_id]['count'] +=1
                     else:
-                        temp[order.time.hour.real]['menu'][ordermenu.menu_id] = {}
-                        temp[order.time.hour.real]['menu'][ordermenu.menu_id]['total'] = ordermenu.totalprice
+                        temp[order.time.hour.real]['menu'] = resetHourMenu()
+                        temp[order.time.hour.real]['menu'][ordermenu.menu_id]['price'] = ordermenu.totalprice
                         temp[order.time.hour.real]['menu'][ordermenu.menu_id]['count'] = 1
                     increaseTotalPrice(ordermenu,temp[order.time.hour.real])
                     total += ordermenu.totalprice
