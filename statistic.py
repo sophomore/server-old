@@ -174,7 +174,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                         temp[order.time.hour.real]['menu'][ordermenu.menu_id]['count'] = 1
                     increaseTotalPrice(ordermenu,temp[order.time.hour.real])
                     total += ordermenu.totalprice
-
+                print(order)
         else:
 
             ordermenus = db.query(OrderMenu).join(Order).filter(currentDate<= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
