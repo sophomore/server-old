@@ -81,6 +81,9 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             result = {}
             for i in range(0,24):
                 result[i] = {}
+                result[i]['cashtotal'] = 0
+                result[i]['cardtotal'] = 0
+                result[i]['servicetotal'] = 0
                 result[i]['menu'] = resetHourMenu()
         elif unit == 2:
             dic = getItem(result[currentDate.year.real],currentDate.month.real)
