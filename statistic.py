@@ -174,6 +174,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             orders = db.query(Order).filter(startDate <= Order.time, Order.time <= endDate.replace(hour =23,minute = 59,second = 59)).all()
             for order in orders:
                 for ordermenu in order.ordermenus:
+                    print (ordermenu.menu_id)
                     if ordermenu.menu_id in temp[order.time.hour.real]:
                         print(ordermenu.menu_id)
                         print("@@")
