@@ -169,7 +169,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
     temp = createResultDic(temp,unit,currentDate)
     menu,count = resetMenus()
-    print (temp[13]['menu'][3]['price'])
     if unit == 1:
             orders = db.query(Order).filter(startDate <= Order.time, Order.time <= endDate.replace(hour =23,minute = 59,second = 59)).all()
             for order in orders:
