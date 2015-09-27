@@ -176,6 +176,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 for ordermenu in order.ordermenus:
                     if ordermenu.menu_id in temp[order.time.hour.real]:
                         print(ordermenu.menu_id)
+                        print("@@")
                         temp[order.time.hour.real]['menu'][ordermenu.menu_id]['price'] += ordermenu.totalprice
                         temp[order.time.hour.real]['menu'][ordermenu.menu_id]['count'] +=1
                     else :
