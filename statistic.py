@@ -116,18 +116,18 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 result[currentDate.year.real].append({2 : {}})
                 result[currentDate.year.real].append({3 : {}})
                 result[currentDate.year.real].append({4 : {}})
-                result[currentDate.year.real][1]['cashtotal'] = 0
-                result[currentDate.year.real][1]['cardtotal'] = 0
-                result[currentDate.year.real][1]['servicetotal'] = 0
-                result[currentDate.year.real][2]['cashtotal'] = 0
-                result[currentDate.year.real][2]['cardtotal'] = 0
-                result[currentDate.year.real][2]['servicetotal'] = 0
-                result[currentDate.year.real][3]['cashtotal'] = 0
-                result[currentDate.year.real][3]['cardtotal'] = 0
-                result[currentDate.year.real][3]['servicetotal'] = 0
-                result[currentDate.year.real][4]['cashtotal'] = 0
-                result[currentDate.year.real][4]['cardtotal'] = 0
-                result[currentDate.year.real][4]['servicetotal'] = 0
+                result[currentDate.year.real][0][1]['cashtotal'] = 0
+                result[currentDate.year.real][0][1]['cardtotal'] = 0
+                result[currentDate.year.real][0][1]['servicetotal'] = 0
+                result[currentDate.year.real][1][2]['cashtotal'] = 0
+                result[currentDate.year.real][1][2]['cardtotal'] = 0
+                result[currentDate.year.real][1][2]['servicetotal'] = 0
+                result[currentDate.year.real][2][3]['cashtotal'] = 0
+                result[currentDate.year.real][2][3]['cardtotal'] = 0
+                result[currentDate.year.real][2][3]['servicetotal'] = 0
+                result[currentDate.year.real][3][4]['cashtotal'] = 0
+                result[currentDate.year.real][3][4]['cardtotal'] = 0
+                result[currentDate.year.real][3][4]['servicetotal'] = 0
         return result
 
     def setTotalAndMenus(dic,count,total,menus):
