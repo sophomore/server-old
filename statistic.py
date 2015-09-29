@@ -110,28 +110,43 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 dic[currentDate.month.real]['cardtotal'] = 0
                 dic[currentDate.month.real]['servicetotal'] = 0
         elif unit == 5:
-            dic = getItem(result[currentDate.year.real],1)
-            if dic == None:
-                result[currentDate.year.real].append({1 : {}})
-                result[currentDate.year.real].append({2 : {}})
-                result[currentDate.year.real].append({3 : {}})
-                result[currentDate.year.real].append({4 : {}})
-                result[currentDate.year.real][0][1]['cashtotal'] = 0
-                result[currentDate.year.real][0][1]['cardtotal'] = 0
-                result[currentDate.year.real][0][1]['servicetotal'] = 0
-                result[currentDate.year.real][0][1]['menu'], result[currentDate.year.real][0][1]['count'] = resetMenus()
-                result[currentDate.year.real][1][2]['cashtotal'] = 0
-                result[currentDate.year.real][1][2]['cardtotal'] = 0
-                result[currentDate.year.real][1][2]['servicetotal'] = 0
-                result[currentDate.year.real][1][2]['menu'], result[currentDate.year.real][1][2]['count'] = resetMenus()
-                result[currentDate.year.real][2][3]['cashtotal'] = 0
-                result[currentDate.year.real][2][3]['cardtotal'] = 0
-                result[currentDate.year.real][2][3]['servicetotal'] = 0
-                result[currentDate.year.real][2][3]['menu'], result[currentDate.year.real][2][3]['count'] = resetMenus()
-                result[currentDate.year.real][3][4]['cashtotal'] = 0
-                result[currentDate.year.real][3][4]['cardtotal'] = 0
-                result[currentDate.year.real][3][4]['servicetotal'] = 0
-                result[currentDate.year.real][3][4]['menu'], result[currentDate.year.real][3][4]['count'] = resetMenus()
+            if currentDate.month.real>=1 and currentDate.month.real<=3:
+                dic = getItem(result[currentDate.year.real],1)
+                if dic == None:
+                    result[currentDate.year.real].append({1 : {}})
+                    dic2 = getItem(result[currentDate.year.real],1)
+                    dic2[1]['cashtotal'] = 0
+                    dic2[1]['cardtotal'] = 0
+                    dic2[1]['servicetotal'] = 0
+                    dic2[1]['menu'], result[currentDate.year.real][0][1]['count'] = resetMenus()
+            elif currentDate.month.real>=4 and currentDate.month.real<=6:
+                dic = getItem(result[currentDate.year.real],2)
+                if dic == None:
+                    result[currentDate.year.real].append({2 : {}})
+                    dic2 = getItem(result[currentDate.year.real],2)
+                    dic2[2]['cashtotal'] = 0
+                    dic2[2]['cardtotal'] = 0
+                    dic2[2]['servicetotal'] = 0
+                    dic2[2]['menu'], result[currentDate.year.real][0][1]['count'] = resetMenus()
+            elif currentDate.month.real>=7 and currentDate.month.real<=9:
+                dic = getItem(result[currentDate.year.real],3)
+                if dic == None:
+                    result[currentDate.year.real].append({3 : {}})
+                    dic2 = getItem(result[currentDate.year.real],3)
+                    dic2[3]['cashtotal'] = 0
+                    dic2[3]['cardtotal'] = 0
+                    dic2[3]['servicetotal'] = 0
+                    dic2[3]['menu'], result[currentDate.year.real][0][1]['count'] = resetMenus()
+            elif currentDate.month.real>=10 and currentDate.month.real<=12:
+                dic = getItem(result[currentDate.year.real],4)
+                if dic == None:
+                    result[currentDate.year.real].append({4 : {}})
+                    dic2 = getItem(result[currentDate.year.real],4)
+                    dic2[4]['cashtotal'] = 0
+                    dic2[4]['cardtotal'] = 0
+                    dic2[4]['servicetotal'] = 0
+                    dic2[4]['menu'], result[currentDate.year.real][0][1]['count'] = resetMenus()
+
         return result
 
     def setTotalAndMenus(dic,count,total,menus):
