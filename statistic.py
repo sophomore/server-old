@@ -112,10 +112,10 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         elif unit == 5:
             dic = getItem(result[currentDate.year.real],1)
             if dic == None:
-                result[currentDate.year.real][1] = {}
-                result[currentDate.year.real][2] = {}
-                result[currentDate.year.real][3] = {}
-                result[currentDate.year.real][4] = {}
+                result[currentDate.year.real].append({1 : {}})
+                result[currentDate.year.real].append({2 : {}})
+                result[currentDate.year.real].append({3 : {}})
+                result[currentDate.year.real].append({4 : {}})
                 result[currentDate.year.real][1]['cashtotal'] = 0
                 result[currentDate.year.real][1]['cardtotal'] = 0
                 result[currentDate.year.real][1]['servicetotal'] = 0
