@@ -118,7 +118,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                     dic2[1]['cashtotal'] = 0
                     dic2[1]['cardtotal'] = 0
                     dic2[1]['servicetotal'] = 0
-                    dic2[1]['menu'], result[currentDate.year.real][0][1]['count'] = resetMenus()
+                    dic2[1]['menu'], dic2[1]['count'] = resetMenus()
             elif currentDate.month.real>=4 and currentDate.month.real<=6:
                 dic = getItem(result[currentDate.year.real],2)
                 if dic == None:
@@ -127,7 +127,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                     dic2[2]['cashtotal'] = 0
                     dic2[2]['cardtotal'] = 0
                     dic2[2]['servicetotal'] = 0
-                    dic2[2]['menu'], result[currentDate.year.real][0][1]['count'] = resetMenus()
+                    dic2[2]['menu'], dic2[2]['count'] = resetMenus()
             elif currentDate.month.real>=7 and currentDate.month.real<=9:
                 dic = getItem(result[currentDate.year.real],3)
                 if dic == None:
@@ -136,7 +136,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                     dic2[3]['cashtotal'] = 0
                     dic2[3]['cardtotal'] = 0
                     dic2[3]['servicetotal'] = 0
-                    dic2[3]['menu'], result[currentDate.year.real][0][1]['count'] = resetMenus()
+                    dic2[3]['menu'], dic2[3]['count'] = resetMenus()
             elif currentDate.month.real>=10 and currentDate.month.real<=12:
                 dic = getItem(result[currentDate.year.real],4)
                 if dic == None:
@@ -145,7 +145,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                     dic2[4]['cashtotal'] = 0
                     dic2[4]['cardtotal'] = 0
                     dic2[4]['servicetotal'] = 0
-                    dic2[4]['menu'], result[currentDate.year.real][0][1]['count'] = resetMenus()
+                    dic2[4]['menu'], dic2[4]['count'] = resetMenus()
 
         return result
 
