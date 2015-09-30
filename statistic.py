@@ -101,7 +101,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
 
         elif unit == 3:
             result = {}
-            for i in ["일","월","화","수","목","금","토"]:
+            for i in [0,1,2,3,4,5,6]:
                 result[i]={}
                 result[i]['cashtotal'] = 0
                 result[i]['cardtotal'] = 0
@@ -233,19 +233,25 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         return total,count,menus
 
     menu,count = resetMenus()
-    if unit == 1:
-            temp = createResultDic(temp,unit,currentDate)
-            orders = db.query(Order).filter(startDate <= Order.time, Order.time <= endDate.replace(hour =23,minute = 59,second = 59)).all()
+    if unit == 1 or unit == 3:
+        temp = createResultDic(temp,unit,currentDate)
+        orders = db.query(Order).filter(startDate <= Order.time, Order.time <= endDate.replace(hour =23,minute = 59,second = 59)).all()
+        if unit == 1:
             for order in orders:
                 for ordermenu in order.ordermenus:
                     if ordermenu.menu_id in temp[order.time.hour.real]['menu']:
-                        print(ordermenu.menu_id)
-                        print("@@")
                         temp[order.time.hour.real]['menu'][ordermenu.menu_id]['price'] += ordermenu.totalprice
                         temp[order.time.hour.real]['menu'][ordermenu.menu_id]['count'] +=1
-
                     increaseTotalPrice(ordermenu,temp[order.time.hour.real])
                     total += ordermenu.totalprice
+        elif unit == 3:
+           for order in orders:
+               for ordermenu in order.ordermenus:
+                   if ordermenu.menu_id in temp[order.time.weekday()]:
+                       temp[order.time.weekday()]['menu'][ordermenu.menu_id]['price'] += ordermenu.totalprice
+                       temp[order.time.weekday()]['menu'][ordermenu.menu_id]['count'] += 1
+                   increaseTotalPrice(ordermenu,temp[order.time.weekday()])
+                   total += ordermenu.totalprice
     else:
         while currentDate<=endDate:
             temp = createResultDic(temp,unit,currentDate)
