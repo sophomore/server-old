@@ -258,6 +258,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                    total += ordermenu.totalprice
     else:
         while currentDate<=endDate:
+            print(currentDate)
             if unit == 2:
                 temp = createResultDic(temp,unit,currentDate)
                 ordermenus = db.query(OrderMenu).join(Order).filter(currentDate<= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
@@ -332,9 +333,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 setTotalAndMenus(temp[currentDate.year.real],count,total,menu)
             total, count,menu = resetTotalAndCount(unit,currentDate,total,count,menu)
             currentDate = increaseDate(2)
-            print(currentDate)
-
-    result = temp
-    return result
+    return temp
 
 #단위별 결제 방식, 총 결제방식 별 총액
