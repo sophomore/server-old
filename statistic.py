@@ -178,6 +178,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         elif unit == 6:
             return currentDate + relativedelta(years=1)
 
+    def last_day_of_month(date):
+        if date.month == 12:
+            return date.replace(day=31)
+        return date.replace(month=date.month+1, day=1) - datetime.timedelta(days=1)
+
     def resetMenus():
         menu = {}
         count = {}
@@ -254,21 +259,28 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                    total += ordermenu.totalprice
     else:
         while currentDate<=endDate:
-            temp = createResultDic(temp,unit,currentDate)
-            print (temp)
-            ordermenus = db.query(OrderMenu).join(Order).filter(currentDate<= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
+            if unit == 2:
+                temp = createResultDic(temp,unit,currentDate)
+                ordermenus = db.query(OrderMenu).join(Order).filter(currentDate<= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
+            else:
+                if currentDate.month == endDate.month:
+                    ordermenus = db.query(OrderMenu).join(Order).filter(currentDate<= Order.time, Order.time <= endDate).all()
+                    currentDate = endDate
+                    temp = createResultDic(temp,unit,currentDate)
+                else:
+                    month_last = last_day_of_month(currentDate)
+                    ordermenus = db.query(OrderMenu).join(Order).filter(currentDate<= Order.time, Order.time <= month_last).all()
+                    currentDate = month_last
+                    temp = createResultDic(temp,unit,currentDate)
             for ordermenu in ordermenus:
                 total += ordermenu.totalprice
                 if ordermenu.menu_id in menus:
                     menu[ordermenu.menu_id] += ordermenu.totalprice
                     count[ordermenu.menu_id] += 1
-
                 if unit == 2:
                     dic = getItem(temp[currentDate.year.real],currentDate.month.real)
                     if dic != None:
                         increaseTotalPrice(ordermenu,dic[currentDate.month.real][currentDate.day.real])
-                elif unit == 3:
-                    pass
                 elif unit == 4:
                     dic = getItem(temp[currentDate.year.real],currentDate.month.real)
                     if dic != None:
@@ -319,7 +331,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                         setTotalAndMenus(dic[4],count,total,menu)
             elif unit == 6:
                 setTotalAndMenus(temp[currentDate.year.real],count,total,menu)
-
             total, count,menu = resetTotalAndCount(unit,currentDate,total,count,menu)
             currentDate = increaseDate(2)
 
