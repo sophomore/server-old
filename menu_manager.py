@@ -19,6 +19,11 @@ def modify_menu(id, name, price, category_id):
     db.commit()
     return new_menu
 
+def delete_menu(id):
+    menu = Menu.query.filter_by(id=id).first()
+    menu.available = False
+    db.commit()
+    return menu
 
 def get_all_dict():
     result = []

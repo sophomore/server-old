@@ -11,13 +11,16 @@ app = Flask(__name__)
 app.debug = True
 
 #Menu
-@app.route('/menu/<int:id>', methods=['GET', 'PUT'])
+@app.route('/menu/<int:id>', methods=['GET', 'PUT','DELETE'])
 def one_menu(id):
     if request.method == 'GET':
         return json.dumps(menu_manager.get_one_dict(id))
     elif request.method == 'PUT':
         new_menu = menu_manager.modify_menu(id, request.form['name'], request.form['price'], request.form['category'])
         return json.dumps({"result":"success", "new_menu": new_menu.convert_dict()})
+    elif request.method == 'DELETE':
+        menu = menu_manager.delete_menu(id)
+        return json.dumps({"result":"success","delete_menu":menu.convert_dict()})
     return abort(400)
 
 
