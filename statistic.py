@@ -312,9 +312,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                     if dic!=None:
                         setTotalAndMenus(dic[4],count,total,menu)
             elif unit == 6:
-                dic = getItem(temp,currentDate.year.real)
-                if dic!=None:
-                    setTotalAndMenus(dic[currentDate.year.real],count,total,menu)
+                setTotalAndMenus(temp[currentDate.year.real],count,total,menu)
 
             total, count,menu = resetTotalAndCount(unit,currentDate,total,count,menu)
             currentDate = increaseDate(2)
