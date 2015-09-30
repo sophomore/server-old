@@ -247,9 +247,9 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         elif unit == 3:
            for order in orders:
                for ordermenu in order.ordermenus:
-                   if ordermenu.menu_id in temp[order.time.weekday()]:
-                       temp[order.time.weekday()]['menu'][ordermenu.menu_id]['price'] += ordermenu.totalprice
-                       temp[order.time.weekday()]['menu'][ordermenu.menu_id]['count'] += 1
+                   if ordermenu.menu_id in temp[order.time.weekday()]['menu']:
+                       temp[order.time.weekday()]['menu'][ordermenu.menu_id] += ordermenu.totalprice
+                       temp[order.time.weekday()]['count'][ordermenu.menu_id] += 1
                    increaseTotalPrice(ordermenu,temp[order.time.weekday()])
                    total += ordermenu.totalprice
     else:
