@@ -262,18 +262,15 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 temp = createResultDic(temp,unit,currentDate)
                 ordermenus = db.query(OrderMenu).join(Order).filter(currentDate<= Order.time, Order.time <= currentDate.replace(hour=23,minute=59,second=59)).all()
             else:
-                if currentDate.month == endDate.month:
+                if currentDate.year == endDate.year and currentDate.month == endDate.month:
                     ordermenus = db.query(OrderMenu).join(Order).filter(currentDate<= Order.time, Order.time <= endDate).all()
                     currentDate = endDate
                     temp = createResultDic(temp,unit,currentDate)
-                    print(temp)
                 else:
                     month_last = last_day_of_month(currentDate)
-                    print(month_last)
                     ordermenus = db.query(OrderMenu).join(Order).filter(currentDate<= Order.time, Order.time <= month_last).all()
                     currentDate = month_last
                     temp = createResultDic(temp,unit,currentDate)
-                    print(temp)
             for ordermenu in ordermenus:
                 total += ordermenu.totalprice
                 if ordermenu.menu_id in menus:
