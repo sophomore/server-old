@@ -98,7 +98,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                     dic[currentDate.month.real][currentDate.day.real]['cashtotal'] = 0
                     dic[currentDate.month.real][currentDate.day.real]['cardtotal'] = 0
                     dic[currentDate.month.real][currentDate.day.real]['servicetotal'] = 0
-
         elif unit == 3:
             result = {}
             for i in [0,1,2,3,4,5,6]:
@@ -267,6 +266,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                     ordermenus = db.query(OrderMenu).join(Order).filter(currentDate<= Order.time, Order.time <= endDate).all()
                     currentDate = endDate
                     temp = createResultDic(temp,unit,currentDate)
+                    print(temp)
                 else:
                     month_last = last_day_of_month(currentDate)
                     print(month_last)
