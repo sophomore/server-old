@@ -50,7 +50,7 @@ def one_order(id):
         order_manager.del_order(id)
         return json.dumps({"result": "success"})
     elif request.method == 'POST':
-        jsom.dumps(order_manager.getOrder(id))
+        json.dumps(order_manager.getOrder(id))
     return abort(400)
 
 
