@@ -55,3 +55,10 @@ def search(startDate, endDate, ordermenus, pay):
         result.append(order.convert_dict())
     return result
 
+def get_order(id):
+    result = []
+    orders = Order.query.filter_by(id<id).limit(10).all()
+    print(orders)
+    for order in orders:
+        result.append(order.convert_dict())
+    return result
