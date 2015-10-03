@@ -108,6 +108,8 @@ def initdb():
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db.remove()
+    if exception :
+        print("################################Shutdown DB error#########################################")
 
 
 if __name__ == '__main__':
