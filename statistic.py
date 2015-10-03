@@ -65,15 +65,11 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 dic["servicetotal"] += ordermenu.totalprice
             else:
                 dic["servicetotal"] = ordermenu.totalprice
-
     def getItem(result,item):
         for i in result:
-            # print(i)
             if item in i:
-                # print(item)
                 return i
         return None
-
     def createResultDic(result,unit,currentDate):
         if unit != 6 and (not currentDate.year.real in result):
             result[currentDate.year.real] = []
@@ -201,14 +197,12 @@ def unit_menu_sum(startDate, endDate, menus, unit):
     total = 0
     def resetTotalAndCount(unit,currentDate,total,count,menus):
         if unit == 2:
-            if increaseDate(2).day != currentDate.day:
-                total = 0
-                menus, count = resetMenus()
+            total = 0
+            menus, count = resetMenus()
         elif unit == 4:
-            if increaseDate(2).month != currentDate.month:
-                total =0
-                menus ,count = resetMenus()
-                return total,count,menus
+            total =0
+            menus ,count = resetMenus()
+            return total,count,menus
         elif unit == 5:
             if currentDate.month.real>=1 and currentDate.month.real<=3:
                 if increaseDate(2).month.real>3:

@@ -42,13 +42,15 @@ def menu_all():
 
 
 #Order
-@app.route('/order/<int:id>', methods=['GET', 'DELETE'])
+@app.route('/order/<int:id>', methods=['GET', 'DELETE','POST'])
 def one_order(id):
     if request.method == 'GET':
         return json.dumps(order_manager.get_one_dict(id))
     elif request.method == 'DELETE':
         order_manager.del_order(id)
         return json.dumps({"result": "success"})
+    elif request.method == 'POST':
+        return json.dumps(order_manager.get_order(id))
     return abort(400)
 
 
