@@ -4,8 +4,9 @@ from mydb import db_session as db
 import json
 import order_manager
 import menu_manager
-import statistic
 import util
+import statistic
+
 from datetime import datetime
 
 app = Flask(__name__)
