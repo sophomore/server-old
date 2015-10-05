@@ -7,6 +7,6 @@ def print_statement(order):
     output +='등록번호: 134-31-16828\n'
     output +='\\x1bm'
     f1 = open('./test','w+')
-    f1.write(output)
+    print(output,file = f1)
     f1.close()
     os.system('lpr test')
