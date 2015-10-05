@@ -102,6 +102,9 @@ def initdb():
     db.commit()
     return "initialized db"
 
+@app.route('/util/print_statement',methods=['POST'])
+def print_statement():
+    util.print_statement(None)
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
