@@ -84,6 +84,10 @@ def search_order():
 def statistic_month():
     return json.dumps(statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'],request.form['menus'],request.form['unit']))
 
+@app.route('/util/print_statement',methods=['POST'])
+def print_statement():
+    util.print_statement(None)
+
 @app.route('/')
 def index():
     return "Dear, Song"
@@ -104,9 +108,8 @@ def initdb():
     db.commit()
     return "initialized db"
 
-@app.route('/util/print_statement',methods=['POST'])
-def print_statement():
-    util.print_statement(None)
+
+
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
