@@ -21,14 +21,23 @@ def modify_menu(id, name, price, category_id):
 
 def delete_menu(id):
     menu = Menu.query.filter_by(id=id).first()
-    menu.available = False
-    db.commit()
+    if len(menu.ordermenus)==0:
+        db.delete(menu)
+        db.commit()
+    else:
+        menu.available = False
+        db.commit()
     return menu
 
 def get_all_dict():
     result = []
     for menu in Menu.query.all():
-        result.append(menu.convert_dict())
+        check = True
+        for i in result:
+            if i.name == menu.name:
+                check = False
+        if check:
+            result.append(menu.convert_dict())
     return result
 
 
