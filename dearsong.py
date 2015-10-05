@@ -59,9 +59,6 @@ def order():
     if request.method == 'GET':
         return json.dumps(order_manager.get_all_dict())
     elif request.method == 'POST':
-        print(request.form['time'])
-        print(request.form['totalprice'])
-        print(request.form['ordermenus'])
         order = order_manager.add_order(request.form['time'], request.form['totalprice'], json.loads(request.form['ordermenus']))
         return json.dumps({"result": "success", "order": order.convert_dict()})
     return abort(400)
@@ -76,7 +73,6 @@ def order_menu_pay(id):
 @app.route('/order/search', methods=['POST'])
 def search_order():
     startDate = datetime.strptime(request.form['startDate'], '%Y-%m-%d %H:%M:%S')
-    print(startDate)
     print(datetime.strptime(request.form['startDate'], '%Y-%m-%d %H:%M:%S'))
     endDate = datetime.strptime(request.form['endDate'], '%Y-%m-%d %H:%M:%S')
     return json.dumps(order_manager.search(startDate, endDate, request.form['ordermenus'], request.form['pay']))
