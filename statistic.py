@@ -239,28 +239,28 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 if unit == 2:
                     dic = getItem(temp[currentDate.year.real],currentDate.month.real)
                     if dic != None:
-                        increaseTotalPrice(ordermenu,dic[currentDate.month.real][currentDate.day.real])
+                        increaseTotalPrice(ordermenu,dic[currentDate.day.real])
                 elif unit == 4:
                     dic = getItem(temp[currentDate.year.real],currentDate.month.real)
                     if dic != None:
-                        increaseTotalPrice(ordermenu,dic[currentDate.month.real])
+                        increaseTotalPrice(ordermenu,dic)
                 elif unit == 5:
                     if(currentDate.month.real>=1 and currentDate.month.real<=3):
                         dic = getItem(temp[currentDate.year.real],1)
                         if dic != None:
-                            increaseTotalPrice(ordermenu,dic[1])
+                            increaseTotalPrice(ordermenu,dic)
                     elif(currentDate.month.real>=4 and currentDate.month.real<=6):
                         dic = getItem(temp[currentDate.year.real],2)
                         if dic != None:
-                            increaseTotalPrice(ordermenu,dic[2])
+                            increaseTotalPrice(ordermenu,dic)
                     elif(currentDate.month.real>=7 and currentDate.month.real<=9):
                         dic = getItem(temp[currentDate.year.real],3)
                         if dic != None:
-                            increaseTotalPrice(ordermenu,dic[3])
+                            increaseTotalPrice(ordermenu,dic)
                     elif(currentDate.month.real>=10 and currentDate.month.real<=12):
                         dic = getItem(temp[currentDate.year.real],4)
                         if dic != None:
-                            increaseTotalPrice(ordermenu,dic[4])
+                            increaseTotalPrice(ordermenu,dic)
                 elif unit == 6:
                     increaseTotalPrice(ordermenu,temp[currentDate.year])
             if unit == 2:
