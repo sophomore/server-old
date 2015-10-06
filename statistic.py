@@ -36,13 +36,10 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 dic["servicetotal"] = ordermenu.totalprice
     def getItem(result,item):
         if item in result:
-            return result
+            return result[item]
         return None
     def createResultDic(result,unit,currentDate):
-        if unit != 6 and (not currentDate.year.real in result):
-            result[currentDate.year.real] = {}
-        elif unit == 6 and (not currentDate.year.real in result):
-            result[currentDate.year.real] = {}
+        result[currentDate.year.real] = {}
         if unit == 1:
             result = {}
             for i in range(0,24):
@@ -54,14 +51,14 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         elif unit == 2:
             dic = getItem(result[currentDate.year.real],currentDate.month.real)
             if dic == None:
-                result[currentDate.year.real].append({currentDate.month.real : {}})
+                result[currentDate.year.real][currentDate.month.real]={}
             dic = getItem(result[currentDate.year.real],currentDate.month.real)
             if dic != None:
-                if not currentDate.day.real in dic[currentDate.month.real]:
-                    dic[currentDate.month.real][currentDate.day.real] = {}
-                    dic[currentDate.month.real][currentDate.day.real]['cashtotal'] = 0
-                    dic[currentDate.month.real][currentDate.day.real]['cardtotal'] = 0
-                    dic[currentDate.month.real][currentDate.day.real]['servicetotal'] = 0
+                if not currentDate.day.real in dic[currentDate.year.real][currentDate.month.real]:
+                    dic[currentDate.day.real] = {}
+                    dic[currentDate.day.real]['cashtotal'] = 0
+                    dic[currentDate.day.real]['cardtotal'] = 0
+                    dic[currentDate.day.real]['servicetotal'] = 0
         elif unit == 3:
             result = {}
             for i in [0,1,2,3,4,5,6]:
@@ -75,47 +72,46 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             if dic  == None:
                 result[currentDate.year.real][currentDate.month.real] = {}
                 dic = getItem(result[currentDate.year.real],currentDate.month.real)
-                print(dic)
-                dic[currentDate.month.real]['cashtotal'] = 0
-                dic[currentDate.month.real]['cardtotal'] = 0
-                dic[currentDate.month.real]['servicetotal'] = 0
+                dic['cashtotal'] = 0
+                dic['cardtotal'] = 0
+                dic['servicetotal'] = 0
         elif unit == 5:
             if currentDate.month.real>=1 and currentDate.month.real<=3:
                 dic = getItem(result[currentDate.year.real],1)
                 if dic == None:
-                    result[currentDate.year.real].append({1 : {}})
+                    result[currentDate.year.real][1]={}
                     dic2 = getItem(result[currentDate.year.real],1)
-                    dic2[1]['cashtotal'] = 0
-                    dic2[1]['cardtotal'] = 0
-                    dic2[1]['servicetotal'] = 0
-                    dic2[1]['menu'], dic2[1]['count'] = resetMenus()
+                    dic2['cashtotal'] = 0
+                    dic2['cardtotal'] = 0
+                    dic2['servicetotal'] = 0
+                    dic2['menu'], dic2['count'] = resetMenus()
             elif currentDate.month.real>=4 and currentDate.month.real<=6:
                 dic = getItem(result[currentDate.year.real],2)
                 if dic == None:
-                    result[currentDate.year.real].append({2 : {}})
+                    result[currentDate.year.real][2] = {}
                     dic2 = getItem(result[currentDate.year.real],2)
-                    dic2[2]['cashtotal'] = 0
-                    dic2[2]['cardtotal'] = 0
-                    dic2[2]['servicetotal'] = 0
-                    dic2[2]['menu'], dic2[2]['count'] = resetMenus()
+                    dic2['cashtotal'] = 0
+                    dic2['cardtotal'] = 0
+                    dic2['servicetotal'] = 0
+                    dic2['menu'], dic2['count'] = resetMenus()
             elif currentDate.month.real>=7 and currentDate.month.real<=9:
                 dic = getItem(result[currentDate.year.real],3)
                 if dic == None:
-                    result[currentDate.year.real].append({3 : {}})
+                    result[currentDate.year.real][3] = {}
                     dic2 = getItem(result[currentDate.year.real],3)
-                    dic2[3]['cashtotal'] = 0
-                    dic2[3]['cardtotal'] = 0
-                    dic2[3]['servicetotal'] = 0
-                    dic2[3]['menu'], dic2[3]['count'] = resetMenus()
+                    dic2['cashtotal'] = 0
+                    dic2['cardtotal'] = 0
+                    dic2['servicetotal'] = 0
+                    dic2['menu'], dic2['count'] = resetMenus()
             elif currentDate.month.real>=10 and currentDate.month.real<=12:
                 dic = getItem(result[currentDate.year.real],4)
                 if dic == None:
-                    result[currentDate.year.real].append({4 : {}})
+                    result[currentDate.year.real][4] = {}
                     dic2 = getItem(result[currentDate.year.real],4)
-                    dic2[4]['cashtotal'] = 0
-                    dic2[4]['cardtotal'] = 0
-                    dic2[4]['servicetotal'] = 0
-                    dic2[4]['menu'], dic2[4]['count'] = resetMenus()
+                    dic2['cashtotal'] = 0
+                    dic2['cardtotal'] = 0
+                    dic2['servicetotal'] = 0
+                    dic2['menu'], dic2['count'] = resetMenus()
         elif unit == 6:
             result[currentDate.year.real]['cashtotal'] = 0
             result[currentDate.year.real]['cardtotal'] = 0
