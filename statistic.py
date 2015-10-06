@@ -39,7 +39,8 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             return result[item]
         return None
     def createResultDic(result,unit,currentDate):
-        result[currentDate.year.real] = {}
+        if not currentDate.year.real in result:
+            result[currentDate.year.real] = {}
         if unit == 1:
             result = {}
             for i in range(0,24):
@@ -196,7 +197,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         return total,count,menus
 
     menu,count = resetMenus()
-    temp = createResultDic(temp,unit,currentDate)
     if unit == 1 or unit == 3:
         temp = createResultDic(temp,unit,currentDate)
         orders = db.query(Order).filter(startDate <= Order.time, Order.time <= endDate.replace(hour =23,minute = 59,second = 59)).all()
@@ -218,7 +218,6 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                    total += ordermenu.totalprice
     else:
         while currentDate<=endDate:
-
             print(currentDate)
             if unit == 2:
                 temp = createResultDic(temp,unit,currentDate)
