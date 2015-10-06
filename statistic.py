@@ -4,37 +4,6 @@ from models import OrderMenu, Order, Menu
 from mydb import db_session as db
 import json
 
-#in : 기간, out : 월별로 메뉴별 금액 총합, 월별 전체 총합 및 개수, etc : 카레추가, 곱배기 금액 포함
-def month_money_sum(startDateStr, endDateStr):
-    result = []
-    result['debug2'] = ""
-
-    startDate = datetime.strptime(startDateStr+' 00:00:00', '%Y-%m-%d %H:%M:%S')
-    while True:
-        endDate = startDate + relativedelta(months=1)
-
-        if endDate >= datetime.strptime(endDateStr+' 00:00:00', '%Y-%m-%d %H:%M:%S'):
-            break;
-
-        ordermenus = db.query(OrderMenu).join(Order, Order.id == OrderMenu.order_id).filter(Order.time >= startDate).filter(Order.time <= endDate)
-        print(ordermenus)
-        result['debug2'] += " | "+str(ordermenus)
-
-        # menus = {}
-        # total = 0
-        # count = 0
-        # for ordermenu in ordermenus:
-        #     if ordermenu.menu_id in menus:
-        #         menus[ordermenu.menu_id] += ordermenu.totalprice
-        #     else:
-        #         menus[ordermenu.menu_id] = ordermenu.totalprice
-        #     count += 1
-        #     total += ordermenu.totalprice
-        #
-        # result[startDate.year.real] = {startDate.month.real: {"menu": menus, "total": total, "count": count}}
-        startDate = endDate
-    return result
-
 
 #in 기간, 메뉴리스트, 단위 out 단위에 맞춰서 각 메뉴별 총액 및 개수
 #unit : 1. 시간, 2. 일, 3. 요일, 4. 월, 5. 분기, 6. 년
@@ -66,13 +35,12 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             else:
                 dic["servicetotal"] = ordermenu.totalprice
     def getItem(result,item):
-        for i in result:
-            if item in i:
-                return i
+        if item in result:
+            return item
         return None
     def createResultDic(result,unit,currentDate):
         if unit != 6 and (not currentDate.year.real in result):
-            result[currentDate.year.real] = []
+            result[currentDate.year.real] = {}
         elif unit == 6 and (not currentDate.year.real in result):
             result[currentDate.year.real] = {}
         if unit == 1:
@@ -105,7 +73,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         elif unit == 4:
             dic = getItem(result[currentDate.year.real],currentDate.month.real)
             if dic  == None:
-                result[currentDate.year.real].append({currentDate.month.real : {}})
+                result[currentDate.year.real][currentDate.month.real] = {}
                 dic = getItem(result[currentDate.year.real],currentDate.month.real)
                 dic[currentDate.month.real]['cashtotal'] = 0
                 dic[currentDate.month.real]['cardtotal'] = 0

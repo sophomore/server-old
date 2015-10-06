@@ -80,8 +80,9 @@ def search_order():
     return json.dumps(order_manager.search(startDate, endDate, request.form['ordermenus'], request.form['pay']))
 
 
+@app.route('/statistic', methods=['POST'])
 @app.route('/statistic/unit_menu_sum', methods=['POST'])
-def statistic_month():
+def statistic():
     if request.form['menus']==None:
         menus = db.query(Menu.id).all()
         return json.dumps(statistic.unit_menu_sum(request.form['startDate'],request.form['endDate'],menus,request.form['unit']))
