@@ -34,7 +34,7 @@ def get_all_dict():
     for menu in Menu.query.all():
         check = True
         for i in result:
-            if i.name == menu.name:
+            if i['name'] == menu.name:
                 check = False
         if check:
             result.append(menu.convert_dict())

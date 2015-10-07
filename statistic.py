@@ -57,6 +57,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
             if dic != None:
                 if not currentDate.day.real in dic:
                     dic[currentDate.day.real] = {}
+
                     dic[currentDate.day.real]['cashtotal'] = 0
                     dic[currentDate.day.real]['cardtotal'] = 0
                     dic[currentDate.day.real]['servicetotal'] = 0
