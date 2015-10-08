@@ -82,7 +82,7 @@ def search_order():
 @app.route('/statistic',methods=['POST'])
 @app.route('/statistic/unit_menu_sum', methods=['POST'])
 def statistic_month():
-    print(request.form['menus'])
+    print(len(request.form['menus']))
     if len(request.form['menus'])==0:
         print(1)
         menus = db.query(Menu.id).all()
