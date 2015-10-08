@@ -277,19 +277,19 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 if currentDate.month.real>=1 and currentDate.month.real<=3:
                     dic = getItem(temp[currentDate.year.real],1)
                     if dic!=None:
-                        setTotalAndMenus(dic[1],count,total,menu)
+                        setTotalAndMenus(dic,count,total,menu)
                 elif currentDate.month.real>=4 and currentDate.month.real<=6:
                     dic = getItem(temp[currentDate.year.real],2)
                     if dic!=None:
-                        setTotalAndMenus(dic[2],count,total,menu)
+                        setTotalAndMenus(dic,count,total,menu)
                 elif currentDate.month.real>=7 and currentDate.month.real<=9:
                     dic = getItem(temp[currentDate.year.real],3)
                     if dic!=None:
-                        setTotalAndMenus(dic[3],count,total,menu)
+                        setTotalAndMenus(dic,count,total,menu)
                 elif currentDate.month.real>=10 and currentDate.month.real<=12:
                     dic = getItem(temp[currentDate.year.real],4)
                     if dic!=None:
-                        setTotalAndMenus(dic[4],count,total,menu)
+                        setTotalAndMenus(dic,count,total,menu)
             elif unit == 6:
                 setTotalAndMenus(temp[currentDate.year.real],count,total,menu)
             total, count,menu = resetTotalAndCount(unit,currentDate,total,count,menu)
