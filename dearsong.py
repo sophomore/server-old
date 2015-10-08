@@ -88,8 +88,8 @@ def statistic_month():
         menus = db.query(Menu.id).all()
         menu =[]
         for i in menus:
-            print(i)
-            menu.append(i)
+            print(i[0])
+            menu.append(i[0])
         print(menus)
         # return json.dumps(statistic.unit_menu_sum(request.form['startDate'],request.form['endDate'],json.dumps(menus),request.form['unit']))
     else:
