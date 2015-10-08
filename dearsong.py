@@ -4,7 +4,9 @@ from mydb import db_session as db
 import json
 import order_manager
 import menu_manager
+import util
 import statistic
+
 from datetime import datetime
 
 app = Flask(__name__)
@@ -59,9 +61,6 @@ def order():
     if request.method == 'GET':
         return json.dumps(order_manager.get_all_dict())
     elif request.method == 'POST':
-        print(request.form['time'])
-        print(request.form['totalprice'])
-        print(request.form['ordermenus'])
         order = order_manager.add_order(request.form['time'], request.form['totalprice'], json.loads(request.form['ordermenus']))
         return json.dumps({"result": "success", "order": order.convert_dict()})
     return abort(400)
@@ -76,7 +75,6 @@ def order_menu_pay(id):
 @app.route('/order/search', methods=['POST'])
 def search_order():
     startDate = datetime.strptime(request.form['startDate'], '%Y-%m-%d %H:%M:%S')
-    print(startDate)
     print(datetime.strptime(request.form['startDate'], '%Y-%m-%d %H:%M:%S'))
     endDate = datetime.strptime(request.form['endDate'], '%Y-%m-%d %H:%M:%S')
     return json.dumps(order_manager.search(startDate, endDate, request.form['ordermenus'], request.form['pay']))
@@ -84,7 +82,15 @@ def search_order():
 
 @app.route('/statistic/unit_menu_sum', methods=['POST'])
 def statistic_month():
-    return json.dumps(statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'],request.form['menus'],request.form['unit']))
+    if request.form['menus']==None:
+        menus = db.query(Menu.id).all()
+        return json.dumps(statistic.unit_menu_sum(request.form['startDate'],request.form['endDate'],menus,request.form['unit']))
+    else:
+        return json.dumps(statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'],request.form['menus'],request.form['unit']))
+
+@app.route('/util/print_statement',methods=['POST'])
+def print_statement():
+    util.print_statement(None)
 
 @app.route('/')
 def index():
@@ -107,9 +113,13 @@ def initdb():
 	return "initialized db"
 
 
+
+
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db.remove()
+    if exception :
+        print("################################Shutdown DB error#########################################")
 
 ######## make csv ##########
 # @app.route('/csv_output', method=['POST'])

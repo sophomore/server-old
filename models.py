@@ -58,14 +58,13 @@ class Order(Base):
     time = Column(DateTime, nullable=False)
     ordermenus = relationship('OrderMenu')
     totalprice = Column(Integer, nullable=False)
-    takeout = Column(Boolean, default=False, nullable=False)
 
     def convert_dict(self):
         converted_ordermenus = []
         for ordermenu in self.ordermenus:
             converted_ordermenus.append(ordermenu.convert_dict())
         return {"id": self.id, "time": self.time.strftime("%Y-%m-%d %H:%M:%S"), "ordermenus": converted_ordermenus,
-                "totalprice": self.totalprice, "takeout": self.takeout}
+                "totalprice": self.totalprice}
 
     def __init__(self, time, totalprice):
         self.time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
@@ -81,17 +80,19 @@ class OrderMenu(Base):
     pay = Column(Integer, nullable=False)
     curry = Column(Boolean, default=False, nullable=False)
     twice = Column(Boolean, default=False, nullable=False)
+    takeout = Column(Boolean, default=False, nullable=False)
     totalprice = Column(Integer, nullable=False)
 
     def convert_dict(self):
-        return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay, "curry": self.curry, "twice": self.twice, "totalprice": self.totalprice}
+        return {"id": self.id, "menu_id": self.menu_id, "order_id": self.order_id, "pay": self.pay, "curry": self.curry, "twice": self.twice, "takeout": self.takeout, "totalprice": self.totalprice}
 
-    def __init__(self, menu, order, pay=4, curry=False, twice=False):
+    def __init__(self, menu, order, pay=4, curry=False, twice=False, takeout=False):
         self.menu_id = menu.id
         self.order_id = order.id
         self.pay = pay
         self.curry = curry
         self.twice = twice
+        self.takeout = takeout
         self.totalprice = menu.price
         if curry:
             self.totalprice += 1000
