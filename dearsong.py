@@ -88,13 +88,11 @@ def statistic_month():
         menus = db.query(Menu.id).all()
         menu =[]
         for i in menus:
-            print(i[0])
             menu.append(i[0])
-        print(menu)
-        return json.dumps(statistic.unit_menu_sum(request.form['startDate'],request.form['endDate'],json.dumps(menu),request.form['unit']))
+        return json.dumps(statistic.unit_menu_sum(request.form['startDate'],request.form['endDate'],menu,request.form['unit']))
     else:
         print(request.form['menus'])
-        return json.dumps(statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'],request.form['menus'],request.form['unit']))
+        return json.dumps(statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'],json.loads(request.form['menus']),request.form['unit']))
 
 @app.route('/util/print_statement',methods=['POST'])
 def print_statement():
