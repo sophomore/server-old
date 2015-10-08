@@ -9,6 +9,7 @@ import json
 #unit : 1. 시간, 2. 일, 3. 요일, 4. 월, 5. 분기, 6. 년
 def unit_menu_sum(startDate, endDate, menus, unit):
     menus = json.loads(menus)
+    print(menus)
     unit = int(unit)
     if unit<1 or unit>6:
         return {"error": "unit value is invalid"}
