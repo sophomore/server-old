@@ -79,7 +79,7 @@ def search_order():
     endDate = datetime.strptime(request.form['endDate'], '%Y-%m-%d %H:%M:%S')
     return json.dumps(order_manager.search(startDate, endDate, request.form['ordermenus'], request.form['pay']))
 
-
+@app.route('/statistic',method=['POST'])
 @app.route('/statistic/unit_menu_sum', methods=['POST'])
 def statistic_month():
     if request.form['menus']==None:
