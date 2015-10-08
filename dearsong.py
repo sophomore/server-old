@@ -91,7 +91,7 @@ def statistic_month():
             print(i)
             menu.append(i)
         print(menus)
-        return json.dumps(statistic.unit_menu_sum(request.form['startDate'],request.form['endDate'],json.dumps(menus),request.form['unit']))
+        # return json.dumps(statistic.unit_menu_sum(request.form['startDate'],request.form['endDate'],json.dumps(menus),request.form['unit']))
     else:
         print(1)
         return json.dumps(statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'],request.form['menus'],request.form['unit']))
