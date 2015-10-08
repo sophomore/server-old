@@ -92,6 +92,7 @@ def statistic_month():
 def print_statement():
     util.print_statement(None)
 
+
 @app.route('/')
 def index():
     return "Dear, Song"
@@ -110,7 +111,7 @@ def initdb():
     db.add(noodle)
     db.add(etc)
     db.commit()
-	return "initialized db"
+    return "initialized db"
 
 
 
@@ -120,11 +121,6 @@ def shutdown_session(exception=None):
     db.remove()
     if exception :
         print("################################Shutdown DB error#########################################")
-
-def road_data():
-	filename = request.form['filename']
-	with open(filename,'r') as f:
-		reader = csv.reader(f)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
