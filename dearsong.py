@@ -83,6 +83,7 @@ def search_order():
 @app.route('/statistic/unit_menu_sum', methods=['POST'])
 def statistic_month():
     if request.form['menus']==None:
+        print(1)
         menus = db.query(Menu.id).all()
         return json.dumps(statistic.unit_menu_sum(request.form['startDate'],request.form['endDate'],menus,request.form['unit']))
     else:
