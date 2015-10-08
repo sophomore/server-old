@@ -121,21 +121,6 @@ def shutdown_session(exception=None):
     if exception :
         print("################################Shutdown DB error#########################################")
 
-######## make csv ##########
-# @app.route('/csv_output', method=['POST'])
-# def create_csv():
-# 	import csv
-# 	startDate = datetime.strptime(request.form['startDate']+" 00:00:00", '%Y-%m-%d %H:%M:%S')
-#     endDate = datetime.strptime(request.form['endDate']+" 23:59:59", '%Y-%m-%d %H:%M:%S')
-#     orders = db.query(Order).filter(startDate <= Order.time, Order.time <= endDate).all()
-#     write = csv.writer(open("out.csv","w"))
-#     write.writerow([''])
-#     for order in orders:
-#     	write.writerow([])
-
-
-# @app.route('/csv_input',method=['POST'])
-
 def road_data():
 	filename = request.form['filename']
 	with open(filename,'r') as f:
