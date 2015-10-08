@@ -93,7 +93,7 @@ def statistic_month():
         print(menu)
         return json.dumps(statistic.unit_menu_sum(request.form['startDate'],request.form['endDate'],json.dumps(menus),request.form['unit']))
     else:
-        print(1)
+        print(request.form['menus'])
         return json.dumps(statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'],request.form['menus'],request.form['unit']))
 
 @app.route('/util/print_statement',methods=['POST'])
