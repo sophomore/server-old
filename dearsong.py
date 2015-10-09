@@ -96,7 +96,7 @@ def statistic_month():
 
 @app.route('/util/print_statement',methods=['POST'])
 def print_statement():
-    util.print_statement(None)
+    util.print_statement(request.form['order'],request.form['date'])
 
 
 @app.route('/')
