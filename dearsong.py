@@ -55,7 +55,6 @@ def one_order(id):
         return json.dumps(order_manager.get_order(id))
     return abort(400)
 
-
 @app.route('/order', methods=['GET', 'POST'])
 def order():
     if request.method == 'GET':
@@ -65,12 +64,10 @@ def order():
         return json.dumps({"result": "success", "order": order.convert_dict()})
     return abort(400)
 
-
 @app.route('/order/menu/<int:id>', methods=['POST'])
 def order_menu_pay(id):
     order_manager.pay(id, request.form['pay'])
     return json.dumps({"result", "success"})
-
 
 @app.route('/order/search', methods=['POST'])
 def search_order():
