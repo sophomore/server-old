@@ -1,6 +1,6 @@
 import csv
 import os
-import openpyxl import load_workbook
+from openpyxl import load_workbook
 from datetime import datetime
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
@@ -45,7 +45,7 @@ def input():
     a = lambda x: x>0
     takeout = lambda x: x=="배달"
     for row in ws.iter_rows(row_offset=1):
-        date = datetiem.strptime(row[0]+' '+row[2]+':00','%Y-%m-%d %H:%M:%S')
+        date = datetime.strptime(row[0]+' '+row[2]+':00','%Y-%m-%d %H:%M:%S')
         totalprice = row[6]
         order = Order(date,totalprice)
         db.add(order)
@@ -55,33 +55,32 @@ def input():
         for o in ordermenus:
             if row[8] == 0:
                 pay = 2
-            else if row[9] ==0:
+            elif row[9] ==0:
                 pay = 1
             else:
                 pay = 4
             if o.endswith(")"):
                 bef,m,aft = order.partition("(")
                 bef,m,aft = aft.partition(")")
-                for i range(bef):
+                for i in range(bef):
                     ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
                         twice=a(count_twice),takeout=takeout(row[3]))
                     count_twice -= 1
                     count_curry -= 1
                     db.add(ordermenu)
             else:
-                ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
-                    twice=(count_twice),takeout=takeout(row[3])) 
-                    count_twice -=1
-                    count_curry -=1 
-                    db.add(ordermenu)
+                ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry), twice=(count_twice),takeout=takeout(row[3]))
+                count_twice -=1
+                count_curry -=1
+                db.add(ordermenu)
             db.commit()
 
 def get_sign(strg,st):
     bef,m,aft = strg.partition(st)
-    if aft != "" && aft.startswith("("):
+    if aft != "" and aft.startswith("("):
         bef,m,aft = aft[1:].partition(")")
         count = bef
-    else if aft.startswith(","):
+    elif aft.startswith(","):
         count = 1
     else:
         count = 0
