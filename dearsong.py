@@ -103,8 +103,10 @@ def print_statement():
 def file_mysql():
     if request.method == 'GET':
         util.output()
+        return json.dumps({"result":"success"})
     else:
         util.input_two()
+        return json.dumps({"result":"success"})
 
 
 @app.route('/file/input', methods=['POST'])
