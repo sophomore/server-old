@@ -40,7 +40,7 @@ class Menu(Base):
         converted_ordermenus = []
         for ordermenu in self.ordermenus:
             converted_ordermenus.append(ordermenu.convert_dict())
-        return {"id": self.id, "name": self.name, "price": self.price, "category_id": self.category_id}
+        return {"id": self.id, "name": self.name, "price": self.price, "category_id": self.category_id,"available":self.available}
 
     def __init__(self, name, price, category, available=True):
         self.name = name

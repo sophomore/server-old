@@ -12,7 +12,7 @@ def add_order(time, totalprice, ordermenus_info):
     db.commit()
 
     for ordermenu_info in ordermenus_info:
-        ordermenu = OrderMenu(menu=Menu.query.filter_by(id=ordermenu_info['id']).first(), order=order, pay=ordermenu_info['pay'], curry=ordermenu_info['curry'], twice=ordermenu_info['twice'])
+        ordermenu = OrderMenu(menu=Menu.query.filter_by(id=ordermenu_info['id']).first(), order=order, pay=ordermenu_info['pay'], curry=ordermenu_info['curry'], twice=ordermenu_info['twice'],takeout=ordermenu_info['takeout'])
         db.add(ordermenu)
 
     db.commit()
@@ -37,7 +37,7 @@ def pay(id, pay):
 
 def get_all_dict():
     result = []
-    for order in Order.query.all():
+    for order in Order.query.order_by(Order.id.desc()).all():
         result.append(order.convert_dict())
     return result
 

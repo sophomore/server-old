@@ -8,7 +8,7 @@ import json
 #in 기간, 메뉴리스트, 단위 out 단위에 맞춰서 각 메뉴별 총액 및 개수
 #unit : 1. 시간, 2. 일, 3. 요일, 4. 월, 5. 분기, 6. 년
 def unit_menu_sum(startDate, endDate, menus, unit):
-    menus = json.loads(menus)
+    print(menus)
     unit = int(unit)
     if unit<1 or unit>6:
         return {"error": "unit value is invalid"}
@@ -198,6 +198,7 @@ def unit_menu_sum(startDate, endDate, menus, unit):
         return total,count,menus
 
     menu,count = resetMenus()
+    print(menu)
     if unit == 1 or unit == 3:
         temp = createResultDic(temp,unit,currentDate)
         orders = db.query(Order).filter(startDate <= Order.time, Order.time <= endDate.replace(hour =23,minute = 59,second = 59)).all()
@@ -277,19 +278,19 @@ def unit_menu_sum(startDate, endDate, menus, unit):
                 if currentDate.month.real>=1 and currentDate.month.real<=3:
                     dic = getItem(temp[currentDate.year.real],1)
                     if dic!=None:
-                        setTotalAndMenus(dic[1],count,total,menu)
+                        setTotalAndMenus(dic,count,total,menu)
                 elif currentDate.month.real>=4 and currentDate.month.real<=6:
                     dic = getItem(temp[currentDate.year.real],2)
                     if dic!=None:
-                        setTotalAndMenus(dic[2],count,total,menu)
+                        setTotalAndMenus(dic,count,total,menu)
                 elif currentDate.month.real>=7 and currentDate.month.real<=9:
                     dic = getItem(temp[currentDate.year.real],3)
                     if dic!=None:
-                        setTotalAndMenus(dic[3],count,total,menu)
+                        setTotalAndMenus(dic,count,total,menu)
                 elif currentDate.month.real>=10 and currentDate.month.real<=12:
                     dic = getItem(temp[currentDate.year.real],4)
                     if dic!=None:
-                        setTotalAndMenus(dic[4],count,total,menu)
+                        setTotalAndMenus(dic,count,total,menu)
             elif unit == 6:
                 setTotalAndMenus(temp[currentDate.year.real],count,total,menu)
             total, count,menu = resetTotalAndCount(unit,currentDate,total,count,menu)
