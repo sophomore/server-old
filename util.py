@@ -28,7 +28,7 @@ def print_statement(order,time):
 
 
 def output():
-    os.system("mysqldump --user=song --password=Qoswlfdlsnrn pos > ~/backup.sql")
+    os.system("mysqldump --user=song --password=Qoswlfdlsnrn pos > ./backup.sql")
 
 def input_two():
     os.system("mysql --user=song --password=Qoswlfdlsnrn pos < backup.sql")
