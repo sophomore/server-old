@@ -55,6 +55,7 @@ def one_order(id):
         return json.dumps(order_manager.get_order(id))
     return abort(400)
 
+
 @app.route('/order', methods=['GET', 'POST'])
 def order():
     if request.method == 'GET':
@@ -64,10 +65,12 @@ def order():
         return json.dumps({"result": "success", "order": order.convert_dict()})
     return abort(400)
 
+
 @app.route('/order/menu/<int:id>', methods=['POST'])
 def order_menu_pay(id):
     order_manager.pay(id, request.form['pay'])
     return json.dumps({"result", "success"})
+
 
 @app.route('/order/search', methods=['POST'])
 def search_order():
@@ -76,25 +79,28 @@ def search_order():
     endDate = datetime.strptime(request.form['endDate'], '%Y-%m-%d %H:%M:%S')
     return json.dumps(order_manager.search(startDate, endDate, request.form['ordermenus'], request.form['pay']))
 
-@app.route('/statistic',methods=['POST'])
+
 @app.route('/statistic/unit_menu_sum', methods=['POST'])
 def statistic_month():
-    print(len(request.form['menus']))
-    menu = json.loads(request.form['menus'])
-    if len(menu)==0:
+    if request.form['menus']==None:
         menus = db.query(Menu.id).all()
-        menu =[]
-        for i in menus:
-            menu.append(i[0])
-        return json.dumps(statistic.unit_menu_sum(request.form['startDate'],request.form['endDate'],menu,request.form['unit']))
+        return json.dumps(statistic.unit_menu_sum(request.form['startDate'],request.form['endDate'],menus,request.form['unit']))
     else:
-        print(request.form['menus'])
-        return json.dumps(statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'],json.loads(request.form['menus']),request.form['unit']))
+        return json.dumps(statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'],request.form['menus'],request.form['unit']))
 
 @app.route('/util/print_statement',methods=['POST'])
 def print_statement():
-    util.print_statement(request.form['order'],request.form['date'])
+    util.print_statement(None)
 
+@app.route('/file/output', method = ['POST','GET'])
+def file_mysql():
+    if request.method == 'GET':
+        util.output()
+    else:
+        util.input_two()
+@app.route('/file/input', method = ['POST'])
+def file_input():
+    util.input()
 
 @app.route('/')
 def index():
@@ -114,9 +120,7 @@ def initdb():
     db.add(noodle)
     db.add(etc)
     db.commit()
-    return "initialized db"
-
-
+	return "initialized db"
 
 
 @app.teardown_appcontext
@@ -124,6 +128,11 @@ def shutdown_session(exception=None):
     db.remove()
     if exception :
         print("################################Shutdown DB error#########################################")
+
+def road_data():
+	filename = request.form['filename']
+	with open(filename,'r') as f:
+		reader = csv.reader(f)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
