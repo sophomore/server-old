@@ -37,7 +37,7 @@ def pay(id, pay):
 
 def get_all_dict():
     result = []
-    for order in Order.query.all():
+    for order in Order.query.order_by(Order.id.desc()).all():
         result.append(order.convert_dict())
     return result
 
