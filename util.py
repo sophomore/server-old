@@ -45,7 +45,7 @@ def input():
         a = lambda x: x>0
         takeout = lambda x: x=="배달"
         for row in ws.iter_rows(row_offset=1):
-            date = datetiem.strptime(row[0]+' '+row[2]+':00','%Y-%m-%d %H:%M:%S')
+            date = datetime.strptime(row[0]+' '+row[2]+':00','%Y-%m-%d %H:%M:%S')
             totalprice = row[6]
             order = Order(date,totalprice)
             db.add(order)
@@ -62,7 +62,7 @@ def input():
                 if o.endswith(")"):
                     bef,m,aft = order.partition("(")
                     bef,m,aft = aft.partition(")")
-                    for i range(bef):
+                    for i in range(bef):
                         ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
                         twice=a(count_twice),takeout=takeout(row[3]))
                         count_twice -= 1
