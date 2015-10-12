@@ -98,6 +98,7 @@ def file_mysql():
         util.output()
     else:
         util.input_two()
+
 @app.route('/file/input', method = ['POST'])
 def file_input():
     util.input()
