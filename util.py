@@ -1,6 +1,11 @@
-
-
+import csv
 import os
+import openpyxl import load_workbook
+from datetime import datetime
+from models import OrderMenu, Order, Menu
+from mydb import db_session as db
+
+
 def print_statement(order,time):
 
     output = ''
@@ -19,3 +24,66 @@ def print_statement(order,time):
     print(output,file = f1)
     f1.close()
     os.system('lpr test')
+
+
+# @app.rout('file/output', method = ['POST'])
+def output():
+    os.system("mysqldump --user=song --password=Qoswlfdlsnrn pos > backup.sql")
+
+def input_tow():
+    os.system("mysql --user=song --password=Qoswlfdlsnrn pos < backup.sql")
+
+def input():
+    menus = db.query(Menu).all();
+    ms = {}
+    price = {}
+    for menu in menus:
+        ms[menu.name] = menu.id;
+        price[menu.name] = menu.price
+    wb = load_workbook(filename="입출금관리.xlsx", read_only = True)
+    ws = wb['입출금관리']
+    a = lambda x: x>0
+    takeout = lambda x: x=="배달"
+    for row in ws.iter_rows(row_offset=1):
+        date = datetiem.strptime(row[0]+' '+row[2]+':00','%Y-%m-%d %H:%M:%S')
+        totalprice = row[6]
+        order = Order(date,totalprice)
+        db.add(order)
+        count_twice = get_sign(row[13],"곱배기추가")
+        count_curry = get_sign(row[13],"카레추가")
+        ordermenus = row[13].split(",")
+        for o in ordermenus:
+            if row[8] == 0:
+                pay = 2
+            else if row[9] ==0:
+                pay = 1
+            else:
+                pay = 4
+            if o.endswith(")"):
+                bef,m,aft = order.partition("(")
+                bef,m,aft = aft.partition(")")
+                for i range(bef):
+                    ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
+                        twice=a(count_twice),takeout=takeout(row[3]))
+                    count_twice -= 1
+                    count_curry -= 1
+                    db.add(ordermenu)
+            else:
+                ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
+                    twice=(count_twice),takeout=takeout(row[3])) 
+                    count_twice -=1
+                    count_curry -=1 
+                    db.add(ordermenu)
+            db.commit()
+
+def get_sign(strg,st):
+    bef,m,aft = strg.partition(st)
+    if aft != "" && aft.startswith("("):
+        bef,m,aft = aft[1:].partition(")")
+        count = bef
+    else if aft.startswith(","):
+        count = 1
+    else:
+        count = 0
+    return count
+
