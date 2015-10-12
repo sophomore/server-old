@@ -92,7 +92,7 @@ def statistic_month():
 def print_statement():
     util.print_statement(None)
 
-@app.route('/file/output', method = ['POST','GET'])
+@app.route('/file/output', method = ['GET','POST'])
 def file_mysql():
     if request.method == 'GET':
         util.output()
