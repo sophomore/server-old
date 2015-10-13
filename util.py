@@ -40,7 +40,7 @@ def input(file):
     for menu in menus:
         ms[menu.name] = menu.id;
         price[menu.name] = menu.price
-        wb = load_workbook(filename='~/'+file.filename read_only = True)
+        wb = load_workbook(filename='~/입출금관리.xlsx', read_only = True)
         ws = wb['입출금관리']
         a = lambda x: x>0
         takeout = lambda x: x=="배달"
