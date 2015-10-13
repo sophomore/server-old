@@ -49,13 +49,13 @@ def input():
             totalprice = row[6]
             order = Order(date,totalprice)
             db.add(order)
-            count_twice = get_sign(row[13],"곱배기추가")
-            count_curry = get_sign(row[13],"카레추가")
-            ordermenus = row[13].split(",")
+            count_twice = get_sign(str(row[13].value),"곱배기추가")
+            count_curry = get_sign(str(row[13].value),"카레추가")
+            ordermenus = str(row[13].value).split(",")
             for o in ordermenus:
-                if row[8] == 0:
+                if int(row[8].value) == 0:
                     pay = 2
-                elif row[9] ==0:
+                elif int(row[9].value) ==0:
                     pay = 1
                 else:
                     pay = 4
