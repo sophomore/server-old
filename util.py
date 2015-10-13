@@ -64,15 +64,15 @@ def input():
                     bef,m,aft = aft.partition(")")
                     for i in range(bef):
                         with open('notmatchedmenu.csv','wb') as f:
-                        if bef in ms:
-                            ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
-                            twice=a(count_twice),takeout=takeout(str(row[3].value))
-                            count_twice -= 1
-                            count_curry -= 1
-                            db.add(ordermenu)
-                        else:
-                            writer = csv.writer(f)
-                            writer.writerrow(bef)
+                            if bef in ms:
+                                ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
+                                twice=a(count_twice),takeout=takeout(str(row[3].value))
+                                count_twice -= 1
+                                count_curry -= 1
+                                db.add(ordermenu)
+                            else:
+                                writer = csv.writer(f)
+                                writer.writerrow(bef)
 
                 else:
                     ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
