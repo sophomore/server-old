@@ -60,7 +60,7 @@ def input():
                 else:
                     pay = 4
                 with open('notmatchedmenu.csv','wb') as f:
-                    fieldnames = ['menus','somthing']
+                    fieldnames = ['menus','something']
                     writer = csv.DictWriter(f, fieldnames=fieldnames)
                     if o.endswith(")"):
                         bef,m,aft = order.partition("(")
