@@ -60,7 +60,7 @@ def input():
                 else:
                     pay = 4
                 with open('notmatchedmenu.csv','wb') as f:
-                    fieldnames = ['menus']
+                    fieldnames = ['menus','somthing']
                     writer = csv.DictWriter(f, fieldnames=fieldnames)
                     if o.endswith(")"):
                         bef,m,aft = order.partition("(")
@@ -74,7 +74,7 @@ def input():
                                 db.add(ordermenu)
                             else:
                                 writer = csv.writer(f)
-                                writer.writerow({'menus':bef})
+                                writer.writerow({'menus':bef,'something':'1'})
 
                     else:
                         if o in ms:
@@ -86,7 +86,7 @@ def input():
                             db.commit()
                         else:
                             writer = csv.writer(f)
-                            writer.writerow({'menus':o})
+                            writer.writerow({'menus':o,'something':'0'})
 
 def get_sign(strg,st):
     bef,m,aft = strg.partition(st)
