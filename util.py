@@ -45,7 +45,7 @@ def input():
         a = lambda x: x>0
         takeout = lambda x: x=="배달"
         for row in ws.iter_rows(row_offset=1):
-            date = datetime.strptime(row[0]+' '+row[2]+':00','%Y-%m-%d %H:%M:%S')
+            date = datetime.strptime(str(row[0].value)+' '+str(row[2].value)+':00','%Y-%m-%d %H:%M:%S')
             totalprice = row[6]
             order = Order(date,totalprice)
             db.add(order)
