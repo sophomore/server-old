@@ -113,7 +113,7 @@ def file_mysql():
         return json.dumps({"result": "success"})
 
 
-@app.route('/file/input'), methods=['POST'])
+@app.route('/file/input', methods=['POST'])
 def file_input():
     file = request.files['file']
     file.save(os.path.join(app.config['UPLOAD_FOLDER'],"backup.xlsx"))
