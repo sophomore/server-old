@@ -9,7 +9,7 @@ import statistic
 
 from datetime import datetime
 
-app = Flask(__name__)
+    app = Flask(__name__)
 app.debug = True
 
 
@@ -115,6 +115,7 @@ def file_mysql():
 
 @app.route('/file/input', methods=['POST'])
 def file_input():
+    print(request.form['file'])
     util.input()
 
 
