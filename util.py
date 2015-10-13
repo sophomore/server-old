@@ -74,7 +74,7 @@ def input():
                                 db.add(ordermenu)
                             else:
                                 writer = csv.writer(f)
-                                writer.writerow([bef,'1'])
+                                writer.writerow({'menus':bef, "something":0})
 
                     else:
                         if o in ms:
@@ -86,7 +86,7 @@ def input():
                             db.commit()
                         else:
                             writer = csv.writer(f)
-                            writer.writerow([o,'0'])
+                            writer.writerow({'menus':o, "something":0})
 
 def get_sign(strg,st):
     bef,m,aft = strg.partition(st)
