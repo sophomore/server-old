@@ -38,10 +38,10 @@ def menu():
         return abort(400)
 
 @app.route('/menu/all', methods=['GET'])
-    def menu_all():
-        if request.method == 'GET':
-            return json.dumps(menu_manager.get_all_dict())
-            return abort(400)
+def menu_all():
+    if request.method == 'GET':
+        return json.dumps(menu_manager.get_all_dict())
+        return abort(400)
 
 # Order
 @app.route('/order/<int:id>', methods=['GET', 'DELETE', 'POST'])
