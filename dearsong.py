@@ -10,10 +10,9 @@ import os
 
 from datetime import datetime
 
-UPLOAD_FOLDER = '~/'
-
 app = Flask(__name__)
 app.debug = True
+app.config['UPLOAD_FOLDER'] = '~/'
 
 
 # Menu
