@@ -75,7 +75,7 @@ def input():
                                 writer.writerrow(bef)
 
                     else:
-                        if bef in ms:
+                        if o in ms:
                             ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
                             twice=(count_twice),takeout=takeout(str(row[3].value)))
                             count_twice = count_twice - 1
@@ -84,7 +84,7 @@ def input():
                             db.commit()
                         else:
                             writer = csv.writer(f)
-                            writer.writerrow(bef)
+                            writer.writerrow(o)
 
 def get_sign(strg,st):
     bef,m,aft = strg.partition(st)
