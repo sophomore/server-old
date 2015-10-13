@@ -9,7 +9,7 @@ import statistic
 
 from datetime import datetime
 
-    app = Flask(__name__)
+app = Flask(__name__)
 app.debug = True
 
 
@@ -107,17 +107,17 @@ def print_statement():
 def file_mysql():
     if request.method == 'GET':
         util.output()
-        return json.dumps({"result":"success"})
+        return json.dumps({"result": "success"})
     else:
         util.input_two()
-        return json.dumps({"result":"success"})
+        return json.dumps({"result": "success"})
 
 
 @app.route('/file/input', methods=['POST'])
 def file_input():
     print(request.form['file'])
     util.input()
-    return json.dumps({"result":"success"})
+    return json.dumps({"result": "success"})
 
 
 @app.route('/')
