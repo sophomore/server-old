@@ -33,14 +33,14 @@ def output():
 def input_two():
     os.system("mysql --user=song --password=Qoswlfdlsnrn pos < backup.sql")
 
-def input():
+def input(file):
     menus = db.query(Menu).all();
     ms = {}
     price = {}
     for menu in menus:
         ms[menu.name] = menu.id;
         price[menu.name] = menu.price
-        wb = load_workbook(filename="입출금관리.xlsx", read_only = True)
+        wb = load_workbook(filename='~/'+file.filename read_only = True)
         ws = wb['입출금관리']
         a = lambda x: x>0
         takeout = lambda x: x=="배달"
