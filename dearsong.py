@@ -117,6 +117,7 @@ def file_mysql():
 def file_input():
     print(request.form['file'])
     util.input()
+    return json.dumps({"result":"success"})
 
 
 @app.route('/')
