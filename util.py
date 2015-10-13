@@ -59,11 +59,11 @@ def input():
                     pay = 1
                 else:
                     pay = 4
-                if o.endswith(")"):
-                    bef,m,aft = order.partition("(")
-                    bef,m,aft = aft.partition(")")
-                    for i in range(bef):
-                        with open('notmatchedmenu.csv','wb') as f:
+                with open('notmatchedmenu.csv','wb') as f:
+                    if o.endswith(")"):
+                        bef,m,aft = order.partition("(")
+                        bef,m,aft = aft.partition(")")
+                        for i in range(bef):
                             if bef in ms:
                                 ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
                                 twice=a(count_twice),takeout=takeout(str(row[3].value)))
@@ -74,13 +74,17 @@ def input():
                                 writer = csv.writer(f)
                                 writer.writerrow(bef)
 
-                else:
-                    ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
-                    twice=(count_twice),takeout=takeout(str(row[3].value)))
-                    count_twice = count_twice - 1
-                    count_curry = count_curry - 1 
-                    db.add(ordermenu)
-                    db.commit()
+                    else:
+                        if bef in ms:
+                            ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
+                            twice=(count_twice),takeout=takeout(str(row[3].value)))
+                            count_twice = count_twice - 1
+                            count_curry = count_curry - 1 
+                            db.add(ordermenu)
+                            db.commit()
+                        else:
+                            writer = csv.writer(f)
+                            writer.writerrow(bef)
 
 def get_sign(strg,st):
     bef,m,aft = strg.partition(st)
