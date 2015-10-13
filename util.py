@@ -66,7 +66,7 @@ def input():
                         with open('notmatchedmenu.csv','wb') as f:
                             if bef in ms:
                                 ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
-                                twice=a(count_twice),takeout=takeout(str(row[3].value))
+                                twice=a(count_twice),takeout=takeout(str(row[3].value)))
                                 count_twice = count_twice - 1
                                 count_curry = count_curry - 1
                                 db.add(ordermenu)
@@ -76,7 +76,7 @@ def input():
 
                 else:
                     ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
-                    twice=(count_twice),takeout=takeout(str(row[3].value)) 
+                    twice=(count_twice),takeout=takeout(str(row[3].value)))
                     count_twice = count_twice - 1
                     count_curry = count_curry - 1 
                     db.add(ordermenu)
