@@ -72,7 +72,7 @@ def input():
                                 db.add(ordermenu)
                             else:
                                 writer = csv.writer(f)
-                                writer.writerow(bef)
+                                writer.writerow([bef])
 
                     else:
                         if o in ms:
@@ -84,7 +84,7 @@ def input():
                             db.commit()
                         else:
                             writer = csv.writer(f)
-                            writer.writerow(o)
+                            writer.writerow([o])
 
 def get_sign(strg,st):
     bef,m,aft = strg.partition(st)
