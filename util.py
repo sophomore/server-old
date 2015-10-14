@@ -44,6 +44,7 @@ def input():
     ws = wb['입출금관리']
     a = lambda x: x>0
     takeout = lambda x: x=="배달"
+    f = open("../menus.txt",'w')
     for row in ws.iter_rows(row_offset=1):
         if str(row[0].value) == "합 계":
             break
@@ -62,7 +63,6 @@ def input():
             pay = 4
         ordermenus = str(row[13].value).split(",")
         for o in ordermenus:
-            f = open("../menus.txt",'w')
             if o.endswith(")"):
                 bef,m,aft = o.partition("(")
                 num,m,aft = aft.partition(")")
@@ -85,7 +85,7 @@ def input():
                     db.commit()
                 else:
                     f.write(o)
-            f.close()
+    f.close()
 
 def get_sign(strg,st):
     bef,m,aft = strg.partition(st)
