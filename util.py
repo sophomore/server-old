@@ -40,49 +40,51 @@ def input():
     for menu in menus:
         ms[menu.name] = menu.id;
         price[menu.name] = menu.price
-        wb = load_workbook(filename='../backup.xlsx',read_only = True)
-        ws = wb['입출금관리']
-        a = lambda x: x>0
-        takeout = lambda x: x=="배달"
-        for row in ws.iter_rows(row_offset=1):
-            date = str(row[0].value)+' '+str(row[2].value)+':00'
-            totalprice = row[6]
-            order = Order(date,totalprice)
-            db.add(order)
-            count_twice = get_sign(str(row[13].value),"곱배기추가")
-            count_curry = get_sign(str(row[13].value),"카레추가")
-            if int(row[8].value) == 0:
-                pay = 2
-            elif int(row[9].value) ==0:
-                pay = 1
-            else:
-                pay = 4
-            ordermenus = str(row[13].value).split(",")
-            for o in ordermenus:
-                f = open("../menus.txt",'w')
-                if o.endswith(")"):
-                    bef,m,aft = o.partition("(")
-                    num,m,aft = aft.partition(")")
-                    for i in range(int(num)):
-                        if bef in ms:
-                            ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
-                            twice=a(count_twice),takeout=takeout(str(row[3].value)))
-                            count_twice = count_twice - 1
-                            count_curry = count_curry - 1
-                            db.add(ordermenu)
-                        else:
-                            f.write(bef)
-                else:
-                    if o in ms:
-                        ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
-                        twice=(count_twice),takeout=takeout(str(row[3].value)))
+    wb = load_workbook(filename='../backup.xlsx',read_only = True)
+    ws = wb['입출금관리']
+    a = lambda x: x>0
+    takeout = lambda x: x=="배달"
+    for row in ws.iter_rows(row_offset=1):
+        if str(row[0].vlaue) == "합계":
+            break
+        date = str(row[0].value)+' '+str(row[2].value)+':00'
+        totalprice = row[6]
+        order = Order(date,totalprice)
+        db.add(order)
+        count_twice = get_sign(str(row[13].value),"곱배기추가")
+        count_curry = get_sign(str(row[13].value),"카레추가")
+        if int(row[8].value) == 0:
+            pay = 2
+        elif int(row[9].value) ==0:
+            pay = 1
+        else:
+            pay = 4
+        ordermenus = str(row[13].value).split(",")
+        for o in ordermenus:
+            f = open("../menus.txt",'w')
+            if o.endswith(")"):
+                bef,m,aft = o.partition("(")
+                num,m,aft = aft.partition(")")
+                for i in range(int(num)):
+                    if bef in ms:
+                        ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
+                        twice=a(count_twice),takeout=takeout(str(row[3].value)))
                         count_twice = count_twice - 1
-                        count_curry = count_curry - 1 
+                        count_curry = count_curry - 1
                         db.add(ordermenu)
-                        db.commit()
                     else:
-                        f.write(o)
-                f.close()
+                        f.write(bef)
+            else:
+                if o in ms:
+                    ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
+                    twice=(count_twice),takeout=takeout(str(row[3].value)))
+                    count_twice = count_twice - 1
+                    count_curry = count_curry - 1 
+                    db.add(ordermenu)
+                    db.commit()
+                else:
+                    f.write(o)
+            f.close()
 
 def get_sign(strg,st):
     bef,m,aft = strg.partition(st)
