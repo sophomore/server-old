@@ -59,34 +59,30 @@ def input():
                     pay = 1
                 else:
                     pay = 4
-                with open('notmatchedmenu.csv','wb') as f:
-                    fieldnames = ['menus','something']
-                    writer = csv.DictWriter(f, fieldnames=fieldnames)
-                    if o.endswith(")"):
-                        bef,m,aft = order.partition("(")
-                        bef,m,aft = aft.partition(")")
-                        for i in range(bef):
-                            if bef in ms:
-                                ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
-                                twice=a(count_twice),takeout=takeout(str(row[3].value)))
-                                count_twice = count_twice - 1
-                                count_curry = count_curry - 1
-                                db.add(ordermenu)
-                            else:
-                                writer = csv.writer(f)
-                                writer.writerow({'menus':bef, "something":0})
-
-                    else:
-                        if o in ms:
-                            ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
-                            twice=(count_twice),takeout=takeout(str(row[3].value)))
+                f = open("../menus.txt",'w')
+                if o.endswith(")"):
+                    bef,m,aft = order.partition("(")
+                    bef,m,aft = aft.partition(")")
+                    for i in range(bef):
+                        if bef in ms:
+                            ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
+                            twice=a(count_twice),takeout=takeout(str(row[3].value)))
                             count_twice = count_twice - 1
-                            count_curry = count_curry - 1 
+                            count_curry = count_curry - 1
                             db.add(ordermenu)
-                            db.commit()
                         else:
-                            writer = csv.writer(f)
-                            writer.writerow({'menus':o, "something":0})
+                            f.write(bef)
+                else:
+                    if o in ms:
+                        ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
+                        twice=(count_twice),takeout=takeout(str(row[3].value)))
+                        count_twice = count_twice - 1
+                        count_curry = count_curry - 1 
+                        db.add(ordermenu)
+                        db.commit()
+                    else:
+                        f.write(o)
+                f.close()
 
 def get_sign(strg,st):
     bef,m,aft = strg.partition(st)
