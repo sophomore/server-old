@@ -70,21 +70,21 @@ def input():
                     if bef in ms and (bef != "곱배기추가" and bef != "카레추가"):
                         ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
                         twice=a(count_twice),takeout=takeout(str(row[3].value)))
-                        count_twice = count_twice - 1
-                        count_curry = count_curry - 1
                         db.add(ordermenu)
                     elif bef!="곱배기추가" and bef!="카레추가":
-                        f.write(bef+","+str(count_twice))
+                        f.write(bef)
+                    count_twice = count_twice - 1
+                    count_curry = count_curry - 1
             else:
                 if o in ms and (o != "곱배기추가" and o != "카레추가"):
                     ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
                     twice=(count_twice),takeout=takeout(str(row[3].value)))
-                    count_twice = count_twice - 1
-                    count_curry = count_curry - 1 
                     db.add(ordermenu)
-                    db.commit()
                 elif o != "곱배기추가" and o != "카레추가":
-                    f.write(o+","+str(count_twice))
+                    f.write(o)
+                count_twice = count_twice - 1
+                count_curry = count_curry - 1 
+        db.commit()
         f.write('\n')
     f.close()
 
