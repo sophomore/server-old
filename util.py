@@ -44,7 +44,6 @@ def input():
     ws = wb['입출금관리']
     a = lambda x: x>0
     takeout = lambda x: x=="배달"
-    removething = lambda x: x>0 ?: str(x) : ""
     f = open("../menus.txt",'w')
     for row in ws.iter_rows(row_offset=1):
         if str(row[0].value) == "합 계":
@@ -75,7 +74,7 @@ def input():
                         count_curry = count_curry - 1
                         db.add(ordermenu)
                     elif bef!="곱배기추가" and bef!="카레추가":
-                        f.write(bef+","+removething(count_twice))
+                        f.write(bef+","+str(count_twice))
             else:
                 if o in ms and (o != "곱배기추가" and o != "카레추가"):
                     ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
@@ -85,7 +84,7 @@ def input():
                     db.add(ordermenu)
                     db.commit()
                 elif o != "곱배기추가" and o != "카레추가":
-                    f.write(o+","+removething(count_twice))
+                    f.write(o+","+str(count_twice))
         f.write('\n')
     f.close()
 
