@@ -63,7 +63,7 @@ def input():
                 if o.endswith(")"):
                     bef,m,aft = o.partition("(")
                     num,m,aft = aft.partition(")")
-                    for i in range((int)num):
+                    for i in range(int(num):
                         if bef in ms:
                             ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
                             twice=a(count_twice),takeout=takeout(str(row[3].value)))
