@@ -47,7 +47,8 @@ def input():
     for row in ws.iter_rows(row_offset=1):
         if str(row[0].value) == "합계":
             break
-        date = str(row[0].value)+' '+str(row[2].value)+':00'
+        else:
+            date = str(row[0].value)+' '+str(row[2].value)+':00'
         totalprice = row[6]
         order = Order(date,totalprice)
         db.add(order)
