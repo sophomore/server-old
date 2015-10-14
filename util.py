@@ -74,7 +74,7 @@ def input():
                         count_curry = count_curry - 1
                         db.add(ordermenu)
                     else:
-                        f.write(bef+"**")
+                        f.write(bef)
             else:
                 if o in ms:
                     ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
@@ -85,6 +85,7 @@ def input():
                     db.commit()
                 else:
                     f.write(o)
+        f.write('\n')
     f.close()
 
 def get_sign(strg,st):
