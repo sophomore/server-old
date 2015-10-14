@@ -51,19 +51,19 @@ def input():
             db.add(order)
             count_twice = get_sign(str(row[13].value),"곱배기추가")
             count_curry = get_sign(str(row[13].value),"카레추가")
+            if int(row[8].value) == 0:
+                pay = 2
+            elif int(row[9].value) ==0:
+                pay = 1
+            else:
+                pay = 4
             ordermenus = str(row[13].value).split(",")
             for o in ordermenus:
-                if int(row[8].value) == 0:
-                    pay = 2
-                elif int(row[9].value) ==0:
-                    pay = 1
-                else:
-                    pay = 4
                 f = open("../menus.txt",'w')
                 if o.endswith(")"):
-                    bef,m,aft = order.partition("(")
-                    bef,m,aft = aft.partition(")")
-                    for i in range(bef):
+                    bef,m,aft = o.partition("(")
+                    num,m,aft = aft.partition(")")
+                    for i in range(num):
                         if bef in ms:
                             ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
                             twice=a(count_twice),takeout=takeout(str(row[3].value)))
