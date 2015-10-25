@@ -79,6 +79,15 @@ def line_chart(startDate, endDate, menus, unit):
     menu_name = {}
     count_for_result = -1
 
+    def set_result(menus):
+        result = {}
+        for m in menus:
+            menu = db.query(Menu).filter(Menu.id==m).first()
+            menu_name[m] = menu
+            print(m)
+            result[menu.name] = []
+        return result
+
     def init_hour_result(result):
         for m in result:
             for i in range(1, 25):
@@ -105,13 +114,7 @@ def line_chart(startDate, endDate, menus, unit):
         for m in result:
             result[m].append({'price': 0, 'count': 0, 'cashtotal': 0, 'cardtotal': 0, 'servicetotal': 0})
 
-    def set_result(menus):
-        result = {}
-        for m in menus:
-            menu = db.query(Menu).filter(Menu.id == m).first()
-            menu_name[m] = menu
-            result[menu.name] = []
-        return result
+
 
     result = set_result(menus)
     if unit == 1 or unit == 3:
