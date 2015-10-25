@@ -85,6 +85,12 @@ def search_order():
         ordermenus2 = Menu.query.all()
         for menu in ordermenus2:
             ordermenus.append(menu.id)
+    pay = json.loads(request.form['pay'])
+    if len(pay) == 0:
+        pay.append(1)
+        pay.append(2)
+        pay.append(3)
+        pay.append(4)
     return json.dumps(order_manager.search(startDate, endDate,ordermenus, request.form['pay']))
 
 @app.route('/statistic/linechart',methods=['POST'])
