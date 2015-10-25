@@ -119,8 +119,8 @@ def line_chart(startDate, endDate, menus, unit):
     result = set_result(menus)
     print(result)
     if unit == 1 or unit == 3:
-        orders = db.query(Order).filter(startDate <= Order.time,
-                                        Order.time <= endDate.replace(hour=23, minute=59, second=59)).all()
+        orders = db.query(Order).filter(start <= Order.time,
+                                        Order.time <= end.replace(hour=23, minute=59, second=59)).all()
         if unit == 1:
             result = init_hour_result(result)
             for order in orders:
@@ -193,8 +193,8 @@ def bar_chart(startDate, endDate, menus, unit):
         return result
 
     if unit == 1 or unit == 3:
-        orders = db.query(Order).filter(startDate <= Order.time,
-                                        Order.time <= endDate.replace(hour=23, minute=59, second=59)).all()
+        orders = db.query(Order).filter(start <= Order.time,
+                                        Order.time <= end.replace(hour=23, minute=59, second=59)).all()
         if unit == 1:
             result = init_hour_result(result)
             for order in orders:
