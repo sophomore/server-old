@@ -90,10 +90,10 @@ def linechart():
         for menu in menus:
             menus2.append(menu.id)
         return json.dumps(
-            statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'], menus2, request.form['unit']))
+            statistic.line_chart(request.form['startDate'], request.form['endDate'], menus2, request.form['unit']))
     else:
         return json.dumps(
-            statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'], request.form['menus'],
+            statistic.line_chart(request.form['startDate'], request.form['endDate'], request.form['menus'],
                                     request.form['unit']))
 @app.route('/statistic/barchart',methods=['POST'])
 def barchart():
@@ -104,10 +104,10 @@ def barchart():
         for menu in menus:
             menus2.append(menu.id)
         return json.dumps(
-            statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'], menus2, request.form['unit']))
+            statistic.bar_chart(request.form['startDate'], request.form['endDate'], menus2, request.form['unit']))
     else:
         return json.dumps(
-            statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'], request.form['menus'],
+            statistic.bar_chart(request.form['startDate'], request.form['endDate'], request.form['menus'],
                                     request.form['unit']))
 
 @app.route('/statistic/unit_menu_sum', methods=['POST'])
