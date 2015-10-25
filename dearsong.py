@@ -128,9 +128,7 @@ def statistic_month():
 
 @app.route('/util/print_statement', methods=['POST'])
 def print_statement():
-    time = request.form['time']
-    strtime = time.strptime(time, '%Y-%m-%d %H:%M:%S')
-    util.print_statement(request.form['order'],time)
+    util.print_statement(request.form['order'],request.form['time'])
 
 
 @app.route('/file/output', methods=['GET', 'POST'])
