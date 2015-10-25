@@ -175,19 +175,19 @@ def bar_chart(startDate, endDate, menus, unit):
     end = datetime.strptime(endDate + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
     current = start
     count_for_result = -1
-
+    result = []
     def init_hour_result(result):
         for i in range(1, 25):
             result.append({'cashtotal': 0, 'cardtotal': 0, 'servicetotal': 0, 'count': 0})
-
+        return result
     def init_week_result(result):
         for i in range(7):
             result.append({'cashtotal': 0, 'cardtotal': 0, 'servicetotal': 0, 'count': 0})
-
+        return result
     def init_result_per_unit(result):
         result.append({'cashtotal': 0, 'cardtotal': 0, 'servicetotal': 0, 'count': 0})
+        return result
 
-    result = []
     if unit == 1 or unit == 3:
         orders = db.query(Order).filter(startDate <= Order.time,
                                         Order.time <= endDate.replace(hour=23, minute=59, second=59)).all()
@@ -208,10 +208,7 @@ def bar_chart(startDate, endDate, menus, unit):
     else:
         while current <= end:
             if unit == 2:
-                ordermenus = db.query(OrderMenu).join(Order).filter(currentDate <= Order.time,
-                                                                    Order.time <= currentDate.replace(hour=23,
-                                                                                                      minute=59,
-                                                                                                      second=59)).all()
+                ordermenus = db.query(OrderMenu).join(Order).filter(current <= Order.time,Order.time <= current.replace(hour=23,minute=59,second=59)).all()
             elif unit == 4:
                 month_last = last_day_of_month(current, end)
                 ordermenus = db.query(OrderMenu).join(Order).filter(current <= Order.time,
@@ -224,8 +221,7 @@ def bar_chart(startDate, endDate, menus, unit):
                 current = quarter_month
             elif unit == 6:
                 last_year = last_day_of_year(current, end)
-                ordermenus = db.query(OrderMenu).join(Order).fileter(current <= Order.time,
-                                                                     Order.time <= last_year).all()
+                ordermenus = db.query(OrderMenu).join(Order).fileter(current <= Order.time,Order.time <= last_year).all()
                 current = last_year
 
             result = init_result_per_unit(result)
