@@ -79,6 +79,7 @@ def search_order():
     startDate = datetime.strptime(request.form['startDate'], '%Y-%m-%d %H:%M:%S')
     endDate = datetime.strptime(request.form['endDate'], '%Y-%m-%d %H:%M:%S')
     ordermenus = request.form['ordermenus']
+    ordermenus = json.loads(ordermenus)
     if len(ordermenus) == 0:
         print('asdf')
         ordermenus2 = Menu.query.all()
