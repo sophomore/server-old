@@ -23,6 +23,7 @@ def print_statement(order,time):
     f1 = open('./test','w+')
     print(output,file = f1)
     f1.close()
+    print(order)
     os.system('lpr test')
 
 
