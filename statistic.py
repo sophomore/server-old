@@ -113,10 +113,11 @@ def line_chart(startDate, endDate, menus, unit):
     def init_result_per_unit(result):
         for m in result:
             result[m].append({'price': 0, 'count': 0, 'cashtotal': 0, 'cardtotal': 0, 'servicetotal': 0})
-
+        return result
 
 
     result = set_result(menus)
+    print(result)
     if unit == 1 or unit == 3:
         orders = db.query(Order).filter(startDate <= Order.time,
                                         Order.time <= endDate.replace(hour=23, minute=59, second=59)).all()
