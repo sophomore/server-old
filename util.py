@@ -20,7 +20,7 @@ def print_statement(order,time):
     output +=u''+order
     output +=u'---------------------------------\n'
     output +=u'\x1bm'
-    f1 = open('./test','w+')
+    f1 = open('./test','w+',encoding="euc-kr")
     print(output,file = f1)
     f1.close()
     os.system('lpr -P RECEIPT_PRINTER test')
