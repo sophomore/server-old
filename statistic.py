@@ -108,7 +108,7 @@ def line_chart(startDate, endDate, menus, unit):
     def set_result(menus):
         result = {}
         for m in menus:
-            menu = Menu.queary().filter_by(id=m).first()
+            menu = Menu.query().filter_by(id=m).first()
             menu_name[m] = menu
             result[menu.name] = []
         return result
@@ -136,8 +136,8 @@ def line_chart(startDate, endDate, menus, unit):
     else:
         while current <= end:
             if unit == 2:
-                ordermenus = db.query(OrderMenu).join(Order).filter(currentDate <= Order.time,
-                                                                    Order.time <= currentDate.replace(hour=23,
+                ordermenus = db.query(OrderMenu).join(Order).filter(current <= Order.time,
+                                                                    Order.time <= current.replace(hour=23,
                                                                                                       minute=59,
                                                                                                       second=59)).all()
             elif unit == 4:
