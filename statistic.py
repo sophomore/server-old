@@ -211,8 +211,7 @@ def bar_chart(startDate, endDate, menus, unit):
                 ordermenus = db.query(OrderMenu).join(Order).filter(current <= Order.time,Order.time <= current.replace(hour=23,minute=59,second=59)).all()
             elif unit == 4:
                 month_last = last_day_of_month(current, end)
-                ordermenus = db.query(OrderMenu).join(Order).filter(current <= Order.time,
-                                                                    Order.time <= month_last).all()
+                ordermenus = db.query(OrderMenu).join(Order).filter(current <= Order.time,Order.time <= month_last).all()
                 current = month_last
             elif unit == 5:
                 quarter_month = last_day_of_quarter(current, end)
@@ -223,8 +222,9 @@ def bar_chart(startDate, endDate, menus, unit):
                 last_year = last_day_of_year(current, end)
                 ordermenus = db.query(OrderMenu).join(Order).fileter(current <= Order.time,Order.time <= last_year).all()
                 current = last_year
-
+            print(result)
             result = init_result_per_unit(result)
+            print(result)
             count_for_result += 1
             for ordermenu in ordermenus:
                 if ordermenu.menu_id in menus:
