@@ -83,7 +83,7 @@ def line_chart(startDate, endDate, menus, unit):
         result = {}
         for m in menus:
             menu = db.query(Menu).filter(Menu.id==m).first()
-            menu_name[m] = menu
+            menu_name[m] = menu.name
             print(m)
             result[menu.name] = []
         return result
