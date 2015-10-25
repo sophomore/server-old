@@ -90,7 +90,7 @@ def line_chart(startDate, endDate, menus, unit):
 
     def init_hour_result(result):
         for m in result:
-            for i in range(1, 25):
+            for i in range(0, 24):
                 result[m].append({})
                 result[m][i]['price'] = 0
                 result[m][i]['count'] = 0
