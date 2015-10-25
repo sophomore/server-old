@@ -231,7 +231,7 @@ def bar_chart(startDate, endDate, menus, unit):
                     result[count_for_result]['count'] += 1
                     increaseTotalPrice(ordermenu, result[count_for_result])
             current = current + relativedelta(days=1)
-
+    return result
 
 def unit_menu_sum(startDate, endDate, menus, unit):
     print(menus)
