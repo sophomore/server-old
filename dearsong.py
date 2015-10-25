@@ -91,7 +91,7 @@ def search_order():
         pay.append(2)
         pay.append(3)
         pay.append(4)
-    return json.dumps(order_manager.search(startDate, endDate,ordermenus, request.form['pay']))
+    return json.dumps(order_manager.search(startDate, endDate,ordermenus, pay))
 
 @app.route('/statistic/linechart',methods=['POST'])
 def linechart():
