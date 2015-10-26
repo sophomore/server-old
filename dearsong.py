@@ -1,5 +1,5 @@
 from flask import Flask, request, abort
-from models import Menu, Category
+from models import Menu, Category, OrderMenu, Order
 from mydb import db_session as db
 import json
 import order_manager
@@ -122,15 +122,46 @@ def barchart():
             statistic.bar_chart(request.form['startDate'], request.form['endDate'], request.form['menus'],
                                     request.form['unit']))
 
+<<<<<<< HEAD
 @app.route('/order/print/statement', methods=['post'])
 def print_statement():
     o = json.loads(request.form['ordermenus'])
     util.print_statement(o,request.form['time'])
     return json.dumps({"result":"success"})
+=======
+@app.route('/statistic/unit_menu_sum', methods=['POST'])
+def statistic_month():
+    menus = json.loads(request.form['menus'])
+    if len(menus) == 0:
+        menus2 = []
+        menus = db.query(Menu.id).all()
+        for menu in menus:
+            menus2.append(menu.id)
+        return json.dumps(
+            statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'], menus2, request.form['unit']))
+    else:
+        return json.dumps(
+            statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'], request.form['menus'],
+                                    request.form['unit']))
+
+@app.route('/order/<int:id>/print/statement', methods=['GET'])
+def print_statement(id):
+    order = db.query(Order).filter(Order.id == id).first()
+    if order == None:
+        return json.dumps({"result": "error", "error":"Not found order id"+str(id)})
+    else:
+        util.print_statement(order)
+        return json.dumps({"result":"success"})
+>>>>>>> 0fc0af04c8e97974e836e9b591a21dc0323da6b1
 
 @app.route('/order/<int:id>/print/receipt', methods=['GET'])
-def print_receipt():
-    return json.dumps({"error":"error"})
+def print_receipt(id):
+    ordermenus = db.query(OrderMenu).join(Order).filter(Order.id == id).all()
+    if order ==  None:
+        return json.dumps({"result":"error","error":"Not found order id"+str(id)})
+    else:
+        util.print_receipt(ordermenus)
+        return json.dumps({"result":"success"})
 
 @app.route('/file/output', methods=['GET', 'POST'])
 def file_mysql():

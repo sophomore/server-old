@@ -6,7 +6,65 @@ from models import OrderMenu, Order, Menu
 from mydb import db_session as db
 import time
 
-def print_statement(orders,ordertime):
+def print_receipt(ordermenus):
+	menus = db.query(Menu).all()
+	ms = [""]
+	order = {}
+	curry = {}
+	twice = {}
+	takeout = {}
+	t_curry = {}
+	t_twice = {}
+	for menu in menus:
+		ms.append(menu.name)
+	for ordermenu in ordermenus:
+		name = ms[ordermenu.menu_id]
+		if not ordermenu.takeout:
+			if name in order:
+				order[name] += 1
+			else:
+				order[name] = 1
+				curry[name] = 0
+				twice[name] = 0
+			if ordermenu.curry:
+				curry[name] +=1
+			if ordermenu.twice:
+				twice[name] +=1
+		else:
+			if name in takeout:
+				takeout[name] += 1
+			else:
+				takeout[name] = 1
+				t_curry[name] = 0
+				t_twice[name] = 0
+			if ordermenu.curry:
+				t_curry[name] +=1
+			if ordermenu.twice:
+				t_twice[name] +=1
+	string = u'\x1b\x44\x04\x0e\x00'
+	string +=u'메    뉴    수량\n'
+	for key in order:
+		string += u''+key+'\n'
+		string += u'\x09일반\x09'+str(order[key]-curry[key]-twice[key])+'\n'
+		if curry[key]>0:
+			string += u'\x09카레\x09'+str(curry[key])+'\n'
+		if twice[key]>0:
+			string += u'\x09  곱\x09'+str(twice[key])+'\n'
+	string += u'---------------------------------\n'
+	for key in takeout:
+		string += u''+key+'\n'
+		string += u'\x09일반\x09'+str(takeout[key]-t_curry[key]-t_twice[key])+'\n'
+		if t_curry[key]>0:
+			string += u'\x09카레\x09'+str(t_curry[key])+'\n'
+		if t_curry[key]>0:
+			string += u'\x09  곱\x09'+str(t_curry[key])+'\n\n\n\n\n'
+	string += u'\x1bm'
+	f1 = open('./reciept','w+',encoding="euc-kr")
+	print(output,file = f1)
+	f1.close()
+	os.system('lpr -P RECEIPT_PRINTER test')
+def print_statement(orders):
+    time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
     menus = db.query(Menu).all()
     ms = [""]
     price = {}
@@ -16,15 +74,15 @@ def print_statement(orders,ordertime):
     for menu in menus:
         ms.append(menu.name)
         price[menu.name] = menu.price
-    for ordermenu in orders:
-        name = ms[ordermenu['menu_id']]
+    for ordermenu in orders.ordermenus:
+        name = ms[ordermenu.menu_id]
         if name in order:
             order[name] += order[name]+1
         else:
             order[name] = 1
-        if ordermenu['curry']:
+        if ordermenu.curry:
             curry+=1
-        if ordermenu['twice']:
+        if ordermenu.twice:
             twice +=1
     orderstring = ''
     for o in order:
@@ -40,13 +98,13 @@ def print_statement(orders,ordertime):
     output +=u'대   표: 송호성\n'
     output +=u'전화번호: 031-480-4595\n'
     output +=u'주   소: 경기 안산시 상록구 사동 1165번지\n\n'
-    output +=u'주문:'+ordertime+'\n'
+    output +=u'주문:'+time+'\n'
     output +=u'---------------------------------\n'
     output +=u'상 품 명'.center(6)+'  수량'.center(2)+'  단가'.center(5)+'   금 액'.center(6)+'\n'
     output +=u''+orderstring
-    output +=u'---------------------------------\x1b\x33\xf0\x0a\n\x1b\x40\n'
+    output +=u'---------------------------------\n\n\n\n\n\n\n\n'
     output +=u'\x1bm'
-    f1 = open('./test','w+',encoding="euc-kr")
+    f1 = open('./statement','w+',encoding="euc-kr")
     print(output,file = f1)
     f1.close()
     os.system('lpr -P RECEIPT_PRINTER test')
