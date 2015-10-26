@@ -69,7 +69,8 @@ def print_statement(ordermenus,time):
 		if t_curry[key]>0:
 			string += u'\x09카레\x09'+str(t_curry[key])+'\n'
 		if t_curry[key]>0:
-			string += u'\x09  곱\x09'+str(t_curry[key])+'\n\n\n\n\n\n\n\n\n\n'
+			string += u'\x09  곱\x09'+str(t_curry[key])+'\n'
+	string +=u'-------------------------------------\n\n\n\n\n\n\n\n\n\n\n\n'
 	string += u'\x1bm'
 	f1 = open('./statement','w+',encoding="euc-kr")
 	print(string,file = f1)
