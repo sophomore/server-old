@@ -7,7 +7,7 @@ from mydb import db_session as db
 import time
 
 def print_receipt(ordermenus):
-	menus = db.qury(Menu).all()
+	menus = db.query(Menu).all()
 	ms = [""]
 	order = {}
 	takeout = {}
