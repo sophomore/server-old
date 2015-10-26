@@ -10,7 +10,11 @@ def print_receipt(ordermenus):
 	menus = db.query(Menu).all()
 	ms = [""]
 	order = {}
+	curry = {}
+	twice = {}
 	takeout = {}
+	t_curry = {}
+	t_twice = {}
 	for menu in menus:
 		ms.append(menu.name)
 	for ordermenu in ordermenus:
@@ -20,40 +24,40 @@ def print_receipt(ordermenus):
 				order[name] += 1
 			else:
 				order[name] = 1
-				order[name+'curry'] = 0
-				order[name+'twice'] = 0
+				curry[name] = 0
+				twice[name] = 0
 			if ordermenu.curry:
-				order[name+'curry'] +=1
+				curry[name] +=1
 			if ordermenu.twice:
-				order[name+'twice'] +=1
+				twice[name] +=1
 		else:
 			if name in takeout:
 				takeout[name] += 1
 			else:
 				takeout[name] = 1
-				takeout[name+'curry'] = 0
-				takeout[name+'twice'] = 0
+				t_curry[name] = 0
+				t_twice[name] = 0
 			if ordermenu.curry:
-				takeout[name+'curry'] +=1
+				t_curry[name] +=1
 			if ordermenu.twice:
-				takeout[name+'twice'] +=1
+				t_twice[name] +=1
 	string = u'\x1b\x44\x04\x0e\x00'
 	string +=u'메    뉴    수량'
 	for key in order:
 		string += u''+key+'\n'
-		string += u'\x09일반\x09'+str(order[key]-order[key+'curry']-order[key+'twice'])+'\n'
+		string += u'\x09일반\x09'+str(order[key]-curry[key]-twice[key])+'\n'
 		if order[key+curry]>0:
-			string += u'\x09카레\x09'+str(order[key+'curry'])+'\n'
+			string += u'\x09카레\x09'+str(curry[key])+'\n'
 		if order[key+twice]>0:
-			string += u'\x09  곱\x09'+str(order[key+'twice'])+'\n'
+			string += u'\x09  곱\x09'+str(twice[key])+'\n'
 	string += u'---------------------------------\n'
 	for key in takeout:
 		string += u''+key+'\n'
-		string += u'\x09일반\x09'+str(takeout[key]-takeout[key+'curry']-takeout[key+'twice'])+'\n'
+		string += u'\x09일반\x09'+str(takeout[key]-t_curry[key]-t_twice[key])+'\n'
 		if takeout[key+curry]>0:
-			string += u'\x09카레\x09'+str(takeout[key+'curry'])+'\n'
+			string += u'\x09카레\x09'+str(t_curry[key])+'\n'
 		if takeout[key+twice]>0:
-			string += u'\x09  곱\x09'+str(takeout[key+'twice'])+'\n\n\n\n\n'
+			string += u'\x09  곱\x09'+str(t_curry[key])+'\n\n\n\n\n'
 	string += u'\x1bm'
 	f1 = open('./test','w+',encoding="euc-kr")
 	print(output,file = f1)
