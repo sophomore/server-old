@@ -6,7 +6,61 @@ from models import OrderMenu, Order, Menu
 from mydb import db_session as db
 import time
 
-def print_statement(orders,ordertime):
+def print_receipt(ordermenus):
+	menus = db.qury(Menu).all()
+	ms = [""]
+	order = {}
+	takeout = {}
+	curry = 0
+	twice = 0
+	for menu in menus:
+		ms.append(menu.name)
+	for ordermenu in ordermenus:
+		if !ordermenu.takeout:
+			if ordermenu.name in order:
+				order[ordermenu.name] += 1
+			else:
+				order[ordermenu.name] = 1
+				order[ordermenu.name+curry] = 0
+				order[ordermenu.name+twice] = 0
+			if ordermenu.curry:
+				order[ordermenu.name+curry] +=1
+			if ordermenu.twice:
+				order[ordermenu.name+twice] +=1
+		else:
+			if ordermenu.name in order:
+				takeout[ordermenu.name] += 1
+			else:
+				takeout[ordermenu.name] = 1
+				takeout[ordermenu.name+curry] = 0
+				takeout[ordermenu.name+twice] = 0
+			if ordermenu.curry:
+				takeout[ordermenu.name+curry] +=1
+			if ordermenu.twice:
+				takeout[ordermenu.name+twice] +=1
+	string = u'\x1b\x44\x04\x0e\x00'
+	string +=u'메    뉴    수량'
+	for key in order:
+		string += u''+key+'\n'
+		string += u'\x09일반\x09'+str(order[key]-order[key+curry]-order[key+twice])+'\n'
+		if order[key+curry]>0:
+			string += u'\x09카레\x09'+str(order[key+curry])+'\n'
+		if order[key+twice]>0:
+			string += u'\x09  곱\x09'+str(order[key+twice])+'\n'
+	string += u'---------------------------------\n'
+	for key in takeout:
+		string += u''+key+'\n'
+		string += u'\x09일반\x09'+str(takeout[key]-takeout[key+curry]-takeout[key+twice])+'\n'
+		if takeout[key+curry]>0:
+			string += u'\x09카레\x09'+str(takeout[key+curry])+'\n'
+		if takeout[key+twice]>0:
+			string += u'\x09  곱\x09'+str(takeout[key+twice])+'\n\n\n\n\n'
+	string += u'\x1bm'
+    f1 = open('./test','w+',encoding="euc-kr")
+    print(output,file = f1)
+    f1.close()
+    os.system('lpr -P RECEIPT_PRINTER test')
+def print_statement(orders):
     menus = db.query(Menu).all()
     ms = [""]
     price = {}
@@ -16,8 +70,8 @@ def print_statement(orders,ordertime):
     for menu in menus:
         ms.append(menu.name)
         price[menu.name] = menu.price
-    for ordermenu in orders:
-        name = ms[ordermenu['menu_id']]
+    for ordermenu in orders.ordermenus:
+        name = ms[ordermenu[ordermenu.menu_id]]
         if name in order:
             order[name] += order[name]+1
         else:
