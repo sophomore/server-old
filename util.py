@@ -8,7 +8,7 @@ import time
 import menu_manager
 
 def get_menus():
-	global g_menus = None
+	global g_menus
 	if g_menus == None:
 		g_menus = {}
 		menu = Menu.query.all()
