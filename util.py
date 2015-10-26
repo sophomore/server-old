@@ -64,7 +64,7 @@ def print_receipt(ordermenus):
 	f1.close()
 	os.system('lpr -P RECEIPT_PRINTER test')
 def print_statement(orders):
-    time = datetime.strptime(orders.time, '%Y-%m-%d %H:%M:%S')
+    time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
     menus = db.query(Menu).all()
     ms = [""]
     price = {}
