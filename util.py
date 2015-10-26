@@ -6,8 +6,25 @@ from models import OrderMenu, Order, Menu
 from mydb import db_session as db
 
 
-def print_statement(order,time):
+def print_statement(orders,time):
+	menus = db.query(Menu).all()
+	ms = [""]
+	order = {}
+	curry = 0
+	twice = 0
 
+	for menu in menus:
+		ms.append(menu.name)
+	for ordermenu in orders:
+		name = ms[ordermenu['menu_id']]
+		if name in order:
+			order[name] += order[name]+1
+		else:
+			order[name] = 1
+		if ordermenu['curry']:
+			curry+=1
+		if ordermenu['twice']:
+			twice +=1
     output = ''
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
@@ -16,7 +33,13 @@ def print_statement(order,time):
     output +=u'주   소: 경기 안산시 상록구 사동 1165번지\n\n'
     output +=u'주문:'+time
     output +=u'---------------------------------\n'
-    output +=u'상 품 명'.center(6)+'수량'.center(2)+'단가'.center(5)+'금 액'.center(6)
+    output +=u'상 품 명'.center(6)+'수량'.center(2)+'단가'.center(5)+'금 액'.center(6)+'\n'
+    for odermenu in orders:
+    	if ordermenu['curry']:
+    		curry+=1
+    	if ordermenu['twice']:
+    		twice+=1
+    	output +=u''+ms[orders['menu_id']]+'\x09'+
     output +=u''+order
     output +=u'---------------------------------\n'
     output +=u'\x1bm'
@@ -34,7 +57,7 @@ def input_two():
     os.system("mysql --user=song --password=Qoswlfdlsnrn pos < backup.sql")
 
 def input():
-    menus = db.query(Menu).all();
+    menus = db.query(Menu).all()
     ms = {}
     price = {}
     for menu in menus:

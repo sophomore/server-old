@@ -125,13 +125,14 @@ def statistic_month():
             statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'], request.form['menus'],
                                     request.form['unit']))
 
-
-@app.route('/util/print_statement', methods=['POST'])
+@app.route('/order/print/statement', methods=['GET'])
 def print_statement():
     o = request.form['order']
     print(o)
     util.print_statement(o,request.form['time'])
 
+@app.route('/order/<int:id>/print/receipt', methods=['GET'])
+def print_receipt():
 
 @app.route('/file/output', methods=['GET', 'POST'])
 def file_mysql():
