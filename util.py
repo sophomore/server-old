@@ -27,7 +27,7 @@ def print_statement(ordermenus):
 	t_curry = {}
 	t_twice = {}
 	for ordermenu in ordermenus:
-		name = menus[ordermenu.menu_id]
+		name = menus[ordermenu.menu_id].name
 		if not ordermenu.takeout:
 			if name in order:
 				order[name] += 1
