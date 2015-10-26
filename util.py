@@ -7,9 +7,10 @@ from mydb import db_session as db
 import time
 import menu_manager
 
-global g_menus
+g_menus = None
 
 def get_menus():
+	global g_menus
 	if g_menus == None:
 		g_menus = {}
 		menu = Menu.query.all()
