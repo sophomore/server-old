@@ -39,12 +39,6 @@ def print_statement(orders,time):
     output +=u'주문:'+time
     output +=u'---------------------------------\n'
     output +=u'상 품 명'.center(6)+'수량'.center(2)+'단가'.center(5)+'금 액'.center(6)+'\n'
-    for odermenu in orders:
-        if ordermenu['curry']:
-            curry+=1
-        if ordermenu['twice']:
-            twice+=1
-        output +=u''+ms[orders['menu_id']]+'\x09'+
     output +=u''+orderstring
     output +=u'---------------------------------\n'
     output +=u'\x1bm'
