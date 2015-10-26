@@ -42,7 +42,7 @@ def print_receipt(ordermenus):
 			if ordermenu.twice:
 				t_twice[name] +=1
 	string = u'\x1b\x44\x04\x0e\x00'
-	string +=u'메    뉴    수량'
+	string +=u'메    뉴    수량\n'
 	for key in order:
 		string += u''+key+'\n'
 		string += u'\x09일반\x09'+str(order[key]-curry[key]-twice[key])+'\n'
@@ -97,7 +97,7 @@ def print_statement(orders):
     output +=u'대   표: 송호성\n'
     output +=u'전화번호: 031-480-4595\n'
     output +=u'주   소: 경기 안산시 상록구 사동 1165번지\n\n'
-    output +=u'주문:'+order.time+'\n'
+    output +=u'주문:'+orders.time+'\n'
     output +=u'---------------------------------\n'
     output +=u'상 품 명'.center(6)+'  수량'.center(2)+'  단가'.center(5)+'   금 액'.center(6)+'\n'
     output +=u''+orderstring
