@@ -97,15 +97,14 @@ def search_order():
 def linechart():
     menus = json.loads(request.form['menus'])
     if len(menus) == 0:
-        menus2 = []
-        menus = db.query(Menu.id).all()
-        for menu in menus:
-            menus2.append(menu.id)
+        menus2 = db.query(Menu.id).all()
+        for menu in menus2:
+            menus.append(menu.id)
         return json.dumps(
-            statistic.line_chart(request.form['startDate'], request.form['endDate'], menus2, request.form['unit']))
+            statistic.line_chart(request.form['startDate'], request.form['endDate'], menus, request.form['unit']))
     else:
         return json.dumps(
-            statistic.line_chart(request.form['startDate'], request.form['endDate'], request.form['menus'],
+            statistic.line_chart(request.form['startDate'], request.form['endDate'], menus,
                                     request.form['unit']))
 @app.route('/statistic/barchart',methods=['POST'])
 def barchart():
