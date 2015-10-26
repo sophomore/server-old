@@ -60,7 +60,7 @@ def print_statement(ordermenus):
 			string += u'\x09  곱\x09'+str(t_curry[key])+'\n\n\n\n\n'
 	string += u'\x1bm'
 	f1 = open('./statement','w+',encoding="euc-kr")
-	print(output,file = f1)
+	print(string,file = f1)
 	f1.close()
 	os.system('lpr -P RECEIPT_PRINTER statement')
 def print_receipt(orders):
