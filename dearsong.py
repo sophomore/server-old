@@ -133,8 +133,8 @@ def print_statement(id):
 @app.route('/order/<int:id>/print/statement', methods=['GET'])
 def print_receipt(id):
     order = db.query(Order).filter(Order.id == id).first()
-    time = Order.time
-    ordermenus = Order.ordermenus
+    time = order.time
+    ordermenus = order.ordermenus
     if order ==  None:
         return json.dumps({"result":"error","error":"Not found order id"+str(id)})
     else:
