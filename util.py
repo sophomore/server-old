@@ -74,17 +74,12 @@ def print_statement(ordermenus):
 	os.system('lpr -P RECEIPT_PRINTER statement')
 def print_receipt(orders):
     time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
-    menus = db.query(Menu).all()
-    ms = [""]
-    price = {}
+    menus = get_menus()
     order = {}
     curry = 0
     twice = 0
-    for menu in menus:
-        ms.append(menu.name)
-        price[menu.name] = menu.price
     for ordermenu in orders.ordermenus:
-        name = ms[ordermenu.menu_id]
+        name = menus[ordermenu.menu_id]
         if name in order:
             order[name] += order[name]+1
         else:
@@ -95,7 +90,7 @@ def print_receipt(orders):
             twice +=1
     orderstring = ''
     for o in order:
-        orderstring +=u''+o+'\x09'+str(order[o])+'\x09'+str(price[o])+'\x09'+str(order[o]*price[o])+'\n'
+        orderstring +=u''+o.name+'\x09'+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
     if curry>0:
         orderstring +=u'카레추가\x09'+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
     if twice>0:
