@@ -4,21 +4,43 @@ from openpyxl import load_workbook
 from datetime import datetime
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
+import time
 
+def print_statement(orders,ordertime):
+    menus = db.query(Menu).all()
+    ms = [""]
+    price = {}
+    order = {}
+    curry = 0
+    twice = 0
+    for menu in menus:
+        ms.append(menu.name)
+        price[menu.name] = menu.price
+    for ordermenu in orders:
+        name = ms[ordermenu['menu_id']]
+        if name in order:
+            order[name] += order[name]+1
+        else:
+            order[name] = 1
+        if ordermenu['curry']:
+            curry+=1
+        if ordermenu['twice']:
+            twice +=1
+    orderstring = ''
+    for o in order:
+        orderstring +=u''+o+'\x09'+str(order[o])+'\x09'+str(price[o])+'\x09'+str(order[o]*price[o])+'\n'
 
-def print_statement(order,time):
-
-    output = ''
+    output =u'\x1Bd\x1e\x2e\x00'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
     output +=u'대   표: 송호성\n'
     output +=u'전화번호: 031-480-4595\n'
     output +=u'주   소: 경기 안산시 상록구 사동 1165번지\n\n'
-    output +=u'주문:'+time
+    output +=u'주문:'+ordertime+'\n'
     output +=u'---------------------------------\n'
-    output +=u'상 품 명'.center(6)+'수량'.center(2)+'단가'.center(5)+'금 액'.center(6)
-    output +=u''+order
-    output +=u'---------------------------------\n'
+    output +=u'상 품 명'.center(6)+'  수량'.center(2)+'  단가'.center(5)+'  금 액'.center(6)+'\n'
+    output +=u''+orderstring
+    output +=u'---------------------------------\n\n\n\n'
     output +=u'\x1bm'
     f1 = open('./test','w+',encoding="euc-kr")
     print(output,file = f1)
@@ -34,7 +56,7 @@ def input_two():
     os.system("mysql --user=song --password=Qoswlfdlsnrn pos < backup.sql")
 
 def input():
-    menus = db.query(Menu).all();
+    menus = db.query(Menu).all()
     ms = {}
     price = {}
     for menu in menus:

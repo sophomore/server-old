@@ -137,13 +137,15 @@ def statistic_month():
             statistic.unit_menu_sum(request.form['startDate'], request.form['endDate'], request.form['menus'],
                                     request.form['unit']))
 
-
-@app.route('/util/print_statement', methods=['POST'])
+@app.route('/order/print/statement', methods=['post'])
 def print_statement():
-    o = request.form['order']
-    print(o)
+    o = json.loads(request.form['ordermenus'])
     util.print_statement(o,request.form['time'])
+    return json.dumps({"result":"success"})
 
+@app.route('/order/<int:id>/print/receipt', methods=['GET'])
+def print_receipt():
+    return json.dumps({"error":"error"})
 
 @app.route('/file/output', methods=['GET', 'POST'])
 def file_mysql():
