@@ -30,7 +30,7 @@ def print_statement(orders,ordertime):
     for o in order:
         orderstring +=u''+o+'\x09'+str(order[o])+'\x09'+str(price[o])+'\x09'+str(order[o]*price[o])+'\n'
 
-    output =u'\x1Bd\x1e\x2e\x00'
+    output =u'\x1B44\x0d\x0f\x00'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
     output +=u'대   표: 송호성\n'
