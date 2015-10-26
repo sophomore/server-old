@@ -7,28 +7,28 @@ from mydb import db_session as db
 
 
 def print_statement(orders,time):
-	menus = db.query(Menu).all()
-	ms = [""]
-	price = {}
-	order = {}
-	curry = 0
-	twice = 0
-	for menu in menus:
-		ms.append(menu.name)
-		price[menu.name] = menu.price
-	for ordermenu in orders:
-		name = ms[ordermenu['menu_id']]
-		if name in order:
-			order[name] += order[name]+1
-		else:
-			order[name] = 1
-		if ordermenu['curry']:
-			curry+=1
-		if ordermenu['twice']:
-			twice +=1
-	orderstring = ''
-	for o in order:
-		orderstring +=u''+o+'\x09'+order[o]+'\x09'+str(price[o])+'\x09'+str(order[o]*price[o])+'\n'
+    menus = db.query(Menu).all()
+    ms = [""]
+    price = {}
+    order = {}
+    curry = 0
+    twice = 0
+    for menu in menus:
+        ms.append(menu.name)
+        price[menu.name] = menu.price
+    for ordermenu in orders:
+        name = ms[ordermenu['menu_id']]
+        if name in order:
+            order[name] += order[name]+1
+        else:
+            order[name] = 1
+        if ordermenu['curry']:
+            curry+=1
+        if ordermenu['twice']:
+            twice +=1
+    orderstring = ''
+    for o in order:
+        orderstring +=u''+o+'\x09'+order[o]+'\x09'+str(price[o])+'\x09'+str(order[o]*price[o])+'\n'
 
     output = ''
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
@@ -40,11 +40,11 @@ def print_statement(orders,time):
     output +=u'---------------------------------\n'
     output +=u'상 품 명'.center(6)+'수량'.center(2)+'단가'.center(5)+'금 액'.center(6)+'\n'
     for odermenu in orders:
-    	if ordermenu['curry']:
-    		curry+=1
-    	if ordermenu['twice']:
-    		twice+=1
-    	output +=u''+ms[orders['menu_id']]+'\x09'+
+        if ordermenu['curry']:
+            curry+=1
+        if ordermenu['twice']:
+            twice+=1
+        output +=u''+ms[orders['menu_id']]+'\x09'+
     output +=u''+orderstring
     output +=u'---------------------------------\n'
     output +=u'\x1bm'
