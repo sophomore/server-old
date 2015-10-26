@@ -71,7 +71,7 @@ def order():
 @app.route('/order/menu/<int:id>', methods=['POST'])
 def order_menu_pay(id):
     order_manager.pay(id, request.form['pay'])
-    return json.dumps({"result", "success"})
+    return json.dumps({"result": "success"})
 
 
 @app.route('/order/search', methods=['POST'])
