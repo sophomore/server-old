@@ -79,9 +79,9 @@ def print_statement(orders):
             order[name] += order[name]+1
         else:
             order[name] = 1
-        if ordermenu['curry']:
+        if ordermenu.curry:
             curry+=1
-        if ordermenu['twice']:
+        if ordermenu.twice:
             twice +=1
     orderstring = ''
     for o in order:
