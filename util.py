@@ -9,12 +9,13 @@ from mydb import db_session as db
 def print_statement(orders,time):
 	menus = db.query(Menu).all()
 	ms = [""]
+	price = {}
 	order = {}
 	curry = 0
 	twice = 0
-
 	for menu in menus:
 		ms.append(menu.name)
+		price[menu.name] = menu.price
 	for ordermenu in orders:
 		name = ms[ordermenu['menu_id']]
 		if name in order:
@@ -25,6 +26,10 @@ def print_statement(orders,time):
 			curry+=1
 		if ordermenu['twice']:
 			twice +=1
+	orderstring = ''
+	for o in order:
+		orderstring +=u''o+'\x09'+order[o]+'\x09'+price[o]+'\x09'+str(order[o]*price[o])
+		
     output = ''
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
@@ -40,7 +45,7 @@ def print_statement(orders,time):
     	if ordermenu['twice']:
     		twice+=1
     	output +=u''+ms[orders['menu_id']]+'\x09'+
-    output +=u''+order
+    output +=u''+orderstring
     output +=u'---------------------------------\n'
     output +=u'\x1bm'
     f1 = open('./test','w+',encoding="euc-kr")
