@@ -5,20 +5,28 @@ from datetime import datetime
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
 import time
+import menu_manager
+
+g_menus = None
+
+def get_menus():
+	if g_menus == None:
+		g_menus = {}
+		menu = Menu.query.all()
+		for m in menu:
+			g_menus[m.id] = m
+	return g_menus
 
 def print_statement(ordermenus):
-	menus = db.query(Menu).all()
-	ms = [""]
+	menus = get_menus()
 	order = {}
 	curry = {}
 	twice = {}
 	takeout = {}
 	t_curry = {}
 	t_twice = {}
-	for menu in menus:
-		ms.append(menu.name)
 	for ordermenu in ordermenus:
-		name = ms[ordermenu.menu_id]
+		name = menus[ordermenu.menu_id]
 		if not ordermenu.takeout:
 			if name in order:
 				order[name] += 1
