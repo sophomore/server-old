@@ -18,7 +18,7 @@ def get_menus():
 	return g_menus
 
 def print_statement(ordermenus,time):
-	time = time.strftime('%Y-%m-%d %H:%M:%S')
+	time1 = time.strftime('%Y-%m-%d %H:%M:%S')
 	menus = get_menus()
 	order = {}
 	curry = {}
@@ -52,7 +52,7 @@ def print_statement(ordermenus,time):
 				t_twice[name] +=1
 	string = u'\x1b\x44\x04\x0e\x00'
 	string +=u'=============전     표================\n\n'
-	string +=u'주문:'+time+'\n'
+	string +=u'주문:'+time1+'\n'
 	string +=u'-------------------------------------\n'
 	string +=u'메    뉴    수량\n'
 	for key in order:
