@@ -132,11 +132,13 @@ def print_statement(id):
 
 @app.route('/order/<int:id>/print/statement', methods=['GET'])
 def print_receipt(id):
-    ordermenus = db.query(OrderMenu).join(Order).filter(Order.id == id).all()
-    if order ==  None:
+    order = db.query(Order).filter(Order.id == id).first()
+    time = Order.time
+    ordermenus = Order.orderermenus
+    if orderermenus ==  None:
         return json.dumps({"result":"error","error":"Not found order id"+str(id)})
     else:
-        util.print_statement(ordermenus)
+        util.print_statement(ordermenus,time)
         return json.dumps({"result":"success"})
 
 @app.route('/file/output', methods=['GET', 'POST'])
