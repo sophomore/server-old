@@ -122,22 +122,22 @@ def barchart():
             statistic.bar_chart(request.form['startDate'], request.form['endDate'], request.form['menus'],
                                     request.form['unit']))
 
-@app.route('/order/<int:id>/print/statement', methods=['GET'])
+@app.route('/order/<int:id>/print/receipt', methods=['GET'])
 def print_statement(id):
     order = db.query(Order).filter(Order.id == id).first()
     if order == None:
         return json.dumps({"result": "error", "error":"Not found order id"+str(id)})
     else:
-        util.print_statement(order)
+        util.print_receipt(order)
         return json.dumps({"result":"success"})
 
-@app.route('/order/<int:id>/print/receipt', methods=['GET'])
+@app.route('/order/<int:id>/print/statement', methods=['GET'])
 def print_receipt(id):
     ordermenus = db.query(OrderMenu).join(Order).filter(Order.id == id).all()
     if order ==  None:
         return json.dumps({"result":"error","error":"Not found order id"+str(id)})
     else:
-        util.print_receipt(ordermenus)
+        util.print_statement(ordermenus)
         return json.dumps({"result":"success"})
 
 @app.route('/file/output', methods=['GET', 'POST'])

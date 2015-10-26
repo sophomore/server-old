@@ -59,12 +59,10 @@ def print_statement(ordermenus):
 		if t_curry[key]>0:
 			string += u'\x09  곱\x09'+str(t_curry[key])+'\n\n\n\n\n'
 	string += u'\x1bm'
-	f1 = open('./staement','w+',encoding="euc-kr")
-	print(string,file = f1)
+	f1 = open('./statement','w+',encoding="euc-kr")
+	print(output,file = f1)
 	f1.close()
 	os.system('lpr -P RECEIPT_PRINTER statement')
-
-
 def print_receipt(orders):
     time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
     menus = db.query(Menu).all()
@@ -106,10 +104,10 @@ def print_receipt(orders):
     output +=u''+orderstring
     output +=u'---------------------------------\n\n\n\n\n\n\n\n'
     output +=u'\x1bm'
-    f1 = open('./reciept','w+',encoding="euc-kr")
+    f1 = open('./receipt','w+',encoding="euc-kr")
     print(output,file = f1)
     f1.close()
-    os.system('lpr -P RECEIPT_PRINTER reciept')
+    os.system('lpr -P RECEIPT_PRINTER receipt')
 
 
 
