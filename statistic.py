@@ -155,7 +155,7 @@ def line_chart(startDate, endDate, menus, unit):
                 current = quarter_month
             elif unit == 6:
                 last_year = last_day_of_year(current, end)
-                ordermenus = db.query(OrderMenu).join(Order).fileter(current <= Order.time,
+                ordermenus = db.query(OrderMenu).join(Order).filter(current <= Order.time,
                                                                      Order.time <= last_year).all()
                 current = last_year
             result = init_result_per_unit(result)
