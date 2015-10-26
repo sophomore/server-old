@@ -81,10 +81,9 @@ def search_order():
     ordermenus = request.form['ordermenus']
     ordermenus = json.loads(ordermenus)
     if len(ordermenus) == 0:
-        print('asdf')
-        ordermenus2 = Menu.query.all()
+        ordermenus2 = util.get_menus()
         for menu in ordermenus2:
-            ordermenus.append(menu.id)
+            ordermenus.append(menu)
     pay = json.loads(request.form['pay'])
     if len(pay) == 0:
         pay.append(1)
@@ -97,9 +96,9 @@ def search_order():
 def linechart():
     menus = json.loads(request.form['menus'])
     if len(menus) == 0:
-        menus2 = db.query(Menu.id).all()
+        menus2 = util.get_menus()
         for menu in menus2:
-            menus.append(menu.id)
+            menus.append(menu)
         return json.dumps(
             statistic.line_chart(request.form['startDate'], request.form['endDate'], menus, request.form['unit']))
     else:
@@ -112,9 +111,9 @@ def barchart():
     menus = json.loads(request.form['menus'])
     if len(menus) == 0:
         menus2 = []
-        menus = db.query(Menu.id).all()
+        menus = util.get_menus()
         for menu in menus:
-            menus2.append(menu.id)
+            menus2.append(menu)
         return json.dumps(
             statistic.bar_chart(request.form['startDate'], request.form['endDate'], menus2, request.form['unit']))
     else:
