@@ -122,13 +122,6 @@ def barchart():
             statistic.bar_chart(request.form['startDate'], request.form['endDate'], request.form['menus'],
                                     request.form['unit']))
 
-<<<<<<< HEAD
-@app.route('/order/print/statement', methods=['post'])
-def print_statement():
-    o = json.loads(request.form['ordermenus'])
-    util.print_statement(o,request.form['time'])
-    return json.dumps({"result":"success"})
-=======
 @app.route('/statistic/unit_menu_sum', methods=['POST'])
 def statistic_month():
     menus = json.loads(request.form['menus'])
@@ -152,7 +145,6 @@ def print_statement(id):
     else:
         util.print_statement(order)
         return json.dumps({"result":"success"})
->>>>>>> 0fc0af04c8e97974e836e9b591a21dc0323da6b1
 
 @app.route('/order/<int:id>/print/receipt', methods=['GET'])
 def print_receipt(id):
