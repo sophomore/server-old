@@ -79,9 +79,18 @@ def line_chart(startDate, endDate, menus, unit):
     menu_name = {}
     count_for_result = -1
 
+    def set_result(menus):
+        result = {}
+        for m in menus:
+            menu = db.query(Menu).filter(Menu.id==m).first()
+            menu_name[m] = menu.name
+            print(m)
+            result[menu.name] = []
+        return result
+
     def init_hour_result(result):
         for m in result:
-            for i in range(1, 25):
+            for i in range(0, 24):
                 result[m].append({})
                 result[m][i]['price'] = 0
                 result[m][i]['count'] = 0
@@ -104,19 +113,14 @@ def line_chart(startDate, endDate, menus, unit):
     def init_result_per_unit(result):
         for m in result:
             result[m].append({'price': 0, 'count': 0, 'cashtotal': 0, 'cardtotal': 0, 'servicetotal': 0})
-
-    def set_result(menus):
-        result = {}
-        for m in menus:
-            menu = Menu.queary().filter_by(id=m).first()
-            menu_name[m] = menu
-            result[menu.name] = []
         return result
 
+
     result = set_result(menus)
+    print(result)
     if unit == 1 or unit == 3:
-        orders = db.query(Order).filter(startDate <= Order.time,
-                                        Order.time <= endDate.replace(hour=23, minute=59, second=59)).all()
+        orders = db.query(Order).filter(start <= Order.time,
+                                        Order.time <= end.replace(hour=23, minute=59, second=59)).all()
         if unit == 1:
             result = init_hour_result(result)
             for order in orders:
@@ -136,8 +140,8 @@ def line_chart(startDate, endDate, menus, unit):
     else:
         while current <= end:
             if unit == 2:
-                ordermenus = db.query(OrderMenu).join(Order).filter(currentDate <= Order.time,
-                                                                    Order.time <= currentDate.replace(hour=23,
+                ordermenus = db.query(OrderMenu).join(Order).filter(current <= Order.time,
+                                                                    Order.time <= current.replace(hour=23,
                                                                                                       minute=59,
                                                                                                       second=59)).all()
             elif unit == 4:
@@ -189,8 +193,8 @@ def bar_chart(startDate, endDate, menus, unit):
         return result
 
     if unit == 1 or unit == 3:
-        orders = db.query(Order).filter(startDate <= Order.time,
-                                        Order.time <= endDate.replace(hour=23, minute=59, second=59)).all()
+        orders = db.query(Order).filter(start <= Order.time,
+                                        Order.time <= end.replace(hour=23, minute=59, second=59)).all()
         if unit == 1:
             result = init_hour_result(result)
             for order in orders:
