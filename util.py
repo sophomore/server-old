@@ -54,7 +54,7 @@ def print_statement(ordermenus,time):
 	string = u'\x1b\x44\x04\x0e\x00'
 	string +=u'=============전     표================\n\n'
 	string +=u'주문:'+time+'\n'
-    string +=u'-------------------------------------\n'
+	string +=u'-------------------------------------\n'
 	string +=u'메    뉴    수량\n'
 	for key in order:
 		string += u''+key+'\n'
