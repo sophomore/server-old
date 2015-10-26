@@ -4,7 +4,6 @@ from openpyxl import load_workbook
 from datetime import datetime
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
-import time
 import menu_manager
 
 g_menus = None
