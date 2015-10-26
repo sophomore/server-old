@@ -70,6 +70,7 @@ def last_day_of_year(date, end):
 
 
 def line_chart(startDate, endDate, menus, unit):
+    print(menus)
     unit = int(unit)
     if unit < 1 or unit > 6:
         return {"error": "unit value is invalid"}
