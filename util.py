@@ -62,7 +62,7 @@ def print_receipt(ordermenus):
 	f1 = open('./reciept','w+',encoding="euc-kr")
 	print(output,file = f1)
 	f1.close()
-	os.system('lpr -P RECEIPT_PRINTER test')
+	os.system('lpr -P RECEIPT_PRINTER reciept')
 def print_statement(orders):
     time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
     menus = db.query(Menu).all()
@@ -107,7 +107,7 @@ def print_statement(orders):
     f1 = open('./statement','w+',encoding="euc-kr")
     print(output,file = f1)
     f1.close()
-    os.system('lpr -P RECEIPT_PRINTER test')
+    os.system('lpr -P RECEIPT_PRINTER statement')
 
 
 
