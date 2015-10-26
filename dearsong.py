@@ -135,7 +135,7 @@ def print_receipt(id):
     order = db.query(Order).filter(Order.id == id).first()
     time = Order.time
     ordermenus = Order.ordermenus
-    if orderermenus ==  None:
+    if ordermenus ==  None:
         return json.dumps({"result":"error","error":"Not found order id"+str(id)})
     else:
         util.print_statement(ordermenus,time)
