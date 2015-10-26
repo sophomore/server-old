@@ -152,7 +152,7 @@ def print_receipt():
         return json.dumps({"result":"error","error":"Not found order id"+str(id)})
     else:
         util.print_receipt(ordermenus)
-        return json.dumps("{result":"success"})
+        return json.dumps({"result":"success"})
 
 @app.route('/file/output', methods=['GET', 'POST'])
 def file_mysql():
