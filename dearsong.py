@@ -137,7 +137,7 @@ def statistic_month():
                                     request.form['unit']))
 
 @app.route('/order/<int:id>/print/statement', methods=['GET'])
-def print_statement():
+def print_statement(id):
     order = db.query(Order).filter(Order.id == id).first()
     if order == None:
         return json.dumps({"result": "error", "error":"Not found order id"+str(id)})
@@ -146,7 +146,7 @@ def print_statement():
         return json.dumps({"result":"success"})
 
 @app.route('/order/<int:id>/print/receipt', methods=['GET'])
-def print_receipt():
+def print_receipt(id):
     ordermenus = db.query(OrderMenu).join(Order).filter(Order.id == id).first()
     if order ==  None:
         return json.dumps({"result":"error","error":"Not found order id"+str(id)})
