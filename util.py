@@ -16,8 +16,9 @@ def print_receipt(ordermenus):
 	for menu in menus:
 		ms.append(menu.name)
 	for ordermenu in ordermenus:
+		name = ms[ordermenu.menu_id]
 		if not ordermenu.takeout:
-			if ordermenu.name in order:
+			if name in order:
 				order[ordermenu.name] += 1
 			else:
 				order[ordermenu.name] = 1
@@ -28,7 +29,7 @@ def print_receipt(ordermenus):
 			if ordermenu.twice:
 				order[ordermenu.name+twice] +=1
 		else:
-			if ordermenu.name in order:
+			if name in takeout:
 				takeout[ordermenu.name] += 1
 			else:
 				takeout[ordermenu.name] = 1
