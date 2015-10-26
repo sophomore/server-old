@@ -16,7 +16,7 @@ def print_receipt(ordermenus):
 	for menu in menus:
 		ms.append(menu.name)
 	for ordermenu in ordermenus:
-		if !ordermenu.takeout:
+		if not ordermenu.takeout:
 			if ordermenu.name in order:
 				order[ordermenu.name] += 1
 			else:
