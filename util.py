@@ -62,7 +62,7 @@ def print_receipt(ordermenus):
 	f1 = open('./reciept','w+',encoding="euc-kr")
 	print(output,file = f1)
 	f1.close()
-	os.system('lpr -P RECEIPT_PRINTER test')
+	os.system('lpr -P RECEIPT_PRINTER reciept')
 def print_statement(orders):
     time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
     menus = db.query(Menu).all()
@@ -88,9 +88,9 @@ def print_statement(orders):
     for o in order:
         orderstring +=u''+o+'\x09'+str(order[o])+'\x09'+str(price[o])+'\x09'+str(order[o]*price[o])+'\n'
     if curry>0:
-        orderstring +=u'카레추가\x09'+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
+        orderstring +=u'카레추가\x09'+str(curry)+'2500\x09'+str(2500*curry)+'\n'
     if twice>0:
-        orderstring +=u'곱배기\x09'+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
+        orderstring +=u'곱배기\x09'+str(twice)+'2500\x09'+str(2500*twice)+'\n'
 
     output =u'\x1b\x44\x0d\x12\x19\x00\x1b\x24\x00\x02'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
@@ -107,7 +107,7 @@ def print_statement(orders):
     f1 = open('./statement','w+',encoding="euc-kr")
     print(output,file = f1)
     f1.close()
-    os.system('lpr -P RECEIPT_PRINTER test')
+    os.system('lpr -P RECEIPT_PRINTER statement')
 
 
 
