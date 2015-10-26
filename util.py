@@ -29,6 +29,7 @@ def print_statement(orders,time):
 	orderstring = ''
 	for o in order:
 		orderstring +=u''+o+'\x09'+order[o]+'\x09'+price[o]+'\x09'+str(order[o]*price[o])+'\n'
+		pass
 
     output = ''
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
