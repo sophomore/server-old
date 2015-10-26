@@ -24,10 +24,11 @@ def add_order(time, totalprice, ordermenus_info):
 
 def del_order(id):
     order = Order.query.filter_by(id=id).first()
-    db.delete(order)
-    for ordermenu in order.ordermenus:
-        db.delete(ordermenu)
-    db.commit()
+    if not order== None:
+        db.delete(order)
+        for ordermenu in order.ordermenus:
+            db.delete(ordermenu)
+        db.commit()
     #TODO: 주문 정보에 들어있는 OrderMenu 삭제
 
 
