@@ -145,7 +145,8 @@ def print_statement():
 
 @app.route('/order/<int:id>/print/receipt', methods=['GET'])
 def print_receipt():
-
+    return json.dumps({"error":"error"})
+    
 @app.route('/file/output', methods=['GET', 'POST'])
 def file_mysql():
     if request.method == 'GET':
