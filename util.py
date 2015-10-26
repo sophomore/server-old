@@ -41,8 +41,7 @@ def print_statement(orders,ordertime):
     output +=u'상 품 명'.center(6)+'수량'.center(2)+'단가'.center(5)+'금 액'.center(6)+'\n'
     output +=u''+orderstring
     output +=u'---------------------------------\n'
-    time.sleep(0.5)
-    output +=u'\x1bm'
+    output +=u'\n\n\n\n\x1bm'
     f1 = open('./test','w+',encoding="euc-kr")
     print(output,file = f1)
     f1.close()
