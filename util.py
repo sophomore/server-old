@@ -74,7 +74,7 @@ def print_statement(orders):
         ms.append(menu.name)
         price[menu.name] = menu.price
     for ordermenu in orders.ordermenus:
-        name = ms[ordermenu[ordermenu.menu_id]]
+        name = ms[ordermenu.menu_id]
         if name in order:
             order[name] += order[name]+1
         else:
