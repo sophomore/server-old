@@ -18,7 +18,8 @@ def get_menus():
 			g_menus[m.id] = m
 	return g_menus
 
-def print_statement(ordermenus):
+def print_statement(ordermenus,time):
+	time = time.strftime('%Y-%m-%d %H:%M:%S')
 	menus = get_menus()
 	order = {}
 	curry = {}
@@ -51,6 +52,9 @@ def print_statement(ordermenus):
 			if ordermenu.twice:
 				t_twice[name] +=1
 	string = u'\x1b\x44\x04\x0e\x00'
+	string +=u'=============전     표================\n\n'
+	string +=u'주문:'+time+'\n'
+    string +=u'-------------------------------------\n'
 	string +=u'메    뉴    수량\n'
 	for key in order:
 		string += u''+key+'\n'
@@ -66,7 +70,7 @@ def print_statement(ordermenus):
 		if t_curry[key]>0:
 			string += u'\x09카레\x09'+str(t_curry[key])+'\n'
 		if t_curry[key]>0:
-			string += u'\x09  곱\x09'+str(t_curry[key])+'\n\n\n\n\n'
+			string += u'\x09  곱\x09'+str(t_curry[key])+'\n\n\n\n\n\n\n\n\n\n'
 	string += u'\x1bm'
 	f1 = open('./statement','w+',encoding="euc-kr")
 	print(string,file = f1)
