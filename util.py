@@ -56,10 +56,10 @@ def print_receipt(ordermenus):
 		if takeout[key+twice]>0:
 			string += u'\x09  곱\x09'+str(takeout[key+twice])+'\n\n\n\n\n'
 	string += u'\x1bm'
-    f1 = open('./test','w+',encoding="euc-kr")
-    print(output,file = f1)
-    f1.close()
-    os.system('lpr -P RECEIPT_PRINTER test')
+	f1 = open('./test','w+',encoding="euc-kr")
+	print(output,file = f1)
+	f1.close()
+	os.system('lpr -P RECEIPT_PRINTER test')
 def print_statement(orders):
     menus = db.query(Menu).all()
     ms = [""]
