@@ -19,26 +19,26 @@ def print_receipt(ordermenus):
 		name = ms[ordermenu.menu_id]
 		if not ordermenu.takeout:
 			if name in order:
-				order[ordermenu.name] += 1
+				order[name] += 1
 			else:
-				order[ordermenu.name] = 1
-				order[ordermenu.name+curry] = 0
-				order[ordermenu.name+twice] = 0
+				order[name] = 1
+				order[name+curry] = 0
+				order[name+twice] = 0
 			if ordermenu.curry:
-				order[ordermenu.name+curry] +=1
+				order[name+curry] +=1
 			if ordermenu.twice:
-				order[ordermenu.name+twice] +=1
+				order[name+twice] +=1
 		else:
 			if name in takeout:
-				takeout[ordermenu.name] += 1
+				takeout[name] += 1
 			else:
-				takeout[ordermenu.name] = 1
-				takeout[ordermenu.name+curry] = 0
-				takeout[ordermenu.name+twice] = 0
+				takeout[name] = 1
+				takeout[name+curry] = 0
+				takeout[name+twice] = 0
 			if ordermenu.curry:
-				takeout[ordermenu.name+curry] +=1
+				takeout[name+curry] +=1
 			if ordermenu.twice:
-				takeout[ordermenu.name+twice] +=1
+				takeout[name+twice] +=1
 	string = u'\x1b\x44\x04\x0e\x00'
 	string +=u'메    뉴    수량'
 	for key in order:
