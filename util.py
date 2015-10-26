@@ -62,7 +62,8 @@ def print_statement(ordermenus,time):
 			string += u'\x09카레\x09'+str(curry[key])+'\n'
 		if twice[key]>0:
 			string += u'\x09  곱\x09'+str(twice[key])+'\n'
-	string += u'---------------------------------\n'
+	if not  len(takeout) == 0:
+		string += u'---------------------------------\n'
 	for key in takeout:
 		string += u''+key+'\n'
 		string += u'\x09일반\x09'+str(takeout[key]-t_curry[key]-t_twice[key])+'\n'
