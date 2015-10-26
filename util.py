@@ -64,6 +64,7 @@ def print_receipt(ordermenus):
 	f1.close()
 	os.system('lpr -P RECEIPT_PRINTER test')
 def print_statement(orders):
+	time = datetime.strptime(orders.time, '%Y-%m-%d %H:%M:%S')
     menus = db.query(Menu).all()
     ms = [""]
     price = {}
@@ -97,7 +98,7 @@ def print_statement(orders):
     output +=u'대   표: 송호성\n'
     output +=u'전화번호: 031-480-4595\n'
     output +=u'주   소: 경기 안산시 상록구 사동 1165번지\n\n'
-    output +=u'주문:'+orders.time+'\n'
+    output +=u'주문:'+time+'\n'
     output +=u'---------------------------------\n'
     output +=u'상 품 명'.center(6)+'  수량'.center(2)+'  단가'.center(5)+'   금 액'.center(6)+'\n'
     output +=u''+orderstring
