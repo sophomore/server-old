@@ -84,7 +84,6 @@ def line_chart(startDate, endDate, menus, unit):
         for m in menus:
             menu = db.query(Menu).filter(Menu.id==m).first()
             menu_name[m] = menu.name
-            print(m)
             result[menu.name] = []
         return result
 
@@ -159,7 +158,6 @@ def line_chart(startDate, endDate, menus, unit):
                 ordermenus = db.query(OrderMenu).join(Order).fileter(current <= Order.time,
                                                                      Order.time <= last_year).all()
                 current = last_year
-
             result = init_result_per_unit(result)
             count_for_result += 1
             for ordermenu in ordermenus:
@@ -224,7 +222,7 @@ def bar_chart(startDate, endDate, menus, unit):
                 current = quarter_month
             elif unit == 6:
                 last_year = last_day_of_year(current, end)
-                ordermenus = db.query(OrderMenu).join(Order).fileter(current <= Order.time,Order.time <= last_year).all()
+                ordermenus = db.query(OrderMenu).join(Order).filter(current <= Order.time,Order.time <= last_year).all()
                 current = last_year
             print(result)
             result = init_result_per_unit(result)
