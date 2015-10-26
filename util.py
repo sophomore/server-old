@@ -46,17 +46,17 @@ def print_receipt(ordermenus):
 	for key in order:
 		string += u''+key+'\n'
 		string += u'\x09일반\x09'+str(order[key]-curry[key]-twice[key])+'\n'
-		if order[key+curry]>0:
+		if curry[key]>0:
 			string += u'\x09카레\x09'+str(curry[key])+'\n'
-		if order[key+twice]>0:
+		if twice[key]>0:
 			string += u'\x09  곱\x09'+str(twice[key])+'\n'
 	string += u'---------------------------------\n'
 	for key in takeout:
 		string += u''+key+'\n'
 		string += u'\x09일반\x09'+str(takeout[key]-t_curry[key]-t_twice[key])+'\n'
-		if takeout[key+curry]>0:
+		if t_curry[key]>0:
 			string += u'\x09카레\x09'+str(t_curry[key])+'\n'
-		if takeout[key+twice]>0:
+		if t_curry[key]>0:
 			string += u'\x09  곱\x09'+str(t_curry[key])+'\n\n\n\n\n'
 	string += u'\x1bm'
 	f1 = open('./test','w+',encoding="euc-kr")
