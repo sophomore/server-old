@@ -106,6 +106,7 @@ def linechart():
         return json.dumps(
             statistic.line_chart(request.form['startDate'], request.form['endDate'], menus,
                                     request.form['unit']))
+
 @app.route('/statistic/barchart',methods=['POST'])
 def barchart():
     menus = json.loads(request.form['menus'])
