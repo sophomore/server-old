@@ -142,7 +142,7 @@ def print_receipt(orders):
     output +=u'주   소: 경기 안산시 상록구 사동 1165번지\n\n'
     output +=u'주문:'+time+'\n'
     output +=u'    ---------------------------------\n'
-    output +=u'    상 품 명'.center(6)+'  수량'.center(2)+'  단가'.center(5)+'   금 액'.center(6)+'\n'
+    output +=u'    상 품 명'.center(6)+'   수량'.center(2)+'  단가'.center(5)+'   금 액'.center(6)+'\n'
     output +=u'    ---------------------------------\n'
     output +=u''+orderstring
     output +=u'    ---------------------------------\n\n\n\n\n\n\n\n'
