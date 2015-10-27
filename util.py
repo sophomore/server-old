@@ -59,7 +59,7 @@ def print_statement(ordermenus,time):
             elif ordermenu.curry:
                 t_curry[name] +=1
 
-    string = u'\x1b\x44\x04\x00'
+    string = u'\x1b\x44\x02\x00'
     string +=u'================전     표================\n\n'
     string +=u'주문:'+time1+'\n'
     string +=u'----------------------------------------\n'
@@ -68,33 +68,33 @@ def print_statement(ordermenus,time):
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
             string += u''+key+'        '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
-            string += u'\x09일반\n'
+            string += u'\x09ㄴ일반\n'
         if ct[key]>0:
             string += u''+key+'        '+str(ct[key])+'\n'
-            string += u'\x09카레\n'
-            string += u'\x09  곱\n'
+            string += u'\x09ㄴ카레\n'
+            string += u'\x09ㄴ  곱\n'
         if curry[key]>0:
             string += u''+key+'        '+str(curry[key])+'\n'
-            string += u'\x09카레\n'
+            string += u'\x09ㄴ카레\n'
         if twice[key]>0:
             string += u''+key+'        '+str(twice[key])+'\n'
-            string += u'\x09  곱\n'
+            string += u'\x09ㄴ  곱\n'
     if not  len(takeout) == 0:
         string +=u'------------------포 장------------------\n'
     for key in takeout: 
         if takeout[key]+t_ct[key]-t_curry[key]-t_twice[key] >0:
             string += u''+key+'        '+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
-            string += u'\x09일반\n'
+            string += u'\x09ㄴ일반\n'
         if t_ct[key]>0:
             string += u''+key+'        '+str(t_ct[key])+'\n'
-            string += u'\x09카레\n'
-            string += u'\x09  곱\n'
+            string += u'\x09ㄴ카레\n'
+            string += u'\x09ㄴ  곱\n'
         if t_curry[key]>0:
             string += u''+key+'        '+str(t_curry[key])+'\n'
-            string += u'\x09카레\n'
+            string += u'\x09ㄴ카레\n'
         if t_twice[key]>0:
             string += u''+key+'        '+str(t_curry[key])+'\n'
-            string += u'\x09  곱\n'
+            string += u'\x09ㄴ  곱\n'
     string +=u'-------------------------------------\n\n\n\n\n\n'
     string += u'\x1bm'
     f1 = open('./statement','w+',encoding="euc-kr")
