@@ -108,6 +108,7 @@ def print_receipt(orders):
     order = {}
     curry = 0
     twice = 0
+    takeout = 0
     for ordermenu in orders.ordermenus:
         name = menus[ordermenu.menu_id]
         if name in order:
@@ -118,6 +119,8 @@ def print_receipt(orders):
             curry+=1
         if ordermenu.twice:
             twice +=1
+        if ordermenu.takeout:
+            takeout +=1
     orderstring = ''
     for o in order:
         orderstring +=u''+o.name+'\x09'+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
@@ -125,6 +128,8 @@ def print_receipt(orders):
         orderstring +=u'카레추가\x09'+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
     if twice>0:
         orderstring +=u'곱배기\x09'+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
+    if takeout>0:
+        orderstring +=u'포장\x09'+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
 
     output =u'\x1b\x44\x0d\x12\x19\x00\x1b\x24\x00\x02'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
