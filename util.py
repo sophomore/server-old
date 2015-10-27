@@ -37,7 +37,7 @@ def print_statement(ordermenus,time):
                 order[name] = 1
                 curry[name] = 0
                 twice[name] = 0
-                ct = 0
+                ct[name] = 0
             if ordermenu.curry and ordermenu.twice:
                 ct[name] +=1
             elif ordermenu.twice:
@@ -66,7 +66,7 @@ def print_statement(ordermenus,time):
     string +=u'메    뉴    수량\n'
     string +=u'-------------------------------------\n'
     for key in order:
-        if order[key]-curry[key]-twice[key] >0:
+        if order[key]-curry[key]-twice[key]+ct[key] >0:
             string += u''+key+'      '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
             string += u'\x09일반'
         if ct[key]>0:
