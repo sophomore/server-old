@@ -109,6 +109,7 @@ def print_receipt(orders):
     curry = 0
     twice = 0
     takeout = 0
+    summ = orders.totalprice
     for ordermenu in orders.ordermenus:
         name = menus[ordermenu.menu_id]
         if name in order:
@@ -130,7 +131,10 @@ def print_receipt(orders):
         orderstring +=u'곱배기\x09'+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
     if takeout>0:
         orderstring +=u'포장\x09'+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
-
+    orderstring +=u'---------------------------------\n'
+    orderstring +=u'합계\x09\x09\x09'+str(summ)+'\n'
+    orderstring +=u'---------------------------------\n'
+    
     output =u'\x1b\x44\x0d\x12\x19\x00\x1b\x24\x00\x02'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
