@@ -95,7 +95,7 @@ def print_statement(ordermenus,time):
         if t_twice[key]>0:
             string += u''+key+'        '+str(t_curry[key])+'\n'
             string += u'\x09  곱\n'
-    string +=u'-------------------------------------\n\n\n\n\n\n\n\n\n\n\n\n'
+    string +=u'-------------------------------------\n\n\n\n\n\n\n'
     string += u'\x1bm'
     f1 = open('./statement','w+',encoding="euc-kr")
     print(string,file = f1)
