@@ -66,8 +66,8 @@ def print_statement(ordermenus,time):
     string +=u'메    뉴    수량\n'
     string +=u'-------------------------------------\n'
     for key in order:
-        i = order[key]+ct[key]-curry[key]-twice[key]
-        if i >0:
+        i = 
+        if not str(order[key]+ct[key]-curry[key]-twice[key]) == '0':
             string += u''+key+'      '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
             string += u'\x09일반'
         if ct[key]>0:
@@ -82,9 +82,8 @@ def print_statement(ordermenus,time):
             string += u'\x09  곱\n'
     if not  len(takeout) == 0:
         string += u'---------------------------------\n'
-    for key in takeout:
-        i = takeout[key]+t_ct[key]-t_curry[key]-t_twice[key]
-        if i >0:
+    for key in takeout: 
+        if not str(takeout[key]+t_ct[key]-t_curry[key]-t_twice[key]) == '0':
             string += u''+key+'      '+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
             string += u'\x09일반\n'
         if t_ct[key]>0:
