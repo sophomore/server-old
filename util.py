@@ -60,11 +60,11 @@ def print_statement(ordermenus,time):
                 t_curry[name] +=1
 
     string = u'\x1b\x44\x04\x00'
-    string +=u'=============전     표================\n\n'
+    string +=u'================전     표================\n\n'
     string +=u'주문:'+time1+'\n'
-    string +=u'-------------------------------------\n'
+    string +=u'----------------------------------------\n'
     string +=u'메    뉴    수량\n'
-    string +=u'-------------------------------------\n'
+    string +=u'----------------------------------------\n'
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
             string += u''+key+'        '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
@@ -80,7 +80,7 @@ def print_statement(ordermenus,time):
             string += u''+key+'        '+str(twice[key])+'\n'
             string += u'\x09  곱\n'
     if not  len(takeout) == 0:
-        string += u'----------------포 장----------------\n'
+        string +=u'------------------포 장------------------\n'
     for key in takeout: 
         if takeout[key]+t_ct[key]-t_curry[key]-t_twice[key] >0:
             string += u''+key+'        '+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
