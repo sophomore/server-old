@@ -66,7 +66,6 @@ def print_statement(ordermenus,time):
     string +=u'메    뉴    수량\n'
     string +=u'-------------------------------------\n'
     for key in order:
-        i = 
         if not str(order[key]+ct[key]-curry[key]-twice[key]) == '0':
             string += u''+key+'      '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
             string += u'\x09일반'
