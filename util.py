@@ -23,9 +23,11 @@ def print_statement(ordermenus,time):
 	order = {}
 	curry = {}
 	twice = {}
+    ct = {}
 	takeout = {}
 	t_curry = {}
 	t_twice = {}
+    t_ct = {}
 	for ordermenu in ordermenus:
 		name = menus[ordermenu.menu_id].name
 		if not ordermenu.takeout:
@@ -35,10 +37,13 @@ def print_statement(ordermenus,time):
 				order[name] = 1
 				curry[name] = 0
 				twice[name] = 0
-			if ordermenu.curry:
-				curry[name] +=1
-			if ordermenu.twice:
+                ct = 0
+			if ordermenu.curry and ordermenu.twice:
+				ct[name] +=1
+			elif ordermenu.twice:
 				twice[name] +=1
+            elif ordermenu.curry:
+                ordermenu[curry] +=1
 		else:
 			if name in takeout:
 				takeout[name] += 1
@@ -46,31 +51,49 @@ def print_statement(ordermenus,time):
 				takeout[name] = 1
 				t_curry[name] = 0
 				t_twice[name] = 0
-			if ordermenu.curry:
-				t_curry[name] +=1
-			if ordermenu.twice:
+                t_ct[name] = 0
+			if ordermenu.curry and dordermenu.twice:
+                t_ct[name] +=1
+			elif ordermenu.twice:
 				t_twice[name] +=1
-	string = u'\x1b\x44\x04\x0e\x00'
+            elif ordermenu.curry:
+                t_curry[name] +=1
+
+	string = u'\x1b\x44\x04\x00'
 	string +=u'=============전     표================\n\n'
 	string +=u'주문:'+time1+'\n'
 	string +=u'-------------------------------------\n'
 	string +=u'메    뉴    수량\n'
+    string +=u'-------------------------------------\n'
 	for key in order:
-		string += u''+key+'\n'
-		string += u'\x09일반\x09'+str(order[key]-curry[key]-twice[key])+'\n'
+        if order[key]-curry[key]-twice[key]+ct[key]:
+            string += u''+key+'      '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
+            string += u'\x09일반'
+        if ct[key]>0:
+            string += u''+key+'      '+str(ct[key])+'\n'
+            string += u'\x09카레\n'
+            string += u'\x09  곱\n'
 		if curry[key]>0:
-			string += u'\x09카레\x09'+str(curry[key])+'\n'
+            string += u''+key+'      '+str(curry[key])+'\n'
+			string += u'\x09카레\n'
 		if twice[key]>0:
-			string += u'\x09  곱\x09'+str(twice[key])+'\n'
+            string += u''+key+'      '+str(twice[key])+'\n'
+			string += u'\x09  곱\n'
 	if not  len(takeout) == 0:
 		string += u'---------------------------------\n'
 	for key in takeout:
-		string += u''+key+'\n'
-		string += u'\x09일반\x09'+str(takeout[key]-t_curry[key]-t_twice[key])+'\n'
+        string += u''+key+'      '+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
+		string += u'\x09일반\n'
+        if t_ct[key]>0:
+            string += u''+key+'      '+str(t_ct[key])+'\n'
+            string += u'\x09카레\n'
+            string += u'\x09  곱\n'
 		if t_curry[key]>0:
-			string += u'\x09카레\x09'+str(t_curry[key])+'\n'
-		if t_curry[key]>0:
-			string += u'\x09  곱\x09'+str(t_curry[key])+'\n'
+            string += u''+key+'      '+str(t_curry[key])+'\n'
+			string += u'\x09카레\n'
+		if t_twice[key]>0:
+            string += u''+key+'      '+str(t_curry[key])+'\n'
+			string += u'\x09  곱\n'
 	string +=u'-------------------------------------\n\n\n\n\n\n\n\n\n\n\n\n'
 	string += u'\x1bm'
 	f1 = open('./statement','w+',encoding="euc-kr")
@@ -110,6 +133,7 @@ def print_receipt(orders):
     output +=u'주문:'+time+'\n'
     output +=u'---------------------------------\n'
     output +=u'상 품 명'.center(6)+'  수량'.center(2)+'  단가'.center(5)+'   금 액'.center(6)+'\n'
+    output +=u'---------------------------------\n'
     output +=u''+orderstring
     output +=u'---------------------------------\n\n\n\n\n\n\n\n'
     output +=u'\x1bm'
