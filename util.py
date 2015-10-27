@@ -133,7 +133,6 @@ def print_receipt(orders):
         orderstring +=u'포장\x09'+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
     orderstring +=u'---------------------------------\n'
     orderstring +=u'합계\x09\x09\x09'+str(summ)+'\n'
-    orderstring +=u'---------------------------------\n'
     
     output =u'\x1b\x44\x0d\x12\x19\x00\x1b\x24\x00\x02'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
