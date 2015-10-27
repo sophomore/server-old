@@ -80,7 +80,7 @@ def print_statement(ordermenus,time):
             string += u''+key+'        '+str(twice[key])+'\n'
             string += u'\x09  곱\n'
     if not  len(takeout) == 0:
-        string += u'---------------------------------\n'
+        string += u'----------------포 장----------------\n'
     for key in takeout: 
         if takeout[key]+t_ct[key]-t_curry[key]-t_twice[key] >0:
             string += u''+key+'        '+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
