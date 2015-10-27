@@ -70,24 +70,30 @@ def print_statement(ordermenus,time):
             string += u''+key+'        '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
             string += u'\x09일반\n'
         if ct[key]>0:
+            string += u''+key+'        '+str(ct[key])+'\n'
             string += u'\x09카레\n'
             string += u'\x09  곱\n'
         if curry[key]>0:
+            string += u''+key+'        '+str(curry[key])+'\n'
             string += u'\x09카레\n'
         if twice[key]>0:
+            string += u''+key+'        '+str(twice[key])+'\n'
             string += u'\x09  곱\n'
     if not  len(takeout) == 0:
         string += u'---------------------------------\n'
     for key in takeout: 
         if takeout[key]+t_ct[key]-t_curry[key]-t_twice[key] >0:
-            string += u'      '+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
+            string += u''+key+'        '+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
             string += u'\x09일반\n'
         if t_ct[key]>0:
+            string += u''+key+'        '+str(t_ct[key])+'\n'
             string += u'\x09카레\n'
             string += u'\x09  곱\n'
         if t_curry[key]>0:
+            string += u''+key+'        '+str(t_curry[key])+'\n'
             string += u'\x09카레\n'
         if t_twice[key]>0:
+            string += u''+key+'        '+str(t_curry[key])+'\n'
             string += u'\x09  곱\n'
     string +=u'-------------------------------------\n\n\n\n\n\n\n\n\n\n\n\n'
     string += u'\x1bm'
@@ -95,7 +101,6 @@ def print_statement(ordermenus,time):
     print(string,file = f1)
     f1.close()
     os.system('lpr -P RECEIPT_PRINTER statement')
-
 
 def print_receipt(orders):
     time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
