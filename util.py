@@ -43,7 +43,7 @@ def print_statement(ordermenus,time):
             elif ordermenu.twice:
                 twice[name] +=1
             elif ordermenu.curry:
-                ordermenu[curry] +=1
+                curry[name] +=1
         else:
             if name in takeout:
                 takeout[name] += 1
