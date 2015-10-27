@@ -9,63 +9,63 @@ import menu_manager
 g_menus = None
 
 def get_menus():
-	global g_menus
-	if g_menus == None:
-		g_menus = {}
-		menu = Menu.query.all()
-		for m in menu:
-			g_menus[m.id] = m
-	return g_menus
+    global g_menus
+    if g_menus == None:
+        g_menus = {}
+        menu = Menu.query.all()
+        for m in menu:
+            g_menus[m.id] = m
+    return g_menus
 
 def print_statement(ordermenus,time):
-	time1 = time.strftime('%Y-%m-%d %H:%M:%S')
-	menus = get_menus()
-	order = {}
-	curry = {}
-	twice = {}
+    time1 = time.strftime('%Y-%m-%d %H:%M:%S')
+    menus = get_menus()
     ct = {}
-	takeout = {}
-	t_curry = {}
-	t_twice = {}
+    order = {}
+    curry = {}
+    twice = {}
+    takeout = {}
+    t_curry = {}
+    t_twice = {}
     t_ct = {}
-	for ordermenu in ordermenus:
-		name = menus[ordermenu.menu_id].name
-		if not ordermenu.takeout:
-			if name in order:
-				order[name] += 1
-			else:
-				order[name] = 1
-				curry[name] = 0
-				twice[name] = 0
+    for ordermenu in ordermenus:
+        name = menus[ordermenu.menu_id].name
+        if not ordermenu.takeout:
+            if name in order:
+                order[name] += 1
+            else:
+                order[name] = 1
+                curry[name] = 0
+                twice[name] = 0
                 ct = 0
-			if ordermenu.curry and ordermenu.twice:
-				ct[name] +=1
-			elif ordermenu.twice:
-				twice[name] +=1
+            if ordermenu.curry and ordermenu.twice:
+                ct[name] +=1
+            elif ordermenu.twice:
+                twice[name] +=1
             elif ordermenu.curry:
                 ordermenu[curry] +=1
-		else:
-			if name in takeout:
-				takeout[name] += 1
-			else:
-				takeout[name] = 1
-				t_curry[name] = 0
-				t_twice[name] = 0
+        else:
+            if name in takeout:
+                takeout[name] += 1
+            else:
+                takeout[name] = 1
+                t_curry[name] = 0
+                t_twice[name] = 0
                 t_ct[name] = 0
-			if ordermenu.curry and dordermenu.twice:
+            if ordermenu.curry and dordermenu.twice:
                 t_ct[name] +=1
-			elif ordermenu.twice:
-				t_twice[name] +=1
+            elif ordermenu.twice:
+                t_twice[name] +=1
             elif ordermenu.curry:
                 t_curry[name] +=1
 
-	string = u'\x1b\x44\x04\x00'
-	string +=u'=============전     표================\n\n'
-	string +=u'주문:'+time1+'\n'
-	string +=u'-------------------------------------\n'
-	string +=u'메    뉴    수량\n'
+    string = u'\x1b\x44\x04\x00'
+    string +=u'=============전     표================\n\n'
+    string +=u'주문:'+time1+'\n'
     string +=u'-------------------------------------\n'
-	for key in order:
+    string +=u'메    뉴    수량\n'
+    string +=u'-------------------------------------\n'
+    for key in order:
         if order[key]-curry[key]-twice[key]+ct[key]:
             string += u''+key+'      '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
             string += u'\x09일반'
@@ -73,33 +73,33 @@ def print_statement(ordermenus,time):
             string += u''+key+'      '+str(ct[key])+'\n'
             string += u'\x09카레\n'
             string += u'\x09  곱\n'
-		if curry[key]>0:
+        if curry[key]>0:
             string += u''+key+'      '+str(curry[key])+'\n'
-			string += u'\x09카레\n'
-		if twice[key]>0:
+            string += u'\x09카레\n'
+        if twice[key]>0:
             string += u''+key+'      '+str(twice[key])+'\n'
-			string += u'\x09  곱\n'
-	if not  len(takeout) == 0:
-		string += u'---------------------------------\n'
-	for key in takeout:
+            string += u'\x09  곱\n'
+    if not  len(takeout) == 0:
+        string += u'---------------------------------\n'
+    for key in takeout:
         string += u''+key+'      '+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
-		string += u'\x09일반\n'
+        string += u'\x09일반\n'
         if t_ct[key]>0:
             string += u''+key+'      '+str(t_ct[key])+'\n'
             string += u'\x09카레\n'
             string += u'\x09  곱\n'
-		if t_curry[key]>0:
+        if t_curry[key]>0:
             string += u''+key+'      '+str(t_curry[key])+'\n'
-			string += u'\x09카레\n'
-		if t_twice[key]>0:
+            string += u'\x09카레\n'
+        if t_twice[key]>0:
             string += u''+key+'      '+str(t_curry[key])+'\n'
-			string += u'\x09  곱\n'
-	string +=u'-------------------------------------\n\n\n\n\n\n\n\n\n\n\n\n'
-	string += u'\x1bm'
-	f1 = open('./statement','w+',encoding="euc-kr")
-	print(string,file = f1)
-	f1.close()
-	os.system('lpr -P RECEIPT_PRINTER statement')
+            string += u'\x09  곱\n'
+    string +=u'-------------------------------------\n\n\n\n\n\n\n\n\n\n\n\n'
+    string += u'\x1bm'
+    f1 = open('./statement','w+',encoding="euc-kr")
+    print(string,file = f1)
+    f1.close()
+    os.system('lpr -P RECEIPT_PRINTER statement')
 def print_receipt(orders):
     time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
     menus = get_menus()
