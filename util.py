@@ -144,7 +144,7 @@ def print_receipt(orders):
     output +=u'    상 품 명'.center(6)+'   수량'.center(2)+'  단가'.center(5)+'   금 액'.center(6)+'\n'
     output +=u'-------------------------------------\n'
     output +=u''+orderstring
-    output +=u'-------------------------------------\n\n\n\n\n\n\n\n'
+    output +=u'-------------------------------------\n\n\n\n\n\n'
     output +=u'\x1bm'
     f1 = open('./receipt','w+',encoding="euc-kr")
     print(output,file = f1)
