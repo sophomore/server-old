@@ -134,7 +134,7 @@ def print_receipt(orders):
 
 
     output = u'\x1b\x44\x11\x16\x1d\x00'
-    output += u'\xb\x61\x08'
+    output +=u'\x1b\x61\x08'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
     output +=u'대   표: 송호성\n'
