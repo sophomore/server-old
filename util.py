@@ -133,14 +133,13 @@ def print_receipt(orders):
     orderstring +=u'    합계\x09\x09\x09'+str(summ)+'\n'
 
 
-    output = u'\x1b\x44\x11\x16\x1d\x00'
-    output +=u'\x1b\x61\x08'
-    output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
+    output =u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
     output +=u'대   표: 송호성\n'
     output +=u'전화번호: 031-480-4595\n'
     output +=u'주   소: 경기 안산시 상록구 사동 1165번지\n\n'
     output +=u'주문:'+time+'\n'
+    output += u'\x1b\x44\x11\x16\x1d\x00'
     output +=u'-------------------------------------\n'
     output +=u'    상 품 명'.center(6)+'   수량'.center(2)+'  단가'.center(5)+'   금 액'.center(6)+'\n'
     output +=u'-------------------------------------\n'
