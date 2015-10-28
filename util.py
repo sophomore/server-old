@@ -133,7 +133,7 @@ def print_receipt(orders):
     orderstring +=u'    합계\x09\x09\x09'+str(summ)+'\n'
 
 
-    output = u'\x1b\x44\x11\x16\x1d\x00\n\n\n\n'
+    output = u'\x1b\x44\x11\x16\x1d\x00\n\n\n\n\n\n'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
     output +=u'대   표: 송호성\n'
@@ -144,7 +144,7 @@ def print_receipt(orders):
     output +=u'    상 품 명'.center(6)+'   수량'.center(2)+'  단가'.center(5)+'   금 액'.center(6)+'\n'
     output +=u'-------------------------------------\n'
     output +=u''+orderstring
-    output +=u'-------------------------------------\n\n\n\n'
+    output +=u'-------------------------------------\n\n\n\n\n\n\n'
     output +=u'\x1bm'
     f1 = open('./receipt','w+',encoding="euc-kr")
     print(output,file = f1)
