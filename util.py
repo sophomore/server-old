@@ -56,8 +56,8 @@ def print_statement(ordermenus,time):
             elif ordermenu.curry:
                 t_curry[name] +=1
 
-
-    string = u'\x1b\x44\x02\x00\n'
+    string = u'\n\n\n\n\n'
+    string += u'\x1b\x44\x02\x00\n'
     string +=u'================전     표================\n\n'
     string +=u'주문:'+time1+'\n'
     string +=u'----------------------------------------\n'
