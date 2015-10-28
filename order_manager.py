@@ -1,4 +1,3 @@
-import sqlalchemy.exc
 from models import Order, OrderMenu, Menu
 
 __author__ = 'kjydiary'
@@ -7,7 +6,6 @@ from mydb import db_session as db
 
 def add_order(time, totalprice, ordermenus_info):
     order = Order(time, totalprice)
-
     db.add(order)
     db.commit()
 
