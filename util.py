@@ -57,7 +57,7 @@ def print_statement(ordermenus,time):
                 t_curry[name] +=1
 
 
-    string = u'\x1b\x44\x02\x00'
+    string = u'\x1b\x44\x02\x00\n'
     string +=u'================전     표================\n\n'
     string +=u'주문:'+time1+'\n'
     string +=u'----------------------------------------\n'
@@ -133,7 +133,7 @@ def print_receipt(orders):
     orderstring +=u'    합계\x09\x09\x09'+str(summ)+'\n'
 
 
-    output = u'\x1b\x44\x11\x16\x1d\x00'
+    output = u'\x1b\x44\x11\x16\x1d\x00\n'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
     output +=u'대   표: 송호성\n'
