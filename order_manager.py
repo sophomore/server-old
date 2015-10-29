@@ -60,7 +60,6 @@ def search(startDate, endDate, ordermenus, pays):
 def get_order(id):
     result = []
     orders = db.query(Order).filter(Order.id<id).order_by(Order.id.desc()).limit(10).all()
-    print(orders)
     for order in orders:
         result.append(order.convert_dict())
     return result
