@@ -135,7 +135,7 @@ def print_receipt(orders):
         orderstring +=u'곱배기\x09  '+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
     if takeout>0:
         orderstring +=u'포장\x09  '+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
-    orderstring +=u'-------------------------------------\n'
+    orderstring +=u'-----------------------------------------\n'
     orderstring +=u'    합계\x09\x09\x09'+str(summ)+'\n'
     output = u''
     output +=u'\x1b\x44\x16\x1b\x22\x00'
@@ -145,11 +145,11 @@ def print_receipt(orders):
     output +=u'전화번호: 031-480-4595\n'
     output +=u'주   소: 경기 안산시 상록구 사동 1165번지\n\n'
     output +=u'주문:'+time+'\n'
-    output +=u'-------------------------------------\n'
+    output +=u'-----------------------------------------\n'
     output +=u'상 품 명\x09수량\x09단가\x09금 액\n'
-    output +=u'-------------------------------------\n'
+    output +=u'-----------------------------------------\n'
     output +=u''+orderstring
-    output +=u'-------------------------------------\n\n\n\n\n\n\n\n'
+    output +=u'-----------------------------------------\n\n\n\n\n\n\n\n'
     output +=u'\x1B\x40\x1bm'
     f1 = open('./receipt','w+',encoding="euc-kr")
     print(output)
