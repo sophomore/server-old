@@ -1,10 +1,9 @@
-import csv
 import os
+
 from openpyxl import load_workbook
-from datetime import datetime
+
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
-import menu_manager
 
 g_menus = None
 
@@ -14,6 +13,7 @@ def get_menus():
         g_menus = {}
         menu = Menu.query.all()
         for m in menu:
+            print(m)
             g_menus[m.id] = m
     return g_menus
 
@@ -52,7 +52,7 @@ def print_statement(ordermenus,time):
                 t_curry[name] = 0
                 t_twice[name] = 0
                 t_ct[name] = 0
-            if ordermenu.curry and dordermenu.twice:
+            if ordermenu.curry and ordermenu.twice:
                 t_ct[name] +=1
             elif ordermenu.twice:
                 t_twice[name] +=1
