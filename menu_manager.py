@@ -38,25 +38,16 @@ def delete_menu(id):
 
 def get_all_dict():
     result = []
-    menus = util.get_menus()
-    for menu in menus:
-        check = True
-        for i in result:
-            if i['name'] == menus[menu].name:
-                check = False
-        if check:
-            print('123')
-            print(menus[menu])
-            result.append(menus[menu].convert_dict())
+    for menu in Menu.query.all():
+        result.append(menu.convert_dict())
     return result
 
 
 def get_available_dict():
     result = []
-    menus = util.get_menus()
-    for menu in menus:
-        if menus[menu].available:
-            result.append(menus[menu].convert_dict())
+    for menu in Menu.query.all():
+        if menu.available:
+            result.append(menu.convert_dict())
     return result
 
 
