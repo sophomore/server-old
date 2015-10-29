@@ -1,8 +1,9 @@
 from datetime import datetime
+
 from dateutil.relativedelta import relativedelta
+
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
-import json
 
 
 # in 기간, 메뉴리스트, 단위 out 단위에 맞춰서 각 메뉴별 총액 및 개수
@@ -64,7 +65,6 @@ def last_day_of_year(date, end):
 
 
 def line_chart(startDate, endDate, menus, unit):
-    print(menus)
     unit = int(unit)
     if unit < 1 or unit > 6:
         return {"error": "unit value is invalid"}
@@ -111,7 +111,6 @@ def line_chart(startDate, endDate, menus, unit):
 
 
     result = set_result(menus)
-    print(result)
     if unit == 1 or unit == 3:
         orders = db.query(Order).filter(start <= Order.time,
                                         Order.time <= end.replace(hour=23, minute=59, second=59)).all()
@@ -219,9 +218,7 @@ def bar_chart(startDate, endDate, menus, unit):
                 last_year = last_day_of_year(current, end)
                 ordermenus = db.query(OrderMenu).join(Order).filter(current <= Order.time,Order.time <= last_year).all()
                 current = last_year
-            print(result)
             result = init_result_per_unit(result)
-            print(result)
             count_for_result += 1
             for ordermenu in ordermenus:
                 if ordermenu.menu_id in menus:

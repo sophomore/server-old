@@ -1,14 +1,15 @@
-from flask import Flask, request, abort
-from models import Menu, Category, OrderMenu, Order
-from mydb import db_session as db
 import json
+import os
+from datetime import datetime
+
+from flask import Flask, request, abort
+
+from models import Category, OrderMenu, Order
+from mydb import db_session as db
 import order_manager
 import menu_manager
 import util
 import statistic
-import os
-
-from datetime import datetime
 
 app = Flask(__name__)
 app.debug = True
