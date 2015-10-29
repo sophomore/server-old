@@ -66,7 +66,7 @@ def print_statement(ordermenus,time):
             string += u'\x1d\x21\x11'+key+'\x09\x09'+str(ct[key])+'\n\x1d\x21\x00'
             string += u'  ㄴ카레\n\n'
             string += u'  ㄴ  곱\n\n'
-        if curry[key]>0:    m  mm
+        if curry[key]>0:
             string += u'\x1d\x21\x11'+key+'\x09\x09'+str(curry[key])+'\n\x1d\x21\x00'
             string += u'  ㄴ카레\n\n'
         if twice[key]>0:
