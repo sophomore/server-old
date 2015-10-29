@@ -9,7 +9,7 @@ g_menus = {}
 
 def get_menus():
     global g_menus
-    if g_menus == None:
+    if len(g_menus)==0:
         g_menus = {}
         menu = Menu.query.all()
         for m in menu:
