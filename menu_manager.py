@@ -1,5 +1,6 @@
 from models import Menu
 import util
+import datetime
 
 __author__ = 'kjydiary'
 
@@ -18,6 +19,7 @@ def modify_menu(id, name, price, category_id):
     new_menu = add_menu(name, price, category_id)
     db.add(new_menu)
     old_menu = Menu.query.filter_by(id=id).first()
+    old_menu.name = old_menu.name+"(수정 날짜 : "+datetime.date.today().isoformat()+")"
     old_menu.available = False
     db.commit()
     util.g_menus = {}
@@ -30,6 +32,7 @@ def delete_menu(id):
         db.delete(menu)
         db.commit()
     else:
+        menu.name = menu.name + "(삭제 날짜 : "+datetime.date.today().isoformat()+")"
         menu.available = False
         db.commit()
     util.g_menus = {}
