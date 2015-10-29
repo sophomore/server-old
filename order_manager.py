@@ -49,7 +49,7 @@ def get_one_dict(id):
 
 def search(startDate, endDate, ordermenus, pays):
     orders = []
-    db_order = Order.query.filter_by(startDate<=Order.time, Order.time<=endDate).order(Order.time.desc()).all()
+    db_order = Order.query.filter(startDate<=Order.time, Order.time<=endDate).order(Order.time.desc()).all()
     for order in db_order:
         check = True
         for ordermenu in ordermenus:
@@ -62,7 +62,7 @@ def search(startDate, endDate, ordermenus, pays):
                     break
         if check:
             orders.append(order)
-    
+
     result =[]
     for order in orders:
         result.append(order.convert_dict())
