@@ -5,7 +5,7 @@ from openpyxl import load_workbook
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
 
-g_menus = None
+g_menus = {}
 
 def get_menus():
     global g_menus
