@@ -77,8 +77,8 @@ def order_menu_pay(id):
 
 @app.route('/order/search', methods=['POST'])
 def search_order():
-    startDate = datetime.strptime(request.form['startDate'], '%Y-%m-%d %H:%M:%S')
-    endDate = datetime.strptime(request.form['endDate'], '%Y-%m-%d %H:%M:%S')
+    startDate = datetime.strptime(request.form['startDate']+" 00:00:00", '%Y-%m-%d %H:%M:%S')
+    endDate = datetime.strptime(request.form['endDate']+" 23:59:59", '%Y-%m-%d %H:%M:%S')
     ordermenus = request.form['ordermenus']
     ordermenus = json.loads(ordermenus)
     if len(ordermenus) == 0:
