@@ -82,6 +82,7 @@ def search_order():
     menus = request.form['menus']
     menus = json.loads(menus)
     pay = json.loads(request.form['pay'])
+    print(pay)
     return json.dumps(order_manager.search(startDate, endDate,menus, pay))
 
 @app.route('/statistic/linechart',methods=['POST'])
