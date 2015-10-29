@@ -133,7 +133,7 @@ def print_receipt(orders):
     if twice>0:
         orderstring +=u'    곱배기\x09'+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
     if takeout>0:
-        orderstring +=u'    포장\t'+str(takeout)+'\t500\x09'+str(500*takeout)+'\n'
+        orderstring +=u'    포장\x09'+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
     orderstring +=u'-------------------------------------\n'
     orderstring +=u'    합계\x09\x09\x09'+str(summ)+'\n'
     output = u''
