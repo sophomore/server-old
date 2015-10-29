@@ -61,36 +61,35 @@ def print_statement(ordermenus,time):
     string =''
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
-            string += u''+key+'        '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
-            string += u'\x09ㄴ일반\n'
+            string += u'  '+key+'        '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
+            string += u'  ㄴ일반\n'
         if ct[key]>0:
-            string += u''+key+'        '+str(ct[key])+'\n'
-            string += u'\x09ㄴ카레\n'
-            string += u'\x09ㄴ  곱\n'
+            string += u'  '+key+'        '+str(ct[key])+'\n'
+            string += u'  ㄴ카레\n'
+            string += u'  ㄴ  곱\n'
         if curry[key]>0:
-            string += u''+key+'        '+str(curry[key])+'\n'
-            string += u'\x09ㄴ카레\n'
+            string += u'  '+key+'        '+str(curry[key])+'\n'
+            string += u'  ㄴ카레\n'
         if twice[key]>0:
-            string += u''+key+'        '+str(twice[key])+'\n'
-            string += u'\x09ㄴ  곱\n'
+            string += u'  '+key+'        '+str(twice[key])+'\n'
+            string += u'  ㄴ  곱\n'
     if not  len(takeout) == 0:
         string +=u'------------------포 장------------------\n'
     for key in takeout: 
         if takeout[key]+t_ct[key]-t_curry[key]-t_twice[key] >0:
-            string += u''+key+'        '+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
-            string += u'\x09ㄴ일반\n'
+            string += u'  '+key+'        '+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
+            string += u'  ㄴ일반\n'
         if t_ct[key]>0:
-            string += u''+key+'        '+str(t_ct[key])+'\n'
-            string += u'\x09ㄴ카레\n'
-            string += u'\x09ㄴ  곱\n'
+            string += u'  '+key+'        '+str(t_ct[key])+'\n'
+            string += u'  ㄴ카레\n'
+            string += u'  ㄴ  곱\n'
         if t_curry[key]>0:
-            string += u''+key+'        '+str(t_curry[key])+'\n'
-            string += u'\x09ㄴ카레\n'
+            string += u'  '+key+'        '+str(t_curry[key])+'\n'
+            string += u'  ㄴ카레\n'
         if t_twice[key]>0:
-            string += u''+key+'        '+str(t_curry[key])+'\n'
-            string += u'\x09ㄴ  곱\n'
+            string += u'  '+key+'        '+str(t_curry[key])+'\n'
+            string += u'  ㄴ  곱\n'
     outstring = u''
-    outstring += u'\x1b\x44\x02\x00'
     outstring +=u'================전     표================\n\n'
     outstring +=u'주문:'+time1+'\n'
     outstring +=u'----------------------------------------\n'
@@ -98,7 +97,7 @@ def print_statement(ordermenus,time):
     outstring +=u'----------------------------------------\n'
     outstring +=u''+string
     outstring +=u'----------------------------------------\n\n\n\n\n\n'
-    outstring += u'\x1bm\x1b\x40'
+    outstring += u'\x1bm'
     f2 = open('./statement','w+',encoding="euc-kr")
     print(outstring)
     print(outstring,file = f2)
@@ -133,7 +132,7 @@ def print_receipt(orders):
     if twice>0:
         orderstring +=u'    곱배기\x09'+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
     if takeout>0:
-        orderstring +=u'    포장\t'+str(takeout)+'\t500\x09'+str(500*takeout)+'\n'
+        orderstring +=u'    포장\x09'+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
     orderstring +=u'-------------------------------------\n'
     orderstring +=u'    합계\x09\x09\x09'+str(summ)+'\n'
     output = u''
