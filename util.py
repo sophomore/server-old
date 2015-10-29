@@ -61,7 +61,7 @@ def print_statement(ordermenus,time):
     string =''
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
-            string += u'  '+key+'        '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
+            string += u'\x1D\x21\x22'+key+'\x1D\x21\x11        '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
             string += u'  ㄴ일반\n'
         if ct[key]>0:
             string += u'  '+key+'        '+str(ct[key])+'\n'
@@ -111,6 +111,7 @@ def print_receipt(orders):
     curry = 0
     twice = 0
     takeout = 0
+    service = 0
     summ = orders.totalprice
     for ordermenu in orders.ordermenus:
         name = menus[ordermenu.menu_id]
@@ -118,6 +119,8 @@ def print_receipt(orders):
             order[name] += order[name]+1
         else:
             order[name] = 1
+        if ordermenu.pay == 3:
+            service += ordermenu.price
         if ordermenu.curry:
             curry+=1
         if ordermenu.twice:
