@@ -10,7 +10,7 @@ def add_menu(name, price, category_id):
     menu = Menu(str(name).encode('UTF-8'), price, category_id)
     db.add(menu)
     db.commit()
-    util.g_menus = None
+    util.g_menus = {}
     return menu
 
 
@@ -20,7 +20,7 @@ def modify_menu(id, name, price, category_id):
     old_menu = Menu.query.filter_by(id=id).first()
     old_menu.available = False
     db.commit()
-    util.g_menus = None
+    util.g_menus = {}
     return new_menu
 
 
@@ -32,7 +32,7 @@ def delete_menu(id):
     else:
         menu.available = False
         db.commit()
-    util.g_menus = None
+    util.g_menus = {}
     return menu
 
 
