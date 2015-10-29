@@ -1,8 +1,11 @@
+import csv
 import os
-
 from openpyxl import load_workbook
+from datetime import datetime
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
+import menu_manager
+
 g_menus = None
 
 def get_menus():
@@ -49,16 +52,16 @@ def print_statement(ordermenus,time):
                 t_curry[name] = 0
                 t_twice[name] = 0
                 t_ct[name] = 0
-            if ordermenu.curry and ordermenu.twice:
+            if ordermenu.curry and dordermenu.twice:
                 t_ct[name] +=1
             elif ordermenu.twice:
                 t_twice[name] +=1
             elif ordermenu.curry:
                 t_curry[name] +=1
-    string = u'\x1b\x40'
+
+    string = u'\x1b\x44\x02\x00'
     string +=u'================전     표================\n\n'
     string +=u'주문:'+time1+'\n'
-    string += u'\x1b\x44\x02\x00\n'
     string +=u'----------------------------------------\n'
     string +=u'메    뉴    수량\n'
     string +=u'----------------------------------------\n'
@@ -130,8 +133,8 @@ def print_receipt(orders):
         orderstring +=u'    포장\x09'+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
     orderstring +=u'-------------------------------------\n'
     orderstring +=u'    합계\x09\x09\x09'+str(summ)+'\n'
-    output = u'\n\n\n\n\n\n'
-    output += u'\x1b\x44\x11\x16\x1d\x00'   
+
+    output =u'\x1b\x44\x11\x16\x1d\x00'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
     output +=u'대   표: 송호성\n'
@@ -142,10 +145,10 @@ def print_receipt(orders):
     output +=u'    상 품 명'.center(6)+'   수량'.center(2)+'  단가'.center(5)+'   금 액'.center(6)+'\n'
     output +=u'-------------------------------------\n'
     output +=u''+orderstring
-    output +=u'-------------------------------------\n\n\n\n\n'
+    output +=u'-------------------------------------\n\n\n\n\n\n\n\n'
     output +=u'\x1bm'
     f1 = open('./receipt','w+',encoding="euc-kr")
-    print(output)
+    print(ouput)
     print(output,file = f1)
     f1.close()
     os.system('lpr -P RECEIPT_PRINTER receipt')
