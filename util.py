@@ -61,9 +61,9 @@ def print_statement(ordermenus,time):
     string +=u'asjdfkjaslkdfjklajskldfjklasjdfkljaklsj'+time1
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
-            string += u'\x1d\x21\x11'+key+'\x09\x09\x1d\x21\x00'
+            string += u'\x1d\x21\x11'+key+'\x09\x09'
             string += u'  ㄴ일반\n\n\n\n\n\n'
-    string+=u'\x1b\x6d'
+    string+=u'\x1b\x6d\x0c'
     f = open('./statement','w+',encoding = "euc-kr")
     print(string,file =f)
     f.close()
