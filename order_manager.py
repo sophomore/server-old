@@ -60,11 +60,11 @@ def search(startDate, endDate, menus, pays):
         return result
 
     if len(pays) == 0:
-        pay = []
-        pay.append(1)
-        pay.append(2)
-        pay.append(3)
-        pay.append(4)
+        pays = []
+        pays.append(1)
+        pays.append(2)
+        pays.append(3)
+        pays.append(4)
     print(db_order)
     for order in db_order:
         check = True
@@ -73,7 +73,7 @@ def search(startDate, endDate, menus, pays):
                 check = False
                 break
             else:
-                if not ordermenu.pay in pay:
+                if not ordermenu.pay in pays:
                     check = False
                     break
 
