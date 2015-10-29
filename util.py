@@ -131,14 +131,14 @@ def print_statement(ordermenus,time):
                 t_curry[name] +=1
     f = open('./statement','w+',encoding = "euc-kr")
     string =u'\n'
- 	string =u'\x1b\x44\x12\x00'
- 	string =u'================전     표================'
- 	print(string,file = f)
- 	f.close()
- 	os.system('lpr -P RECEIPT_PRINTER statement')
- 	f = open('./statement','w+',encoding = "euc-kr")
- 	string = u''
- 	for key in order:
+    string =u'\x1b\x44\x12\x00'
+    string =u'================전     표================'
+    print(string,file = f)
+    f.close()
+    os.system('lpr -P RECEIPT_PRINTER statement')
+    f = open('./statement','w+',encoding = "euc-kr")
+    string = u''
+    for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
             string += u'\x1d\x21\x11'+key+'\x09\x09'+str(order[key]-curry[key]-twice[key]+ct[key])+'\n\x1d\x21\x00'
             string += u'  ㄴ일반\x0a\x0a'
