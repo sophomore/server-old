@@ -174,14 +174,14 @@ def bar_chart(startDate, endDate, menus, unit):
     result = []
     def init_hour_result(result):
         for i in range(1, 25):
-            result.append({'cashtotal': 0, 'cardtotal': 0, 'servicetotal': 0, 'count': 0})
+            result.append({'cashtotal': 0, 'cardtotal': 0,'totalprice': 0 , 'servicetotal': 0, 'count': 0})
         return result
     def init_week_result(result):
         for i in range(7):
-            result.append({'cashtotal': 0, 'cardtotal': 0, 'servicetotal': 0, 'count': 0})
+            result.append({'cashtotal': 0, 'cardtotal': 0,'totalprice': 0 , 'servicetotal': 0, 'count': 0})
         return result
     def init_result_per_unit(result):
-        result.append({'cashtotal': 0, 'cardtotal': 0, 'servicetotal': 0, 'count': 0})
+        result.append({'cashtotal': 0, 'cardtotal': 0, 'totalprice': 0 ,'servicetotal': 0, 'count': 0})
         return result
 
     if unit == 1 or unit == 3:
@@ -193,6 +193,7 @@ def bar_chart(startDate, endDate, menus, unit):
                 for ordermenu in order.ordermenus:
                     if ordermenu.menu_id in menus:
                         result[order.time.hour]['count'] += 1
+                        result[order.time.hour]['totalprice'] += ordermenu.totalprice
                         increaseTotalPrice(ordermenu, result[order.time.hour])
         elif unit == 3:
             result = init_week_result(result)
@@ -200,6 +201,7 @@ def bar_chart(startDate, endDate, menus, unit):
                 for ordermenu in order.ordermenus:
                     if ordermenu.menu_id in menus:
                         result[order.time.weekday()]['count'] += 1
+                        result[order.time.weekday()]['totalprice'] += ordermenu.totalprice
                         increaseTotalPrice(ordermenu, result[order.time.weekday()])
     else:
         while current <= end:
@@ -223,6 +225,7 @@ def bar_chart(startDate, endDate, menus, unit):
             for ordermenu in ordermenus:
                 if ordermenu.menu_id in menus:
                     result[count_for_result]['count'] += 1
+                    result[count_for_result]['totalprice'] += ordermenu.totalprice
                     increaseTotalPrice(ordermenu, result[count_for_result])
             current = current + relativedelta(days=1)
     return result
