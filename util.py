@@ -96,7 +96,7 @@ def print_statement(ordermenus,time):
             string += u''+key+'        '+str(t_curry[key])+'\n'
             string += u'\x09ㄴ  곱\n'
     string +=u'----------------------------------------\n\n\n\n\n\n'
-    string += u'\x1bm'
+    string += u'\x1bm\x1b\x40'
     f2 = open('./statement','w+',encoding="euc-kr")
     print(string,file = f2)
     f2.close()
@@ -146,7 +146,7 @@ def print_receipt(orders):
     output +=u'-------------------------------------\n'
     output +=u''+orderstring
     output +=u'-------------------------------------\n\n\n\n\n\n\n\n'
-    output +=u'\x1bm'
+    output +=u'\x1bm\x1b\x40'
     f1 = open('./receipt','w+',encoding="euc-kr")
     print(output)
     print(output,file = f1)
