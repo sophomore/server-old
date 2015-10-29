@@ -154,10 +154,10 @@ def print_statement(ordermenus,time):
             string += u'  ㄴ  곱\x0a\x0a'
     print(string,file = f)
     f.close()
- 	os.system('lpr -P RECEIPT_PRINTER statement')
- 	f = open('./statement','w+',encoding = "euc-kr")
- 	string = u''
- 	if not  len(takeout) == 0:
+    os.system('lpr -P RECEIPT_PRINTER statement')
+    f = open('./statement','w+',encoding = "euc-kr")
+    string = u''
+    if not  len(takeout) == 0:
         string +=u'------------------포 장------------------\n'
     for key in takeout: 
         if takeout[key]+t_ct[key]-t_curry[key]-t_twice[key] >0:
@@ -175,7 +175,7 @@ def print_statement(ordermenus,time):
             string += u'  ㄴ  곱\x0a\x0a'
     print(string,file =f)
     f.close()
- 	os.system('lpr -P RECEIPT_PRINTER statement')
+    os.system('lpr -P RECEIPT_PRINTER statement')
 
 def print_receipt(orders):
     time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
