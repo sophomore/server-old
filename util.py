@@ -18,50 +18,50 @@ def get_menus():
 
 def print_statement(ordermenus,time):
     time1 = time.strftime('%Y-%m-%d %H:%M:%S')
+    menus = get_menus()
+    ct = {}
+    order = {}
+    curry = {}
+    twice = {}
+    takeout = {}
+    t_curry = {}
+    t_twice = {}
+    t_ct = {}
+    for ordermenu in ordermenus:
+        name = menus[ordermenu.menu_id].name
+        if not ordermenu.takeout:
+            if name in order:
+                order[name] += 1
+            else:
+                order[name] = 1
+                curry[name] = 0
+                twice[name] = 0
+                ct[name] = 0
+            if ordermenu.curry and ordermenu.twice:
+                ct[name] +=1
+            elif ordermenu.twice:
+                twice[name] +=1
+            elif ordermenu.curry:
+                curry[name] +=1
+        else:
+            if name in takeout:
+                takeout[name] += 1
+            else:
+                takeout[name] = 1
+                t_curry[name] = 0
+                t_twice[name] = 0
+                t_ct[name] = 0
+            if ordermenu.curry and ordermenu.twice:
+                t_ct[name] +=1
+            elif ordermenu.twice:
+                t_twice[name] +=1
+            elif ordermenu.curry:
+                t_curry[name] +=1
     string =u'asjdfkjaslkdfjklajskldfjklasjdfkljaklsj'+time1+'\x1b\x6d\n\n\n\n\n\n\n\n\n'
     f = open('./statement','w+',encoding = "euc-kr")
     print(string,file =f)
     f.close()
     os.system("lpr -P RECEIPT_PRINTER statement")
-    # menus = get_menus()
-    # ct = {}
-    # order = {}
-    # curry = {}
-    # twice = {}
-    # takeout = {}
-    # t_curry = {}
-    # t_twice = {}
-    # t_ct = {}
-    # for ordermenu in ordermenus:
-    #     name = menus[ordermenu.menu_id].name
-    #     if not ordermenu.takeout:
-    #         if name in order:
-    #             order[name] += 1
-    #         else:
-    #             order[name] = 1
-    #             curry[name] = 0
-    #             twice[name] = 0
-    #             ct[name] = 0
-    #         if ordermenu.curry and ordermenu.twice:
-    #             ct[name] +=1
-    #         elif ordermenu.twice:
-    #             twice[name] +=1
-    #         elif ordermenu.curry:
-    #             curry[name] +=1
-    #     else:
-    #         if name in takeout:
-    #             takeout[name] += 1
-    #         else:
-    #             takeout[name] = 1
-    #             t_curry[name] = 0
-    #             t_twice[name] = 0
-    #             t_ct[name] = 0
-    #         if ordermenu.curry and ordermenu.twice:
-    #             t_ct[name] +=1
-    #         elif ordermenu.twice:
-    #             t_twice[name] +=1
-    #         elif ordermenu.curry:
-    #             t_curry[name] +=1
     # string =''
     # for key in order:
     #     if order[key]-curry[key]-twice[key]+ct[key] >0:
