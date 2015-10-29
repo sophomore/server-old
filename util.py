@@ -52,7 +52,7 @@ def print_statement(ordermenus,time):
                 t_curry[name] = 0
                 t_twice[name] = 0
                 t_ct[name] = 0
-            if ordermenu.curry and dordermenu.twice:
+            if ordermenu.curry and ordermenu.twice:
                 t_ct[name] +=1
             elif ordermenu.twice:
                 t_twice[name] +=1
@@ -98,7 +98,7 @@ def print_statement(ordermenus,time):
     outstring +=u'----------------------------------------\n'
     outstring +=u''+string
     outstring +=u'----------------------------------------\n\n\n\n\n\n'
-    outstring += u'\x1bm\x1b\x40'
+    outstring += u'\x1bm'
     f2 = open('./statement','w+',encoding="euc-kr")
     print(outstring)
     print(outstring,file = f2)
