@@ -79,19 +79,19 @@ def order_menu_pay(id):
 def search_order():
     startDate = datetime.strptime(request.form['startDate']+" 00:00:00", '%Y-%m-%d %H:%M:%S')
     endDate = datetime.strptime(request.form['endDate']+" 23:59:59", '%Y-%m-%d %H:%M:%S')
-    ordermenus = request.form['ordermenus']
-    ordermenus = json.loads(ordermenus)
-    if len(ordermenus) == 0:
+    menus = request.form['menus']
+    menus = json.loads(menus)
+    if len(menus) == 0:
         ordermenus2 = util.get_menus()
         for menu in ordermenus2:
-            ordermenus.append(menu)
+            menus.append(menu)
     pay = json.loads(request.form['pay'])
     if len(pay) == 0:
         pay.append(1)
         pay.append(2)
         pay.append(3)
         pay.append(4)
-    return json.dumps(order_manager.search(startDate, endDate,ordermenus, pay))
+    return json.dumps(order_manager.search(startDate, endDate,menus, pay))
 
 @app.route('/statistic/linechart',methods=['POST'])
 def linechart():
