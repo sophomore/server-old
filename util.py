@@ -133,7 +133,7 @@ def print_receipt(orders):
         orderstring +=u'    포장\t'+str(takeout)+'\t500\x09'+str(500*takeout)+'\n'
     orderstring +=u'-------------------------------------\n'
     orderstring +=u'    합계\x09\x09\x09'+str(summ)+'\n'
-    output = u''
+    output = u'sd;fjas;ljflk;asjf;lksadjf;lksadjflkjsadlkfj;alsjf;klasjfkdsjfkljas;fj;aslj'
     output +=u'\x1b\x44\x11\x16\x1d\x00'
     output +=u'상_호_명:_송호성_쉐프의_돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
