@@ -50,6 +50,7 @@ def get_one_dict(id):
 def search(startDate, endDate, ordermenus, pays):
     orders = []
     db_order = Order.query.filter(startDate<=Order.time, Order.time<=endDate).order_by(Order.time.desc()).all()
+    print(db_order)
     for order in db_order:
         check = True
         for ordermenu in ordermenus:
