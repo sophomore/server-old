@@ -18,7 +18,7 @@ def get_menus():
 
 def print_statement(ordermenus,time):
     time1 = time.strftime('%Y-%m-%d %H:%M:%S')
-    string =u''+time1
+    string =u''+time1+'\x1bm'
     f = open('./statement','w+',encoding = "euc-kr")
     print(string,file =f)
     f.close()
