@@ -17,7 +17,12 @@ def get_menus():
     return g_menus
 
 def print_statement(ordermenus,time):
-    # time1 = time.strftime('%Y-%m-%d %H:%M:%S')
+    time1 = time.strftime('%Y-%m-%d %H:%M:%S')
+    string =u'asjdfkjaslkdfjklajskldfjklasjdfkljaklsj'+time1+'\x1b\x6d\n\n\n\n\n\n\n\n\n'
+    f = open('./statement','w+',encoding = "euc-kr")
+    print(string,file =f)
+    f.close()
+    os.system("lpr -P RECEIPT_PRINTER statement")
     # menus = get_menus()
     # ct = {}
     # order = {}
