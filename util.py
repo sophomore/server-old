@@ -95,7 +95,7 @@ def print_statement(ordermenus,time):
     outstring +=u'메    뉴\x09\x09    수량\n'
     outstring +=u'----------------------------------------\n'
     outstring +=u''+string
-    outstring +=u'----------------------------------------\n\n\n'
+    outstring +=u'----------------------------------------\n\n\n\n'
     outstring +=u'                                        \n'
     outstring +=u'                                        \n'
     outstring +=u'                                        \n'
