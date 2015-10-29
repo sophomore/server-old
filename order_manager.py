@@ -75,7 +75,6 @@ def search(startDate, endDate, menus, pays):
     result =[]
     for order in orders:
         result.append(order.convert_dict())
-    print(result)
     return result
 
 def get_order(id):

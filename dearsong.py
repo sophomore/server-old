@@ -27,7 +27,7 @@ def one_menu(id):
     elif request.method == 'DELETE':
         menu = menu_manager.delete_menu(id)
         return json.dumps({"result": "success", "delete_menu": menu.convert_dict()})
-        return abort(400)
+    return abort(400)
 
 @app.route('/menu', methods=['GET', 'POST'])
 def menu():
@@ -36,13 +36,13 @@ def menu():
     elif request.method == 'POST':
         menu = menu_manager.add_menu(request.form['name'], request.form['price'], request.form['category'])
         return json.dumps({"result": "success", "menu": menu.convert_dict()})
-        return abort(400)
+    return abort(400)
 
 @app.route('/menu/all', methods=['GET'])
 def menu_all():
     if request.method == 'GET':
         return json.dumps(menu_manager.get_all_dict())
-        return abort(400)
+    return abort(400)
 
 # Order
 @app.route('/order/<int:id>', methods=['GET', 'DELETE', 'POST'])
