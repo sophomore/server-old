@@ -95,8 +95,8 @@ class OrderMenu(Base):
         self.takeout = takeout
         self.totalprice = menu.price
         if curry:
-            self.totalprice += 1000
+            self.totalprice += 2500
         if twice:
-            self.totalprice += 500
+            self.totalprice += 2500
         #TODO: 가격 확인
         # order.ordermenus.append(self)
