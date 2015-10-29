@@ -62,7 +62,7 @@ def print_statement(ordermenus,time):
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
             string += u'\x1D\x21\x11'+key+'\x09'+str(order[key]-curry[key]-twice[key]+ct[key])+'\n\x1D\x21\x00\n'
-            string += u'  ㄴ일반\n'
+            string += u'  ㄴ일반\n\n'
         if ct[key]>0:
             string += u'\x1D\x21\x11'+key+'\x09'+str(ct[key])+'\n\x1D\x21\x00\n'
             string += u'  ㄴ카레\n\n'
