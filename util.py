@@ -16,6 +16,148 @@ def get_menus():
             g_menus[m.id] = m
     return g_menus
 
+def print_statement(ordermenus,time):
+    time1 = time.strftime('%Y-%m-%d %H:%M:%S')
+    menus = get_menus()
+    ct = {}
+    order = {}
+    curry = {}
+    twice = {}
+    takeout = {}
+    t_curry = {}
+    t_twice = {}
+    t_ct = {}
+    for ordermenu in ordermenus:
+        name = menus[ordermenu.menu_id].name
+        if not ordermenu.takeout:
+            if name in order:
+                order[name] += 1
+            else:
+                order[name] = 1
+                curry[name] = 0
+                twice[name] = 0
+                ct[name] = 0
+            if ordermenu.curry and ordermenu.twice:
+                ct[name] +=1
+            elif ordermenu.twice:
+                twice[name] +=1
+            elif ordermenu.curry:
+                curry[name] +=1
+        else:
+            if name in takeout:
+                takeout[name] += 1
+            else:
+                takeout[name] = 1
+                t_curry[name] = 0
+                t_twice[name] = 0
+                t_ct[name] = 0
+            if ordermenu.curry and ordermenu.twice:
+                t_ct[name] +=1
+            elif ordermenu.twice:
+                t_twice[name] +=1
+            elif ordermenu.curry:
+                t_curry[name] +=1
+    string =''
+    for key in order:
+        if order[key]-curry[key]-twice[key]+ct[key] >0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(order[key]-curry[key]-twice[key]+ct[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ일반\n\n'
+        if ct[key]>0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(ct[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ카레\n\n'
+            string += u'  ㄴ  곱\n\n'
+        if curry[key]>0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(curry[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ카레\n\n'
+        if twice[key]>0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(twice[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ  곱\n\n'
+    if not  len(takeout) == 0:
+        string +=u'------------------포 장------------------\n'
+    for key in takeout: 
+        if takeout[key]+t_ct[key]-t_curry[key]-t_twice[key] >0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ일반\n\n'
+        if t_ct[key]>0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(t_ct[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ카레\n\n'
+            string += u'  ㄴ  곱\n\n'
+        if t_curry[key]>0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(t_curry[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ카레\n\n'
+        if t_twice[key]>0:
+            string += u'\x1d\x21\x01'+key+'\x09\x09'+str(t_curry[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ  곱\n\n'
+    outstring = u'\x1B\x44\x12\x00'
+    outstring +=u'\x1d\x21\x22================전     표================\n\x1b\x21\x00\n\n\n'
+    outstring +=u'주문:'+time1+'\n'
+    outstring +=u'----------------------------------------\n'
+    outstring +=u'메    뉴\x09\x09    수량\n'
+    outstring +=u'----------------------------------------\n'
+    outstring +=u''+string
+    outstring +=u'----------------------------------------\n\n\n\n\n\n'
+    outstring += u'\x1bm'
+    f2 = open('./statement','w+',encoding="euc-kr")
+    string = u'                                            \n'
+    print(string,file = f2)
+    print(outstring)
+    print(outstring,file = f2)
+    f2.close()
+    os.system('lpr -P RECEIPT_PRINTER statement')
+
+def print_receipt(orders):
+    time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
+    menus = get_menus()
+    order = {}
+    curry = 0
+    twice = 0
+    takeout = 0
+    summ = orders.totalprice
+    for ordermenu in orders.ordermenus:
+        name = menus[ordermenu.menu_id]
+        if name in order:
+            order[name] += order[name]+1
+        else:
+            order[name] = 1
+        if ordermenu.pay != 3:
+            if ordermenu.curry:
+                curry+=1
+            if ordermenu.twice:
+                twice +=1
+            if ordermenu.takeout:
+                takeout +=1
+    orderstring = '\x1b\x44\x13\x1b\x22\x00'
+    for o in order:
+        orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'            
+    if curry>0:
+        orderstring +=u'  카레추가\x09  '+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
+    if twice>0:
+        orderstring +=u'  곱배기\x09  '+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
+    if takeout>0:
+        orderstring +=u'  포장\x09  '+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
+    orderstring +=u'-----------------------------------------\n'
+    orderstring +=u'\x1b\x61\x02합계 : '+str(summ)+'     \n\x1b\x61\x00'
+    output = u''
+    output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
+    output +=u'등록번호: 134-31-16828\n'
+    output +=u'대    표: 송호성\n'
+    output +=u'전화번호: 031-480-4595\n'
+    output +=u'주    소: 경기 안산시 상록구 사동 1165번지\n\n'
+    output +=u'주문:'+time+'\n'
+    output +=u'-----------------------------------------\n'
+    output +=u'  상 품 명\x09수 량\x09단 가\x09금 액\n'
+    output +=u'-----------------------------------------\n'
+    output +=u''+orderstring
+    output +=u'-----------------------------------------\n\n\n\n\n\n\n\n'
+    output +=u'\x1B\x40\x1bm'
+    f1 = open('./receipt','w+',encoding="euc-kr")
+    print(output)
+    print(output,file = f1)
+    f1.close()
+    os.system('lpr -P RECEIPT_PRINTER receipt')
+
+
+
 def output():
     os.system("mysqldump --user=song --password=Qoswlfdlsnrn pos > ./backup.sql")
 
@@ -88,151 +230,3 @@ def get_sign(strg,st):
         count = 0
     return count
 
-def print_statement(ordermenus,time):
-    time1 = time.strftime('%Y-%m-%d %H:%M:%S')
-    menus = get_menus()
-    ct = {}
-    order = {}
-    curry = {}
-    twice = {}
-    takeout = {}
-    t_curry = {}
-    t_twice = {}
-    t_ct = {}
-    for ordermenu in ordermenus:
-        name = menus[ordermenu.menu_id].name
-        if not ordermenu.takeout:
-            if name in order:
-                order[name] += 1
-            else:
-                order[name] = 1
-                curry[name] = 0
-                twice[name] = 0
-                ct[name] = 0
-            if ordermenu.curry and ordermenu.twice:
-                ct[name] +=1
-            elif ordermenu.twice:
-                twice[name] +=1
-            elif ordermenu.curry:
-                curry[name] +=1
-        else:
-            if name in takeout:
-                takeout[name] += 1
-            else:
-                takeout[name] = 1
-                t_curry[name] = 0
-                t_twice[name] = 0
-                t_ct[name] = 0
-            if ordermenu.curry and ordermenu.twice:
-                t_ct[name] +=1
-            elif ordermenu.twice:
-                t_twice[name] +=1
-            elif ordermenu.curry:
-                t_curry[name] +=1
-    f = open('./statement','w+',encoding = "euc-kr")
-    string =u'\n'
-    string =u'\x1b\x44\x12\x00'
-    string =u'================전     표================'
-    string +=u'주문:'+time1+'\n'
-    string +=u'----------------------------------------\n'
-    string +=u'메    뉴\x09\x09    수량\n'
-    string +=u'----------------------------------------\n'
-    print(string,file = f)
-    f.close()
-    os.system('lpr -P RECEIPT_PRINTER statement')
-    f = open('./statement','w+',encoding = "euc-kr")
-    string = u''
-    for key in order:
-        if order[key]-curry[key]-twice[key]+ct[key] >0:
-            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(order[key]-curry[key]-twice[key]+ct[key])+'\n\x1d\x21\x00'
-            string += u'  ㄴ일반\x0a\x0a'
-        if ct[key]>0:
-            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(ct[key])+'\n\x1d\x21\x00'
-            string += u'  ㄴ카레\x0a'
-            string += u'  ㄴ  곱\x0a\x0a'
-        if curry[key]>0:
-            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(curry[key])+'\n\x1d\x21\x00'
-            string += u'  ㄴ카레\x0a\x0a'
-        if twice[key]>0:
-            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(twice[key])+'\n\x1d\x21\x00'
-            string += u'  ㄴ  곱\x0a\x0a'
-    print(string,file = f)
-    f.close()
-    os.system('lpr -P RECEIPT_PRINTER statement')
-    f = open('./statement','w+',encoding = "euc-kr")
-    string = u''
-    if not  len(takeout) == 0:
-        string +=u'------------------포 장------------------\n'
-    for key in takeout: 
-        if takeout[key]+t_ct[key]-t_curry[key]-t_twice[key] >0:
-            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n\x1d\x21\x00'
-            string += u'  ㄴ일반\x0a\x0a'
-        if t_ct[key]>0:
-            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(t_ct[key])+'\n\x1d\x21\x00'
-            string += u'  ㄴ카레\x0a'
-            string += u'  ㄴ  곱\x0a\x0a'
-        if t_curry[key]>0:
-            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(t_curry[key])+'\n\x1d\x21\x00'
-            string += u'  ㄴ카레\x0a\x0a'
-        if t_twice[key]>0:
-            string += u'\x1d\x21\x01'+key+'\x09\x09'+str(t_curry[key])+'\n\x1d\x21\x00'
-            string += u'  ㄴ  곱\x0a\x0a'
-    print(string,file =f)
-    f.close()
-    os.system('lpr -P RECEIPT_PRINTER statement')
-    f = open('./statement','w+',encoding = "euc-kr")
-    string = u'----------------------------------------\n'
-    string +=u'\x1b\x6d'
-    print(string,file = f)
-    os.system('lpr -P RECEIPT_PRINTER statement')
-
-def print_receipt(orders):
-    time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
-    menus = get_menus()
-    order = {}
-    curry = 0
-    twice = 0
-    takeout = 0
-    summ = orders.totalprice
-    for ordermenu in orders.ordermenus:
-        name = menus[ordermenu.menu_id]
-        if name in order:
-            order[name] += order[name]+1
-        else:
-            order[name] = 1
-        if ordermenu.pay != 3:
-            if ordermenu.curry:
-                curry+=1
-            if ordermenu.twice:
-                twice +=1
-            if ordermenu.takeout:
-                takeout +=1
-    orderstring = '\x1b\x44\x13\x1b\x22\x00'
-    for o in order:
-        orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'            
-    if curry>0:
-        orderstring +=u'  카레추가\x09  '+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
-    if twice>0:
-        orderstring +=u'  곱배기\x09  '+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
-    if takeout>0:
-        orderstring +=u'  포장\x09  '+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
-    orderstring +=u'-----------------------------------------\n'
-    orderstring +=u'\x1b\x61\x02합계 : '+str(summ)+'     \n\x1b\x61\x00'
-    output = u''
-    output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
-    output +=u'등록번호: 134-31-16828\n'
-    output +=u'대    표: 송호성\n'
-    output +=u'전화번호: 031-480-4595\n'
-    output +=u'주    소: 경기 안산시 상록구 사동 1165번지\n\n'
-    output +=u'주문:'+time+'\n'
-    output +=u'-----------------------------------------\n'
-    output +=u'  상 품 명\x09수 량\x09단 가\x09금 액\n'
-    output +=u'-----------------------------------------\n'
-    output +=u''+orderstring
-    output +=u'-----------------------------------------\n\n\n\n\n\n\n\n'
-    output +=u'\x1B\x40\x1bm'
-    f1 = open('./receipt','w+',encoding="euc-kr")
-    print(output)
-    print(output,file = f1)
-    f1.close()
-    os.system('lpr -P RECEIPT_PRINTER receipt')
