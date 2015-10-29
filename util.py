@@ -58,13 +58,7 @@ def print_statement(ordermenus,time):
                 t_twice[name] +=1
             elif ordermenu.curry:
                 t_curry[name] +=1
-
-    string = u'\x1b\x44\x02\x00'
-    string +=u'================전     표================\n\n'
-    string +=u'주문:'+time1+'\n'
-    string +=u'----------------------------------------\n'
-    string +=u'메    뉴    수량\n'
-    string +=u'----------------------------------------\n'
+    string =''
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
             string += u''+key+'        '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
@@ -95,10 +89,19 @@ def print_statement(ordermenus,time):
         if t_twice[key]>0:
             string += u''+key+'        '+str(t_curry[key])+'\n'
             string += u'\x09ㄴ  곱\n'
-    string +=u'----------------------------------------\n\n\n\n\n\n'
-    string += u'\x1bm\x1b\x40'
+    outstring = u''
+    outstring += u'\x1b\x44\x02\x00'
+    outstring +=u'================전     표================\n\n'
+    outstring +=u'주문:'+time1+'\n'
+    outstring +=u'----------------------------------------\n'
+    outstring +=u'메    뉴    수량\n'
+    outstring +=u'----------------------------------------\n'
+    outstring +=u''+string
+    outstring +=u'----------------------------------------\n\n\n\n\n\n'
+    outstring += u'\x1bm\x1b\x40'
     f2 = open('./statement','w+',encoding="euc-kr")
-    print(string,file = f2)
+    print(outstring)
+    print(outstring,file = f2)
     f2.close()
     os.system('lpr -P RECEIPT_PRINTER statement')
 
