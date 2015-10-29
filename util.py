@@ -66,8 +66,8 @@ def print_statement(ordermenus,time):
             string = u'\x1d\x21\x11'+key+'\x09\x09'
             string += u'  ㄴ일반\n\n\n\n\n\n'
             print(string, file =f)
-    string+=u'\x1b\x6d\x1b\x40\x0c'
-    # print(string,file =f)
+    string=u'\x1b\x6d\x1b\x40\x0c'
+    print(string,file =f)
     f.close()
     os.system("lpr -P RECEIPT_PRINTER statement")
     #     if ct[key]>0:
