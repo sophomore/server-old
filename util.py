@@ -119,19 +119,21 @@ def print_receipt(orders):
     takeout = 0
     summ = orders.totalprice
     for ordermenu in orders.ordermenus:
-        name = menus[ordermenu.menu_id]
-        if name in order:
-            order[name] += order[name]+1
-        else:
-            order[name] = 1
         if ordermenu.pay != 3:
-            if ordermenu.curry:
-                curry+=1
-            if ordermenu.twice:
-                twice +=1
-            if ordermenu.takeout:
-                takeout +=1
-    orderstring = '\x1b\x44\x13\x1b\x22\x00'
+            name = menus[ordermenu.menu_id]
+            if name in order:
+                order[name] += order[name]+1
+            else:
+                order[name] = 1
+            if ordermenu.pay != 3:
+                if ordermenu.curry:
+                    curry+=1
+                if ordermenu.twice:
+                    twice +=1
+                if ordermenu.takeout:
+                    takeout +=1
+
+    orderstring = u'\x1b\x44\x13\x1b\x22\x00'
     for o in order:
         orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'            
     if curry>0:
@@ -142,7 +144,7 @@ def print_receipt(orders):
         orderstring +=u'  포장\x09  '+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
     orderstring +=u'-----------------------------------------\n'
     orderstring +=u'\x1b\x61\x02합계 : '+str(summ)+'     \n\x1b\x61\x00'
-    output = u''
+    output = u'                                          \n'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
     output +=u'대    표: 송호성\n'
@@ -153,7 +155,10 @@ def print_receipt(orders):
     output +=u'  상 품 명\x09수 량\x09단 가\x09금 액\n'
     output +=u'-----------------------------------------\n'
     output +=u''+orderstring
-    output +=u'-----------------------------------------\n\n\n\n\n\n\n\n'
+    output +=u'-----------------------------------------\n'
+    output +=u'                                         \n'
+    output +=u'                                         \n'
+    output +=u'                                         \n\n'
     output +=u'\x1B\x40\x1bm'
     f1 = open('./receipt','w+',encoding="euc-kr")
     print(output)
