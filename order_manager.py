@@ -65,9 +65,9 @@ def search(startDate, endDate, menus, pays):
         pays.append(2)
         pays.append(3)
         pays.append(4)
-    print(db_order)
     for order in db_order:
         size = len(order.ordermenus)
+        print(size)
         count = 0
         for ordermenu in order.ordermenus:
             if ordermenu.menu_id in menus and ordermenu.pay in pays:
