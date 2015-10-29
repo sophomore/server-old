@@ -176,6 +176,11 @@ def print_statement(ordermenus,time):
     print(string,file =f)
     f.close()
     os.system('lpr -P RECEIPT_PRINTER statement')
+    f = open('./statement','w+',encoding = "euc-kr")
+    string = u''
+    string +=u'\x0a\x0a\x0a\x1b\x6d'
+    print(string,file = f)
+    os.system('lpr -P RECEIPT_PRINTER statement')
 
 def print_receipt(orders):
     time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
