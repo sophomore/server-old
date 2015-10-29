@@ -14,7 +14,6 @@ def get_menus():
         g_menus = {}
         menu = Menu.query.all()
         for m in menu:
-            print(m)
             g_menus[m.id] = m
     return g_menus
 
