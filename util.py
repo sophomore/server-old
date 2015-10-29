@@ -57,12 +57,13 @@ def print_statement(ordermenus,time):
                 t_twice[name] +=1
             elif ordermenu.curry:
                 t_curry[name] +=1
-    string =u'asjdfkjaslkdfjklajskldfjklasjdfkljaklsj'+time1+'\x1b\x6d\n\n\n\n\n\n\n\n\n'
+
+    string = u''
+    string +=u'asjdfkjaslkdfjklajskldfjklasjdfkljaklsj'+time1+'\x1b\x6d\n\n\n\n\n\n\n\n\n'
     f = open('./statement','w+',encoding = "euc-kr")
     print(string,file =f)
     f.close()
     os.system("lpr -P RECEIPT_PRINTER statement")
-    # string =''
     # for key in order:
     #     if order[key]-curry[key]-twice[key]+ct[key] >0:
     #         string += u'\x1d\x21\x11'+key+'\x09\x09'+str(order[key]-curry[key]-twice[key]+ct[key])+'\n\x1d\x21\x00'
