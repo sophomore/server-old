@@ -1,4 +1,6 @@
+import json
 from models import Order, OrderMenu, Menu
+import util
 
 __author__ = 'kjydiary'
 
@@ -47,26 +49,39 @@ def get_one_dict(id):
     return Order.query.filter_by(id=id).first().convert_dict()
 
 
-def search(startDate, endDate, ordermenus, pays):
+def search(startDate, endDate, menus, pays):
     orders = []
+
     db_order = Order.query.filter(startDate<=Order.time, Order.time<=endDate).order_by(Order.time.desc()).all()
+    if len(menus) == 0:
+        result = []
+        for order in db_order:
+            result.append(order.convert_dict())
+        return result
+    if len(pay) == 0:
+        pay.append(1)
+        pay.append(2)
+        pay.append(3)
+        pay.append(4)
     print(db_order)
     for order in db_order:
         check = True
-        for ordermenu in ordermenus:
-            if not ordermenu in order.ordermenus:
+        for ordermenu in order.ordermenus:
+            if not ordermenu.menu_id in menus:
                 check = False
                 break
             else:
                 if not ordermenu.pay in pays:
                     check = False
                     break
+
         if check:
             orders.append(order)
 
     result =[]
     for order in orders:
         result.append(order.convert_dict())
+
     return result
 
 def get_order(id):
