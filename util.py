@@ -143,7 +143,8 @@ def print_receipt(orders):
     ser = 0;
     for o in order:
         orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
-        ser            
+    for o in serv:
+        ser += serv[o.name]
     if curry>0:
         orderstring +=u'  카레추가\x09  '+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
     if twice>0:
@@ -151,7 +152,7 @@ def print_receipt(orders):
     if takeout>0:
         orderstring +=u'  포장\x09  '+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
     orderstring +=u'-----------------------------------------\n'
-    orderstring +=u'\x1b\x61\x02합계 : '+str(summ)+'     \n\x1b\x61\x00'
+    orderstring +=u'\x1b\x61\x02합계 : '+str(summ-ser)+'     \n\x1b\x61\x00'
     output = u'                                          \n'
     output += u'                                          \n'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
