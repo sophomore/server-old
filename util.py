@@ -1,8 +1,11 @@
+import csv
 import os
-
 from openpyxl import load_workbook
+from datetime import datetime
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
+import menu_manager
+
 g_menus = None
 
 def get_menus():
@@ -49,19 +52,13 @@ def print_statement(ordermenus,time):
                 t_curry[name] = 0
                 t_twice[name] = 0
                 t_ct[name] = 0
-            if ordermenu.curry and ordermenu.twice:
+            if ordermenu.curry and dordermenu.twice:
                 t_ct[name] +=1
             elif ordermenu.twice:
                 t_twice[name] +=1
             elif ordermenu.curry:
                 t_curry[name] +=1
-    string = u'\x1b\x40'
-    string +=u'================전     표================\n\n'
-    string +=u'주문:'+time1+'\n'
-    string += u'\x1b\x44\x02\x00\n'
-    string +=u'----------------------------------------\n'
-    string +=u'메    뉴    수량\n'
-    string +=u'----------------------------------------\n'
+    string =''
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
             string += u''+key+'        '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
@@ -92,11 +89,20 @@ def print_statement(ordermenus,time):
         if t_twice[key]>0:
             string += u''+key+'        '+str(t_curry[key])+'\n'
             string += u'\x09ㄴ  곱\n'
-    string +=u'----------------------------------------\n\n\n\n\n\n'
-    string += u'\x1bm'
-    f1 = open('./statement','w+',encoding="euc-kr")
-    print(string,file = f1)
-    f1.close()
+    outstring = u''
+    outstring += u'\x1b\x44\x02\x00'
+    outstring +=u'================전     표================\n\n'
+    outstring +=u'주문:'+time1+'\n'
+    outstring +=u'----------------------------------------\n'
+    outstring +=u'메    뉴    수량\n'
+    outstring +=u'----------------------------------------\n'
+    outstring +=u''+string
+    outstring +=u'----------------------------------------\n\n\n\n\n\n'
+    outstring += u'\x1bm\x1b\x40'
+    f2 = open('./statement','w+',encoding="euc-kr")
+    print(outstring)
+    print(outstring,file = f2)
+    f2.close()
     os.system('lpr -P RECEIPT_PRINTER statement')
 
 def print_receipt(orders):
@@ -127,12 +133,11 @@ def print_receipt(orders):
     if twice>0:
         orderstring +=u'    곱배기\x09'+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
     if takeout>0:
-        orderstring +=u'    포장\x09'+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
+        orderstring +=u'    포장\t'+str(takeout)+'\t500\x09'+str(500*takeout)+'\n'
     orderstring +=u'-------------------------------------\n'
     orderstring +=u'    합계\x09\x09\x09'+str(summ)+'\n'
-    output = u'\x1b\x40'
-    output += u'\n\n\n\n\n\n'
-    output += u'\x1b\x44\x11\x16\x1d\x00'
+    output = u''
+    output +=u'\x1b\x44\x11\x16\x1d\x00'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
     output +=u'대   표: 송호성\n'
@@ -143,9 +148,10 @@ def print_receipt(orders):
     output +=u'    상 품 명'.center(6)+'   수량'.center(2)+'  단가'.center(5)+'   금 액'.center(6)+'\n'
     output +=u'-------------------------------------\n'
     output +=u''+orderstring
-    output +=u'-------------------------------------\n\n\n\n\n'
-    output +=u'\x1bm'
+    output +=u'-------------------------------------\n\n\n\n\n\n\n\n'
+    output +=u'\x1bm\x1b\x40'
     f1 = open('./receipt','w+',encoding="euc-kr")
+    print(output)
     print(output,file = f1)
     f1.close()
     os.system('lpr -P RECEIPT_PRINTER receipt')
