@@ -61,7 +61,7 @@ def print_statement(ordermenus,time):
     string =''
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
-            string += u'\x1D\x21\x22'+key+'\x1D\x21\x11        '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
+            string += u'\x1D\x21\x11'+key+'\x1D\x21\x00        '+str(order[key]-curry[key]-twice[key]+ct[key])+'\n'
             string += u'  ㄴ일반\n'
         if ct[key]>0:
             string += u'  '+key+'        '+str(ct[key])+'\n'
@@ -77,19 +77,19 @@ def print_statement(ordermenus,time):
         string +=u'------------------포 장------------------\n'
     for key in takeout: 
         if takeout[key]+t_ct[key]-t_curry[key]-t_twice[key] >0:
-            string += u'  '+key+'        '+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
+            string += u'  '+key+'\x09'+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n'
             string += u'  ㄴ일반\n'
         if t_ct[key]>0:
-            string += u'  '+key+'        '+str(t_ct[key])+'\n'
+            string += u'  '+key+'\x09'+str(t_ct[key])+'\n'
             string += u'  ㄴ카레\n'
             string += u'  ㄴ  곱\n'
         if t_curry[key]>0:
-            string += u'  '+key+'        '+str(t_curry[key])+'\n'
+            string += u'  '+key+'\x09'+str(t_curry[key])+'\n'
             string += u'  ㄴ카레\n'
         if t_twice[key]>0:
-            string += u'  '+key+'        '+str(t_curry[key])+'\n'
+            string += u'  '+key+'\x09'+str(t_curry[key])+'\n'
             string += u'  ㄴ  곱\n'
-    outstring = u''
+    outstring = u'\x1B\x44\x12\x00'
     outstring +=u'================전     표================\n\n'
     outstring +=u'주문:'+time1+'\n'
     outstring +=u'----------------------------------------\n'
