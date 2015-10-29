@@ -131,7 +131,7 @@ def print_receipt(orders):
     orderstring +=u'-------------------------------------\n'
     orderstring +=u'    합계\x09\x09\x09'+str(summ)+'\n'
     output = u'\n\n\n\n\n\n'
-    output += u'\x1b\x44\x11\x16\x1d\x00'
+    output += u'\x1b\x44\x11\x16\x1d\x00'   
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
     output +=u'대   표: 송호성\n'
@@ -148,8 +148,7 @@ def print_receipt(orders):
     print(output)
     print(output,file = f1)
     f1.close()
-    os.system('fold -s receipt | lpr')
-    # os.system('lpr -P RECEIPT_PRINTER receipt')
+    os.system('lpr -P RECEIPT_PRINTER receipt')
 
 
 
