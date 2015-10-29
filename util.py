@@ -59,14 +59,15 @@ def print_statement(ordermenus,time):
                 t_curry[name] +=1
     f = open('./statement','w+',encoding = "euc-kr")
     string = u''
-    # string +=u'가나다라마바사아자차카타파하왓더헬 언제까지 안되나 보자\n\n\n'+time1
+    string +=u'가나다라마바사아자차카타파하왓더헬 언제까지 안되나 보자\n\n\n'+time1
     print(string,file =f)
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
-            string += u'\x1d\x21\x11'+key+'\x09\x09'
+            string = u'\x1d\x21\x11'+key+'\x09\x09'
             string += u'  ㄴ일반\n\n\n\n\n\n'
+            print(string, file =f)
     string+=u'\x1b\x6d\x1b\x40\x0c'
-    print(string,file =f)
+    # print(string,file =f)
     f.close()
     os.system("lpr -P RECEIPT_PRINTER statement")
     #     if ct[key]>0:
