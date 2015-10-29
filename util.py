@@ -98,7 +98,7 @@ def print_statement(ordermenus,time):
     outstring +=u'----------------------------------------\n\n\n\n\n\n'
     outstring += u'\x1bm'
     f2 = open('./statement','w+',encoding="euc-kr")
-    string = u'                                          '
+    string = u'----------------------------------------\n'
     print(string,file = f2)
     print(outstring)
     print(outstring,file = f2)
