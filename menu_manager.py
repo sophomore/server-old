@@ -45,7 +45,8 @@ def get_all_dict():
             if i['name'] == menus[menu].name:
                 check = False
         if check:
-            print(menus[menu]+"!!$@")
+            print('123')
+            print(menus[menu])
             result.append(menus[menu].convert_dict())
     return result
 
