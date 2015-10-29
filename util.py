@@ -89,14 +89,14 @@ def print_statement(ordermenus,time):
         if t_twice[key]>0:
             string += u'\x1D\x21\x11'+key+'\x09'+str(t_curry[key])+'\n\x1D\x21\x00'
             string += u'  ㄴ  곱\n\n'
-    outstring = u'\x1B\x44\x12\x00'
+    outstring = u'\x1B\x40\x0a\x1B\x44\x12\x00'
     outstring +=u'================전     표================\n\n'
     outstring +=u'주문:'+time1+'\n'
     outstring +=u'----------------------------------------\n'
     outstring +=u'메    뉴    수량\n'
     outstring +=u'----------------------------------------\n'
     outstring +=u''+string
-    outstring +=u'----------------------------------------\n\x1B\x40'
+    outstring +=u'----------------------------------------\n\x1B\x40\n\n\n\n\n'
     outstring += u'\x1B\x40\x1bm'
     f2 = open('./statement','w+',encoding="euc-kr")
     print(outstring)
