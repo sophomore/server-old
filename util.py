@@ -89,7 +89,7 @@ def print_statement(ordermenus,time):
             string += u'\x1d\x21\x01'+key+'\x09\x09'+str(t_curry[key])+'\n\x1d\x21\x00'
             string += u'  ㄴ  곱\n\n'
     outstring = u'\x1B\x44\x12\x00'
-    outstring +=u'================전     표================\n\n\n\n'
+    outstring +=u'\x1d\x21\x22================전     표================\n\x1b\x21\x00\n\n\n'
     outstring +=u'주문:'+time1+'\n'
     outstring +=u'----------------------------------------\n'
     outstring +=u'메    뉴\x09\x09    수량\n'
@@ -98,7 +98,7 @@ def print_statement(ordermenus,time):
     outstring +=u'----------------------------------------\n\n\n\n\n\n'
     outstring += u'\x1bm'
     f2 = open('./statement','w+',encoding="euc-kr")
-    string = u'----------------------------------------\n'
+    string = u'                                          \n'
     print(string,file = f2)
     print(outstring)
     print(outstring,file = f2)
@@ -112,7 +112,6 @@ def print_receipt(orders):
     curry = 0
     twice = 0
     takeout = 0
-    service = 0
     summ = orders.totalprice
     for ordermenu in orders.ordermenus:
         name = menus[ordermenu.menu_id]
@@ -120,17 +119,18 @@ def print_receipt(orders):
             order[name] += order[name]+1
         else:
             order[name] = 1
-        if ordermenu.pay == 3:
-            service += ordermenu.price
-        if ordermenu.curry:
-            curry+=1
-        if ordermenu.twice:
-            twice +=1
-        if ordermenu.takeout:
-            takeout +=1
+            service[name] = 0
+        if ordermenu.pay != 3:
+            if ordermenu.curry:
+                curry+=1
+            if ordermenu.twice:
+                twice +=1
+            if ordermenu.takeout:
+                takeout +=1
     orderstring = ''
     for o in order:
-        orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
+        if service[o.name]>0:
+            orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str((order[o]*o.price)-(service[o]*o.price))+'\n'            
     if curry>0:
         orderstring +=u'  카레추가\x09  '+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
     if twice>0:
