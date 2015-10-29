@@ -38,7 +38,7 @@ def delete_menu(id):
 
 def get_all_dict():
     result = []
-    for menu in Menu.query.all():
+    for menu in util.get_menus():
         check = True
         for i in result:
             if i['name'] == menu.name:
@@ -50,7 +50,7 @@ def get_all_dict():
 
 def get_available_dict():
     result = []
-    for menu in Menu.query.all():
+    for menu in util.get_menus():
         if menu.available:
             result.append(menu.convert_dict())
     return result
