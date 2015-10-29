@@ -124,7 +124,7 @@ def print_receipt(orders):
             takeout +=1
     orderstring = ''
     for o in order:
-        orderstring +=u'    '+o.name+'\t'+str(order[o])+'\t'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
+        orderstring +=u'    '+o.name+'\x09'+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
     if curry>0:
         orderstring +=u'    카레추가\x09'+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
     if twice>0:
