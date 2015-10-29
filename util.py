@@ -96,7 +96,7 @@ def print_statement(ordermenus,time):
     outstring +=u'메    뉴    수량\n'
     outstring +=u'----------------------------------------\n'
     outstring +=u''+string
-    outstring +=u'----------------------------------------\naaaa\x1B\x40\ta\n\n\n\n\n'
+    outstring +=u'----------------------------------------\n\x1B\x40'
     outstring += u'\x1B\x40\x1bm'
     f2 = open('./statement','w+',encoding="euc-kr")
     print(outstring)
