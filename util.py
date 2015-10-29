@@ -98,7 +98,7 @@ def print_statement(ordermenus,time):
     outstring +=u'----------------------------------------\n\n\n\n\n\n'
     outstring += u'\x1bm'
     f2 = open('./statement','w+',encoding="euc-kr")
-    string = u'                                          \n'
+    string = u'                                        \n'
     print(string,file = f2)
     print(outstring)
     print(outstring,file = f2)
@@ -114,18 +114,20 @@ def print_receipt(orders):
     takeout = 0
     summ = orders.totalprice
     for ordermenu in orders.ordermenus:
-        name = menus[ordermenu.menu_id]
-        if ordermenu.pay != 3:
+        if ordermenu.pay !=3:
+            name = menus[ordermenu.menu_id]
             if name in order:
                 order[name] += order[name]+1
             else:
                 order[name] = 1
-            if ordermenu.curry:
-                curry+=1
-            if ordermenu.twice:
-                twice +=1
-            if ordermenu.takeout:
-                takeout +=1
+            if ordermenu.pay != 3:
+                if ordermenu.curry:
+                    curry+=1
+                if ordermenu.twice:
+                    twice +=1
+                if ordermenu.takeout:
+                    takeout +=1
+                    
     orderstring = ''
     for o in order:
         orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'            
