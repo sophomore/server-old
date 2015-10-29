@@ -1,16 +1,16 @@
-import csv
 import os
+
 from openpyxl import load_workbook
-from datetime import datetime
+
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
-import menu_manager
 
-g_menus = None
+g_menus = {}
 
 def get_menus():
     global g_menus
-    if g_menus == None:
+    print(g_menus)
+    if len(g_menus)==0:
         g_menus = {}
         menu = Menu.query.all()
         for m in menu:

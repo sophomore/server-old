@@ -4,7 +4,7 @@ from datetime import datetime
 
 from flask import Flask, request, abort
 
-from models import Category, OrderMenu, Order
+from models import Category, Order
 from mydb import db_session as db
 import order_manager
 import menu_manager
