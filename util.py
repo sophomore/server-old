@@ -130,7 +130,7 @@ def print_statement(ordermenus,time):
             elif ordermenu.curry:
                 t_curry[name] +=1
     f = open('./statement','w+',encoding = "euc-kr")
- 	string =u'\n'
+    string =u'\n'
  	string =u'\x1b\x44\x12\x00'
  	string =u'================전     표================'
  	print(string,file = f)
