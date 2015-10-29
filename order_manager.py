@@ -67,19 +67,13 @@ def search(startDate, endDate, menus, pays):
         pays.append(4)
     print(db_order)
     for order in db_order:
-        check = True
+        check = False
         for ordermenu in order.ordermenus:
-            if not ordermenu.menu_id in menus:
-                check = False
+            if ordermenu.menu_id in menus and ordermenu.pay in pays:
+                check = True
                 break
-            else:
-                if not ordermenu.pay in pays:
-                    check = False
-                    break
-
         if check:
             orders.append(order)
-
     result =[]
     for order in orders:
         result.append(order.convert_dict())
