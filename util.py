@@ -57,59 +57,53 @@ def print_statement(ordermenus,time):
                 t_twice[name] +=1
             elif ordermenu.curry:
                 t_curry[name] +=1
-    f = open('./statement','w+',encoding = "euc-kr")
-    string = u''
-    string +=u'가나다라마바사아자차카타파하왓더헬 언제까지 안되나 보자\n\n\n'+time1
-    print(string,file =f)
+    string =''
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
-            string = u'\x1d\x21\x11'+key+'\x09\x09'
-            string += u'  ㄴ일반\n\n\n\n\n\n'
-            print(string, file =f)
-    string=u'\x1b\x6d\x1b\x40\x0c'
-    print(string,file =f)
-    f.close()
-    os.system("lpr -P RECEIPT_PRINTER statement")
-    #     if ct[key]>0:
-    #         string += u'\x1d\x21\x11'+key+'\x09\x09'+str(ct[key])+'\n\x1d\x21\x00'
-    #         string += u'  ㄴ카레\n\n'
-    #         string += u'  ㄴ  곱\n\n'
-    #     if curry[key]>0:
-    #         string += u'\x1d\x21\x11'+key+'\x09\x09'+str(curry[key])+'\n\x1d\x21\x00'
-    #         string += u'  ㄴ카레\n\n'
-    #     if twice[key]>0:
-    #         string += u'\x1d\x21\x11'+key+'\x09\x09'+str(twice[key])+'\n\x1d\x21\x00'
-    #         string += u'  ㄴ  곱\n\n'
-    # if not  len(takeout) == 0:
-    #     string +=u'------------------포 장------------------\n'
-    # for key in takeout: 
-    #     if takeout[key]+t_ct[key]-t_curry[key]-t_twice[key] >0:
-    #         string += u'\x1d\x21\x11'+key+'\x09\x09'+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n\x1d\x21\x00'
-    #         string += u'  ㄴ일반\n\n'
-    #     if t_ct[key]>0:
-    #         string += u'\x1d\x21\x11'+key+'\x09\x09'+str(t_ct[key])+'\n\x1d\x21\x00'
-    #         string += u'  ㄴ카레\n\n'
-    #         string += u'  ㄴ  곱\n\n'
-    #     if t_curry[key]>0:
-    #         string += u'\x1d\x21\x11'+key+'\x09\x09'+str(t_curry[key])+'\n\x1d\x21\x00'
-    #         string += u'  ㄴ카레\n\n'
-    #     if t_twice[key]>0:
-    #         string += u'\x1d\x21\x01'+key+'\x09\x09'+str(t_curry[key])+'\n\x1d\x21\x00'
-    #         string += u'  ㄴ  곱\n\n'
-    # outstring = u'\x1B\x44\x12\x00'
-    # outstring +=u'================전     표================\n\n'
-    # outstring +=u'주문:'+time1+'\n'
-    # outstring +=u'----------------------------------------\n'
-    # outstring +=u'메    뉴\x09\x09    수량\n'
-    # outstring +=u'----------------------------------------\n'
-    # outstring +=u''+string
-    # outstring +=u'----------------------------------------\n\n\n\n\n\n'
-    # outstring += u'\x1bm'
-    # f2 = open('./statement','w+',encoding="euc-kr")
-    # print(outstring)
-    # print(outstring,file = f2)
-    # f2.close()
-    # os.system('lpr -P RECEIPT_PRINTER statement')
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(order[key]-curry[key]-twice[key]+ct[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ일반\n\n'
+        if ct[key]>0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(ct[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ카레\n\n'
+            string += u'  ㄴ  곱\n\n'
+        if curry[key]>0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(curry[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ카레\n\n'
+        if twice[key]>0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(twice[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ  곱\n\n'
+    if not  len(takeout) == 0:
+        string +=u'------------------포 장------------------\n'
+    for key in takeout: 
+        if takeout[key]+t_ct[key]-t_curry[key]-t_twice[key] >0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(takeout[key]-t_curry[key]-t_twice[key]+t_ct[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ일반\n\n'
+        if t_ct[key]>0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(t_ct[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ카레\n\n'
+            string += u'  ㄴ  곱\n\n'
+        if t_curry[key]>0:
+            string += u'\x1d\x21\x11'+key+'\x09\x09'+str(t_curry[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ카레\n\n'
+        if t_twice[key]>0:
+            string += u'\x1d\x21\x01'+key+'\x09\x09'+str(t_curry[key])+'\n\x1d\x21\x00'
+            string += u'  ㄴ  곱\n\n'
+    outstring = u'\x1B\x44\x12\x00'
+    outstring +=u'================전     표================\n\n'
+    outstring +=u'주문:'+time1+'\n'
+    outstring +=u'----------------------------------------\n'
+    outstring +=u'메    뉴\x09\x09    수량\n'
+    outstring +=u'----------------------------------------\n'
+    outstring +=u''+string
+    outstring +=u'----------------------------------------\n\n\n\n\n\n'
+    outstring += u'\x1bm'
+    f2 = open('./statement','w+',encoding="euc-kr")
+    string = u'----------------------------------------\n'
+    print(string,file = f2)
+    print(outstring)
+    print(outstring,file = f2)
+    f2.close()
+    os.system('lpr -P RECEIPT_PRINTER statement')
 
 def print_receipt(orders):
     time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
