@@ -133,6 +133,10 @@ def print_statement(ordermenus,time):
     string =u'\n'
     string =u'\x1b\x44\x12\x00'
     string =u'================전     표================'
+    string +=u'주문:'+time1+'\n'
+    string +=u'----------------------------------------\n'
+    string +=u'메    뉴\x09\x09    수량\n'
+    string +=u'----------------------------------------\n'
     print(string,file = f)
     f.close()
     os.system('lpr -P RECEIPT_PRINTER statement')
@@ -177,8 +181,8 @@ def print_statement(ordermenus,time):
     f.close()
     os.system('lpr -P RECEIPT_PRINTER statement')
     f = open('./statement','w+',encoding = "euc-kr")
-    string = u''
-    string +=u'\x0a\x0a\x0a\x1b\x6d'
+    string = u'----------------------------------------\n'
+    string +=u'\x0a\x0a\x0a\x1bm'
     print(string,file = f)
     os.system('lpr -P RECEIPT_PRINTER statement')
 
