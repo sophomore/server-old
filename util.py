@@ -119,7 +119,6 @@ def print_receipt(orders):
             order[name] += order[name]+1
         else:
             order[name] = 1
-            service[name] = 0
         if ordermenu.pay != 3:
             if ordermenu.curry:
                 curry+=1
