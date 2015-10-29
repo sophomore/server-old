@@ -124,13 +124,13 @@ def print_receipt(orders):
             takeout +=1
     orderstring = ''
     for o in order:
-        orderstring +=u'    '+o.name+'\x09'+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
+        orderstring +=u'    '+o.name+'\t'+str(order[o])+'\t'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
     if curry>0:
         orderstring +=u'    카레추가\x09'+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
     if twice>0:
         orderstring +=u'    곱배기\x09'+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
     if takeout>0:
-        orderstring +=u'    포장\x09'+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
+        orderstring +=u'    포장\t'+str(takeout)+'\t500\x09'+str(500*takeout)+'\n'
     orderstring +=u'-------------------------------------\n'
     orderstring +=u'    합계\x09\x09\x09'+str(summ)+'\n'
 
