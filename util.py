@@ -97,9 +97,9 @@ def print_statement(ordermenus,time):
             string += u'\x09ㄴ  곱\n'
     string +=u'----------------------------------------\n\n\n\n\n\n'
     string += u'\x1bm'
-    f1 = open('./statement','w+',encoding="euc-kr")
-    print(string,file = f1)
-    f1.close()
+    f2 = open('./statement','w+',encoding="euc-kr")
+    print(string,file = f2)
+    f2.close()
     os.system('lpr -P RECEIPT_PRINTER statement')
 
 def print_receipt(orders):
