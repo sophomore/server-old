@@ -51,7 +51,7 @@ def search(startDate, endDate, ordermenus, pays):
     orders = []
     for ordermenu in ordermenus:
         for pay in pays:
-            orders += Order.query.join(Order.ordermenus, aliased=True).filter_by(menu_id=ordermenu, pay=pay).filter(startDate <= Order.time, Order.time <= endDate).all()
+            orders += Order.query.join(Order.ordermenus, aliased=True).filter_by(menu_id=ordermenu, pay=pay).filter(startDate <= Order.time, Order.time <= endDate).order_by(Order.time.desc).all()
     result =[]
     for order in orders:
         result.append(order.convert_dict())
