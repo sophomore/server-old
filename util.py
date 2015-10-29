@@ -115,11 +115,11 @@ def print_receipt(orders):
     summ = orders.totalprice
     for ordermenu in orders.ordermenus:
         name = menus[ordermenu.menu_id]
-        if name in order:
-            order[name] += order[name]+1
-        else:
-            order[name] = 1
         if ordermenu.pay != 3:
+            if name in order:
+                order[name] += order[name]+1
+            else:
+                order[name] = 1
             if ordermenu.curry:
                 curry+=1
             if ordermenu.twice:
@@ -128,8 +128,7 @@ def print_receipt(orders):
                 takeout +=1
     orderstring = ''
     for o in order:
-        if service[o.name]>0:
-            orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str((order[o]*o.price)-(service[o]*o.price))+'\n'            
+        orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'            
     if curry>0:
         orderstring +=u'  카레추가\x09  '+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
     if twice>0:
