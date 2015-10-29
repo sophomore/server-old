@@ -58,7 +58,9 @@ def search(startDate, endDate, menus, pays):
         for order in db_order:
             result.append(order.convert_dict())
         return result
-    if len(pay) == 0:
+
+    if len(pays) == 0:
+        pay = []
         pay.append(1)
         pay.append(2)
         pay.append(3)
@@ -71,7 +73,7 @@ def search(startDate, endDate, menus, pays):
                 check = False
                 break
             else:
-                if not ordermenu.pay in pays:
+                if not ordermenu.pay in pay:
                     check = False
                     break
 
