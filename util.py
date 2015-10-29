@@ -148,6 +148,7 @@ def print_receipt(orders):
     output +=u'-------------------------------------\n\n\n\n\n\n\n\n'
     output +=u'\x1bm'
     f1 = open('./receipt','w+',encoding="euc-kr")
+    print(output)
     print(output,file = f1)
     f1.close()
     os.system('lpr -P RECEIPT_PRINTER receipt')
