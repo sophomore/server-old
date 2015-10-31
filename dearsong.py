@@ -34,7 +34,10 @@ def menu():
     if request.method == 'GET':
         return json.dumps(menu_manager.get_available_dict())
     elif request.method == 'POST':
-        menu = menu_manager.add_menu(request.form['name'], request.form['price'], request.form['category'])
+        if request.form['price'] !=None and request.form['name']!= None and request.form['category'] != None:
+            menu = menu_manager.add_menu(request.form['name'], request.form['price'], request.form['category'])
+        else:
+            return json.dumps({"result" : "input error"})
         return json.dumps({"result": "success", "menu": menu.convert_dict()})
     return abort(400)
 
