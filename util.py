@@ -57,7 +57,7 @@ def print_statement(ordermenus,time):
                 t_twice[name] +=1
             elif ordermenu.curry:
                 t_curry[name] +=1
-    string =''
+    string =u'\x1B\x44\x12\x00'
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
             string += u'\x1d\x21\x11'+key+'\x09\x09'+str(order[key]-curry[key]-twice[key]+ct[key])+'\n\x1d\x21\x00'
@@ -89,13 +89,18 @@ def print_statement(ordermenus,time):
             string += u'\x1d\x21\x01'+key+'\x09\x09'+str(t_curry[key])+'\n\x1d\x21\x00'
             string += u'  ㄴ  곱\n\n'
     outstring = u'\x1B\x44\x12\x00'
-    outstring +=u'\x1d\x21\x22================전     표================\n\x1b\x21\x00\n\n\n'
+    outstring =u'                                           \n'
+    outstring =u'                                           \n'
+    outstring +=u'================전     표================\n\n'
     outstring +=u'주문:'+time1+'\n'
     outstring +=u'----------------------------------------\n'
     outstring +=u'메    뉴\x09\x09    수량\n'
     outstring +=u'----------------------------------------\n'
     outstring +=u''+string
-    outstring +=u'----------------------------------------\n\n\n\n\n\n'
+    outstring +=u'----------------------------------------\n\n\n\n'
+    outstring +=u'                                        \n'
+    outstring +=u'                                        \n'
+    outstring +=u'                                        \n'
     outstring += u'\x1bm'
     f2 = open('./statement','w+',encoding="euc-kr")
     string = u'                                            \n'
@@ -109,26 +114,37 @@ def print_receipt(orders):
     time = orders.time.strftime('%Y-%m-%d %H:%M:%S')
     menus = get_menus()
     order = {}
+    serv = {}
     curry = 0
     twice = 0
     takeout = 0
     summ = orders.totalprice
     for ordermenu in orders.ordermenus:
         name = menus[ordermenu.menu_id]
-        if name in order:
-            order[name] += order[name]+1
+        if ordermenu.pay != 3:            
+            if name in order:
+                order[name] += 1
+            else:
+                order[name] = 1
+            if ordermenu.pay != 3:
+                if ordermenu.curry:
+                    curry+=1
+                if ordermenu.twice:
+                    twice +=1
+                if ordermenu.takeout:
+                    takeout +=1
         else:
-            order[name] = 1
-        if ordermenu.pay != 3:
-            if ordermenu.curry:
-                curry+=1
-            if ordermenu.twice:
-                twice +=1
-            if ordermenu.takeout:
-                takeout +=1
-    orderstring = '\x1b\x44\x13\x1b\x22\x00'
+            if name in serv:
+                serv[name] += ordermenu.totalprice
+            else:
+                serv[name] = ordermenu.totalprice
+
+    orderstring = u'\x1b\x44\x13\x1b\x22\x00'
+    ser = 0;
     for o in order:
-        orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'            
+        orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
+    for o in serv:
+        ser += serv[o]
     if curry>0:
         orderstring +=u'  카레추가\x09  '+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
     if twice>0:
@@ -136,8 +152,9 @@ def print_receipt(orders):
     if takeout>0:
         orderstring +=u'  포장\x09  '+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
     orderstring +=u'-----------------------------------------\n'
-    orderstring +=u'\x1b\x61\x02합계 : '+str(summ)+'     \n\x1b\x61\x00'
-    output = u''
+    orderstring +=u'\x1b\x61\x02합계 : '+str(summ-ser)+'     \n\x1b\x61\x00'
+    output = u'                                          \n'
+    output += u'                                          \n'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
     output +=u'대    표: 송호성\n'
@@ -148,7 +165,10 @@ def print_receipt(orders):
     output +=u'  상 품 명\x09수 량\x09단 가\x09금 액\n'
     output +=u'-----------------------------------------\n'
     output +=u''+orderstring
-    output +=u'-----------------------------------------\n\n\n\n\n\n\n\n'
+    output +=u'-----------------------------------------\n'
+    output +=u'                                         \n'
+    output +=u'                                         \n'
+    output +=u'                                         \n\n\n\n'
     output +=u'\x1B\x40\x1bm'
     f1 = open('./receipt','w+',encoding="euc-kr")
     print(output)
