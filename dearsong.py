@@ -60,15 +60,23 @@ def one_order(id):
 
     return abort(400)
 
-
-@app.route('/order', methods=['GET', 'POST'])
+@app.route('/order', methods=['GET', 'POST','PUT'])
 def order():
     if request.method == 'GET':
-        return json.dumps(order_manager.get_all_dict())
+        date = datetime.now()
+        return json.dumps(order_manager.get_order(date))
     elif request.method == 'POST':
         order = order_manager.add_order(request.form['time'], request.form['totalprice'],
                                         json.loads(request.form['ordermenus']))
         return json.dumps({"result": "success", "order": order.convert_dict()})
+    elif request.method == 'PUT':
+        if request.form['lastDate'] == None:
+            return abort(400)
+        else:
+            date = request.form['lastDate']
+            date = datetime.strptime(date,'%Y-%m-%d %H:%M:%S')
+        return json.dumps(order_manager.get_order(date))
+
     return abort(400)
 
 
