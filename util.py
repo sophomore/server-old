@@ -187,10 +187,10 @@ def input_two():
 def input():
     menus = get_menus()
     ms = {}
-    price = {}
+    # price = {}
     for menu in menus:
-        ms[menu.name] = menu.id;
-        price[menu.name] = menu.price
+        ms[menus[menu].name] = menu
+        # price[menu.name] = menu.price
     wb = load_workbook(filename='../backup.xlsx',read_only = True)
     ws = wb['입출금관리']
     a = lambda x: x>0
@@ -228,7 +228,7 @@ def input():
                     count_curry = count_curry - 1
             else:
                 if o in ms and (o != "곱배기추가" and o != "카레추가"):
-                    ordermenu = OrderMenu(menu=menus[ms[o]],order=order,pay=pay,curry=a(count_curry),
+                    ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
                     twice=(count_twice),takeout=takeout(str(row[3].value)))
                     db.add(ordermenu)
                 else:
