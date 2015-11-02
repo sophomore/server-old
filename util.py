@@ -218,11 +218,11 @@ def input():
                 bef,m,aft = o.partition("(")
                 num,m,aft = aft.partition(")")
                 for i in range(int(num)):
-                    if bef in ms and (bef != "곱배기추가" and bef != "카레추가"):
+                    if bef in ms:
                         ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
                         twice=a(count_twice),takeout=takeout(str(row[3].value)))
                         db.add(ordermenu)
-                    elif bef!="곱배기추가" and bef!="카레추가":
+                    else:
                         f.write(bef)
                     count_twice = count_twice - 1
                     count_curry = count_curry - 1
@@ -231,7 +231,7 @@ def input():
                     ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
                     twice=(count_twice),takeout=takeout(str(row[3].value)))
                     db.add(ordermenu)
-                elif o != "곱배기추가" and o != "카레추가":
+                else:
                     f.write(o)
                 count_twice = count_twice - 1
                 count_curry = count_curry - 1 
