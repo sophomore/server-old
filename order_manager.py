@@ -79,7 +79,7 @@ def search(startDate, endDate, menus, pays):
 
 def get_order(time):
     result = []
-    orders = db.query(Order).filter(Order.time<time).order_by(Order.id.desc()).limit(20).order_by(Order.time.desc()).all()
+    orders = db.query(Order).filter(Order.time<time).order_by(Order.id.desc()).order_by(Order.time.desc()).limit(20).all()
     for order in orders:
         result.append(order.convert_dict())
     return result
