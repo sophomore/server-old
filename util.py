@@ -232,6 +232,7 @@ def input():
                     twice=a(count_twice),takeout=takeout(str(row[3].value)))
                     db.add(ordermenu)
                 else:
+                    print(o)
                     f.write(o)
                 count_twice = count_twice - 1
                 count_curry = count_curry - 1 
