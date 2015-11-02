@@ -27,22 +27,25 @@ def one_menu(id):
     elif request.method == 'DELETE':
         menu = menu_manager.delete_menu(id)
         return json.dumps({"result": "success", "delete_menu": menu.convert_dict()})
-        return abort(400)
+    return abort(400)
 
 @app.route('/menu', methods=['GET', 'POST'])
 def menu():
     if request.method == 'GET':
         return json.dumps(menu_manager.get_available_dict())
     elif request.method == 'POST':
-        menu = menu_manager.add_menu(request.form['name'], request.form['price'], request.form['category'])
+        if request.form['price'] !=None and request.form['name']!= None and request.form['category'] != None:
+            menu = menu_manager.add_menu(request.form['name'], request.form['price'], request.form['category'])
+        else:
+            return json.dumps({"result" : "input error"})
         return json.dumps({"result": "success", "menu": menu.convert_dict()})
-        return abort(400)
+    return abort(400)
 
 @app.route('/menu/all', methods=['GET'])
 def menu_all():
     if request.method == 'GET':
         return json.dumps(menu_manager.get_all_dict())
-        return abort(400)
+    return abort(400)
 
 # Order
 @app.route('/order/<int:id>', methods=['GET', 'DELETE', 'POST'])
@@ -57,15 +60,23 @@ def one_order(id):
 
     return abort(400)
 
-
-@app.route('/order', methods=['GET', 'POST'])
+@app.route('/order', methods=['GET', 'POST','PUT'])
 def order():
     if request.method == 'GET':
-        return json.dumps(order_manager.get_all_dict())
+        date = datetime.now()
+        return json.dumps(order_manager.get_order(date))
     elif request.method == 'POST':
         order = order_manager.add_order(request.form['time'], request.form['totalprice'],
                                         json.loads(request.form['ordermenus']))
         return json.dumps({"result": "success", "order": order.convert_dict()})
+    elif request.method == 'PUT':
+        if request.form['lastDate'] == None:
+            return abort(400)
+        else:
+            date = request.form['lastDate']
+            date = datetime.strptime(date,'%Y-%m-%d %H:%M:%S')
+        return json.dumps(order_manager.get_order(date))
+
     return abort(400)
 
 
