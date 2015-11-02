@@ -245,7 +245,7 @@ def get_sign(strg,st):
     bef,m,aft = strg.partition(st)
     if aft != "" and aft.startswith("("):
         bef,m,aft = aft[1:].partition(")")
-        count = bef
+        count = (int)bef
     elif aft.startswith(","):
         count = 1
     else:
