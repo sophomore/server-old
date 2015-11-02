@@ -231,7 +231,7 @@ def input():
             else:
                 if o in ms:
                     ordermenu = OrderMenu(menu=menus[ms[o]],order=order,pay=pay,curry=a(count_curry),
-                    twice=(count_twice),takeout=takeout(str(row[3].value)))
+                    twice=a(count_twice),takeout=takeout(str(row[3].value)))
                     db.add(ordermenu)
                 else:
                     f.write(o)
