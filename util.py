@@ -185,7 +185,7 @@ def input_two():
     os.system("mysql --user=song --password=Qoswlfdlsnrn pos < backup.sql")
 
 def input():
-    menus = util.get_menus()
+    menus = get_menus()
     ms = {}
     price = {}
     for menu in menus:
