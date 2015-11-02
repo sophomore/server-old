@@ -185,7 +185,7 @@ def input_two():
     os.system("mysql --user=song --password=Qoswlfdlsnrn pos < backup.sql")
 
 def input():
-    menus = db.query(Menu).all()
+    menus = util.get_menus()
     ms = {}
     price = {}
     for menu in menus:
@@ -228,7 +228,7 @@ def input():
                     count_curry = count_curry - 1
             else:
                 if o in ms and (o != "곱배기추가" and o != "카레추가"):
-                    ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
+                    ordermenu = OrderMenu(menu=menus[ms[o]],order=order,pay=pay,curry=a(count_curry),
                     twice=(count_twice),takeout=takeout(str(row[3].value)))
                     db.add(ordermenu)
                 else:
