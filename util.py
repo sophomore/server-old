@@ -187,10 +187,8 @@ def input_two():
 def input():
     menus = get_menus()
     ms = {}
-    # price = {}
     for menu in menus:
         ms[menus[menu].name] = menu
-        # price[menu.name] = menu.price
     wb = load_workbook(filename='../backup.xlsx',read_only = True)
     ws = wb['입출금관리']
     a = lambda x: x>0
@@ -201,7 +199,7 @@ def input():
             break
         else:
             date = str(row[0].value)+' '+str(row[2].value)+':00'
-        totalprice = int(row[6])
+        totalprice = int(row[6].value)
         order = Order(date,totalprice)
         db.add(order)
         db.commit()
