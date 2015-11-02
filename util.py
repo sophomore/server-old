@@ -219,7 +219,7 @@ def input():
                 num,m,aft = aft.partition(")")
                 for i in range(int(num)):
                     if bef in ms:
-                        ordermenu = OrderMenu(menu=ms[bef],order=order, pay=pay,curry=a(count_curry),
+                        ordermenu = OrderMenu(menu=menus[ms[bef]],order=order, pay=pay,curry=a(count_curry),
                         twice=a(count_twice),takeout=takeout(str(row[3].value)))
                         db.add(ordermenu)
                     else:
@@ -227,8 +227,8 @@ def input():
                     count_twice = count_twice - 1
                     count_curry = count_curry - 1
             else:
-                if o in ms and (o != "곱배기추가" and o != "카레추가"):
-                    ordermenu = OrderMenu(menu=ms[o],order=order,pay=pay,curry=a(count_curry),
+                if o in ms:
+                    ordermenu = OrderMenu(menu=menus[ms[o]],order=order,pay=pay,curry=a(count_curry),
                     twice=(count_twice),takeout=takeout(str(row[3].value)))
                     db.add(ordermenu)
                 else:
