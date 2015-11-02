@@ -204,6 +204,8 @@ def input():
         totalprice = row[6]
         order = Order(date,totalprice)
         db.add(order)
+        db.commit()
+        print(order)
         count_twice = get_sign(str(row[13].value),"곱배기추가")
         count_curry = get_sign(str(row[13].value),"카레추가")
         if int(row[8].value) == 0:
