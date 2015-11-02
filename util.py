@@ -201,7 +201,7 @@ def input():
             break
         else:
             date = str(row[0].value)+' '+str(row[2].value)+':00'
-        totalprice = row[6]
+        totalprice = int(row[6])
         order = Order(date,totalprice)
         db.add(order)
         db.commit()
