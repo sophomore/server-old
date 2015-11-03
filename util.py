@@ -139,22 +139,22 @@ def print_receipt(orders):
             else:
                 serv[name] = ordermenu.totalprice
 
-    orderstring = u'\x1b\x44\x14\x19\x20\x00'
+    orderstring = u'\x1b\x44\x12\x19\x20\x00'
     ser = 0;
     for o in order:
         menuname,a,b = o.name.partition("(수정")
-        orderstring +=u'  '+menuname[:9]+'\x09 '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
+        orderstring +=u'  '+menuname[:9]+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
     for o in serv:
         ser += serv[o]
     if curry>0:
-        orderstring +=u'  카레추가\x09 '+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
+        orderstring +=u'  카레추가\x09  '+str(curry)+'\x092500\x09'+str(2500*curry)+'\n'
     if twice>0:
-        orderstring +=u'  곱배기\x09 '+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
+        orderstring +=u'  곱배기\x09  '+str(twice)+'\x092500\x09'+str(2500*twice)+'\n'
     if takeout>0:
-        orderstring +=u'  포장\x09 '+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
+        orderstring +=u'  포장\x09  '+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
     orderstring +=u'-----------------------------------------\n'
     orderstring +=u'\x1b\x61\x02합계 : '+str(summ-ser)+'     \n\x1b\x61\x00'
-    output = u'                                          \n'
+    output = u'                                          \n\x1b\x44\x14\x19\x20\x00'
     output += u'                                          \n'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
