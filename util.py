@@ -139,10 +139,10 @@ def print_receipt(orders):
             else:
                 serv[name] = ordermenu.totalprice
 
-    orderstring = u'\x1b\x44\x13\x1b\x22\x00'
+    orderstring = u'\x1b\x44\x10\x18\x1f\x00'
     ser = 0;
     for o in order:
-        orderstring +=u'  '+o.name+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
+        orderstring +=u'  '+o.name[:9]+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
     for o in serv:
         ser += serv[o]
     if curry>0:
