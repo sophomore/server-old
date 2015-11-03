@@ -57,7 +57,7 @@ def print_statement(ordermenus,time):
                 t_twice[name] +=1
             elif ordermenu.curry:
                 t_curry[name] +=1
-    string =u'\x1B\x44\x29\x00'
+    string =u'\x1B\x44\x28\x00'
     for key in order:
         if order[key]-curry[key]-twice[key]+ct[key] >0:
             string += u'\x1d\x21\x11'+key+'\x09'+str(order[key]-curry[key]-twice[key]+ct[key])+'\n\x1d\x21\x00'
@@ -88,7 +88,7 @@ def print_statement(ordermenus,time):
         if t_twice[key]>0:
             string += u'\x1d\x21\x01'+key+'\x09'+str(t_curry[key])+'\n\x1d\x21\x00'
             string += u'  ㄴ  곱\n\n'
-    outstring = u'\x1B\x44\x12\x00'
+    outstring = u'\x1B\x44\x27\x00'
     outstring =u'                                           \n'
     outstring =u'                                           \n'
     outstring +=u'================전     표================\n\n'
