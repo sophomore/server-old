@@ -139,7 +139,7 @@ def print_receipt(orders):
             else:
                 serv[name] = ordermenu.totalprice
 
-    orderstring = u'\x1b\x44\x11\x19\x20\x00'
+    orderstring = u'\x1b\x44\x12\x19\x20\x00'
     ser = 0;
     for o in order:
         menuname,a,b = o.name.partition("(수정")
