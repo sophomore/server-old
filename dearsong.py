@@ -193,8 +193,6 @@ def shutdown_session(exception=None):
 
 if __name__ == '__main__':
     import logging
-    from logging.handlers import RotatingFileHandler
-    formatter = logging.Formatter("[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
     logging.basicConfig(filename='/home/song/error.log', level=logging.DEBUG)
 
 
