@@ -139,7 +139,7 @@ def print_receipt(orders):
             else:
                 serv[name] = ordermenu.totalprice
 
-    orderstring = u'\x1b\x44\x12\x19\x20\x00'
+    orderstring = u'\x1b\x44\x10\x19\x20\x00'
     ser = 0;
     for o in order:
         menuname,a,b = o.name.partition("(수정")
@@ -154,7 +154,7 @@ def print_receipt(orders):
         orderstring +=u'  포장\x09  '+str(takeout)+'\x09500\x09'+str(500*takeout)+'\n'
     orderstring +=u'-----------------------------------------\n'
     orderstring +=u'\x1b\x61\x02합계 : '+str(summ-ser)+'     \n\x1b\x61\x00'
-    output = u'                                          \n\x1b\x44\x14\x19\x20\x00'
+    output = u'                                          \n'
     output += u'                                          \n'
     output +=u'상 호 명: 송호성 쉐프의 돈까스\n'
     output +=u'등록번호: 134-31-16828\n'
