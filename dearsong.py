@@ -194,10 +194,5 @@ def shutdown_session(exception=None):
 
 if __name__ == '__main__':
     import logging
-    formatter = logging.Formatter(
-        "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
-    handler = RotatingFileHandler('/home/song/error.log', maxBytes=10000000, backupCount=5)
-    handler.setLevel(logging.DEBUG)
-    handler.setFormatter(formatter)
-    app.logger.addHandler(handler)
+    logging.basicConfig(filename='/home/song/error.log',level=logging.WARNING)
     app.run(host='0.0.0.0', port=80)
