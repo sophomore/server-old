@@ -121,7 +121,7 @@ def print_receipt(orders):
     summ = orders.totalprice
     for ordermenu in orders.ordermenus:
         name = menus[ordermenu.menu_id]
-        menuname,a,b = menus[ordermenu.menu_id].partition("(수정")
+        menuname,a,b = menus[ordermenu.menu_id].name.partition("(수정")
         if ordermenu.pay != 3:            
             if name in order:
                 order[name] += 1
