@@ -196,7 +196,7 @@ if __name__ == '__main__':
     from logging.handlers import RotatingFileHandler
     formatter = logging.Formatter("[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
     handler = RotatingFileHandler("/home/song/foo.log", maxBytes=10000000, backupCount=5)
-    handler.setLevel(logging.DEBUG)
+    handler.setLevel(logging.ERROR)
     handler.setFormatter(formatter)
     app.logger.addHandler(handler)
 
