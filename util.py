@@ -105,7 +105,7 @@ def print_statement(ordermenus,time):
     f2 = open('./statement','w+',encoding="euc-kr")
     string = u'                                            \n'
     print(string,file = f2)
-    print(outstring)
+    # print(outstring)
     print(outstring,file = f2)
     f2.close()
     os.system('lpr -P RECEIPT_PRINTER statement')
@@ -121,6 +121,7 @@ def print_receipt(orders):
     summ = orders.totalprice
     for ordermenu in orders.ordermenus:
         name = menus[ordermenu.menu_id]
+        menuname,a,b = menus[ordermenu.menu_id].partition("(수정")
         if ordermenu.pay != 3:            
             if name in order:
                 order[name] += 1
@@ -142,7 +143,7 @@ def print_receipt(orders):
     orderstring = u'\x1b\x44\x10\x18\x1f\x00'
     ser = 0;
     for o in order:
-        orderstring +=u'  '+o.name[:9]+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
+        orderstring +=u'  '+menuname[:9]+'\x09  '+str(order[o])+'\x09'+str(o.price)+'\x09'+str(order[o]*o.price)+'\n'
     for o in serv:
         ser += serv[o]
     if curry>0:
@@ -171,7 +172,7 @@ def print_receipt(orders):
     output +=u'                                         \n\n\n\n'
     output +=u'\x1B\x40\x1bm'
     f1 = open('./receipt','w+',encoding="euc-kr")
-    print(output)
+    # print(output)
     print(output,file = f1)
     f1.close()
     os.system('lpr -P RECEIPT_PRINTER receipt')
