@@ -75,11 +75,12 @@ def search(startDate, endDate, menus, pays):
         result.append(order.convert_dict())
     return result
 
-def get_order(time):
+def get_order(time = None):
     result = []
-    orders = db.query(Order).filter(Order.time<time).order_by(Order.time.desc()).limit(20).all()
-
-    print(orders)
+    if time == None:
+        orders = db.query(Order).order_by(Order.time.desc()).limit(20).all()
+    else:
+        orders = db.query(Order).filter(Order.time<time).order_by(Order.time.desc()).limit(20).all()
     for order in orders:
         result.append(order.convert_dict())
     return result
