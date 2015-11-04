@@ -15,8 +15,7 @@ def add_order(time, totalprice, ordermenus_info):
         menu =  Menu.query.filter_by(id=ordermenu_info['menu_id']).first()
         ordermenu = OrderMenu(menu=menu, order=order, pay=ordermenu_info['pay'], curry=ordermenu_info['curry'], twice=ordermenu_info['twice'],takeout=ordermenu_info['takeout'])
         db.add(ordermenu)
-
-    db.commit()
+        db.commit()
 
     return order
 
