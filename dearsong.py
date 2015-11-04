@@ -64,8 +64,7 @@ def one_order(id):
 @app.route('/order', methods=['GET', 'POST','PUT'])
 def order():
     if request.method == 'GET':
-        date = datetime.now()
-        return json.dumps(order_manager.get_all_dict())
+        return json.dumps(order_manager.get_order(None))
     elif request.method == 'POST':
         order = order_manager.add_order(request.form['time'], request.form['totalprice'],
                                         json.loads(request.form['ordermenus']))
@@ -165,6 +164,7 @@ def file_input():
 
 @app.route('/')
 def index():
+
     return "Dear, Song"
 
 
