@@ -90,9 +90,6 @@ def get_price_today():
     date = datetime.today()
     date = date.replace(hour=0,minute=0,second=0)
     orders = db.query(Order.totalprice).filter(Order.time >= date).all()
-    import logging
-    log = logging.getLogger('price')
-    log.debug(orders)
     totalprice = 0
     for i in orders:
         totalprice += i[0]

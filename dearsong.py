@@ -189,8 +189,13 @@ def initdb():
     db.commit()
     return "initialized db"
 
+@app.errorhandler(500)
+def internal_error(exception):
+    app.logger.error(exception)
+    abort(500)
 
 @app.teardown_appcontext
+
 def shutdown_session(exception=None):
     db.remove()
     if exception:
@@ -199,5 +204,5 @@ def shutdown_session(exception=None):
 
 if __name__ == '__main__':
     import logging
-    logging.basicConfig(filename='/home/song/error.log',level=logging.DEBUG)
+    logging.basicConfig(filename='/home/song/error.log',level=logging.DEBUG, backupCount=20)
     app.run(host='0.0.0.0', port=80)
