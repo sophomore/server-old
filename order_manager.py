@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from models import Order, OrderMenu, Menu
 import util
@@ -84,3 +85,11 @@ def get_order(time = None):
     for order in orders:
         result.append(order.convert_dict())
     return result
+
+def get_price_today():
+    date = datetime.today()
+    orders = db.query(Order.totalprice).filter(Order.time >= date).all()
+    totalprice = 0
+    for i in orders:
+        totalprice += i[0]
+    return {"price" : totalprice}

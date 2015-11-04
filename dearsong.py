@@ -95,6 +95,12 @@ def search_order():
     pay = json.loads(request.form['pay'])
     return json.dumps(order_manager.search(startDate, endDate,menus, pay))
 
+@app.route('/today',methods=['GET'])
+def get_price_today():
+    if request.method == 'GET':
+        return json.dumps(order_manager.get_price_today())
+
+#statistic
 @app.route('/statistic/linechart',methods=['POST'])
 def linechart():
     menus = json.loads(request.form['menus'])
