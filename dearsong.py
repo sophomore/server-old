@@ -193,5 +193,5 @@ def shutdown_session(exception=None):
 
 if __name__ == '__main__':
     import logging
-    logging.basicConfig(filename='/home/song/error.log',level=logging.WARNING)
+    logging.basicConfig(filename='/home/song/error.log',level=logging.DEBUG)
     app.run(host='0.0.0.0', port=80)
