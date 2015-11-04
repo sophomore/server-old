@@ -88,6 +88,7 @@ def get_order(time = None):
 
 def get_price_today():
     date = datetime.today()
+    date.replace(hour=0,minute=0,second=0)
     orders = db.query(Order.totalprice).filter(Order.time >= date).all()
     totalprice = 0
     for i in orders:
