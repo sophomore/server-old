@@ -65,7 +65,7 @@ def one_order(id):
 def order():
     if request.method == 'GET':
         date = datetime.now()
-        return json.dumps(order_manager.get_order(date))
+        return json.dumps(order_manager.get_all_dict())
     elif request.method == 'POST':
         order = order_manager.add_order(request.form['time'], request.form['totalprice'],
                                         json.loads(request.form['ordermenus']))
