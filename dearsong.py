@@ -1,5 +1,4 @@
 import json
-from logging.handlers import RotatingFileHandler
 import os
 from datetime import datetime
 
@@ -30,23 +29,26 @@ def one_menu(id):
         return json.dumps({"result": "success", "delete_menu": menu.convert_dict()})
     return abort(400)
 
+
 @app.route('/menu', methods=['GET', 'POST'])
 def menu():
     if request.method == 'GET':
         return json.dumps(menu_manager.get_available_dict())
     elif request.method == 'POST':
-        if request.form['price'] !=None and request.form['name']!= None and request.form['category'] != None:
+        if request.form['price'] != None and request.form['name'] != None and request.form['category'] != None:
             menu = menu_manager.add_menu(request.form['name'], request.form['price'], request.form['category'])
         else:
-            return json.dumps({"result" : "input error"})
+            return json.dumps({"result": "input error"})
         return json.dumps({"result": "success", "menu": menu.convert_dict()})
     return abort(400)
+
 
 @app.route('/menu/all', methods=['GET'])
 def menu_all():
     if request.method == 'GET':
         return json.dumps(menu_manager.get_all_dict())
     return abort(400)
+
 
 # Order
 @app.route('/order/<int:id>', methods=['GET', 'DELETE', 'POST'])
@@ -61,7 +63,8 @@ def one_order(id):
 
     return abort(400)
 
-@app.route('/order', methods=['GET', 'POST','PUT'])
+
+@app.route('/order', methods=['GET', 'POST', 'PUT'])
 def order():
     if request.method == 'GET':
         return json.dumps(order_manager.get_order())
@@ -74,7 +77,7 @@ def order():
             return abort(400)
         else:
             date = request.form['lastDate']
-            date = datetime.strptime(date,'%Y-%m-%d %H:%M:%S')
+            date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
         return json.dumps(order_manager.get_order(date))
 
     return abort(400)
@@ -88,20 +91,22 @@ def order_menu_pay(id):
 
 @app.route('/order/search', methods=['POST'])
 def search_order():
-    startDate = datetime.strptime(request.form['startDate']+" 00:00:00", '%Y-%m-%d %H:%M:%S')
-    endDate = datetime.strptime(request.form['endDate']+" 23:59:59", '%Y-%m-%d %H:%M:%S')
+    startDate = datetime.strptime(request.form['startDate'] + " 00:00:00", '%Y-%m-%d %H:%M:%S')
+    endDate = datetime.strptime(request.form['endDate'] + " 23:59:59", '%Y-%m-%d %H:%M:%S')
     menus = request.form['menus']
     menus = json.loads(menus)
     pay = json.loads(request.form['pay'])
-    return json.dumps(order_manager.search(startDate, endDate,menus, pay))
+    return json.dumps(order_manager.search(startDate, endDate, menus, pay))
 
-@app.route('/today',methods=['GET'])
+
+@app.route('/today', methods=['GET'])
 def get_price_today():
     if request.method == 'GET':
         return json.dumps(order_manager.get_price_today())
 
-#statistic
-@app.route('/statistic/linechart',methods=['POST'])
+
+# statistic
+@app.route('/statistic/linechart', methods=['POST'])
 def linechart():
     menus = json.loads(request.form['menus'])
     if len(menus) == 0:
@@ -113,9 +118,10 @@ def linechart():
     else:
         return json.dumps(
             statistic.line_chart(request.form['startDate'], request.form['endDate'], menus,
-                                    request.form['unit']))
+                                 request.form['unit']))
 
-@app.route('/statistic/barchart',methods=['POST'])
+
+@app.route('/statistic/barchart', methods=['POST'])
 def barchart():
     menus = json.loads(request.form['menus'])
     if len(menus) == 0:
@@ -128,27 +134,30 @@ def barchart():
     else:
         return json.dumps(
             statistic.bar_chart(request.form['startDate'], request.form['endDate'], request.form['menus'],
-                                    request.form['unit']))
+                                request.form['unit']))
+
 
 @app.route('/order/<int:id>/print/receipt', methods=['GET'])
 def print_statement(id):
     order = db.query(Order).filter(Order.id == id).first()
     if order == None:
-        return json.dumps({"result": "error", "error":"Not found order id"+str(id)})
+        return json.dumps({"result": "error", "error": "Not found order id" + str(id)})
     else:
         util.print_receipt(order)
-        return json.dumps({"result":"success"})
+        return json.dumps({"result": "success"})
+
 
 @app.route('/order/<int:id>/print/statement', methods=['GET'])
 def print_receipt(id):
     order = db.query(Order).filter(Order.id == id).first()
     time = order.time
     ordermenus = order.ordermenus
-    if order ==  None:
-        return json.dumps({"result":"error","error":"Not found order id"+str(id)})
+    if order == None:
+        return json.dumps({"result": "error", "error": "Not found order id" + str(id)})
     else:
-        util.print_statement(ordermenus,time)
-        return json.dumps({"result":"success"})
+        util.print_statement(ordermenus, time)
+        return json.dumps({"result": "success"})
+
 
 @app.route('/file/output', methods=['GET', 'POST'])
 def file_mysql():
@@ -163,14 +172,13 @@ def file_mysql():
 @app.route('/file/input', methods=['POST'])
 def file_input():
     file = request.files['file']
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'],"backup.xlsx"))
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], "backup.xlsx"))
     util.input()
     return json.dumps({"result": "success"})
 
 
 @app.route('/')
 def index():
-
     return "Dear, Song"
 
 
@@ -189,13 +197,14 @@ def initdb():
     db.commit()
     return "initialized db"
 
+
 @app.errorhandler(500)
 def internal_error(exception):
     app.logger.error(exception)
     abort(500)
 
-@app.teardown_appcontext
 
+@app.teardown_appcontext
 def shutdown_session(exception=None):
     db.remove()
     if exception:
@@ -204,5 +213,6 @@ def shutdown_session(exception=None):
 
 if __name__ == '__main__':
     import logging
-    logging.basicConfig(filename='/home/song/error.log',level=logging.DEBUG, backupCount=20)
-    app.run(host='0.0.0.0', port=80)
+
+    # logging.basicConfig(filename='./log/error.log', level=logging.DEBUG, backupCount=20)
+    app.run(host='0.0.0.0', port=8080)

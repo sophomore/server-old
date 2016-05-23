@@ -1,6 +1,4 @@
-from datetime import datetime
-
-from dateutil.relativedelta import relativedelta
+from datetime import datetime, timedelta
 
 from models import OrderMenu, Order, Menu
 from mydb import db_session as db
@@ -31,7 +29,7 @@ def last_day_of_month(date, end):
         return end
     elif date.month == 12:
         return date.replace(day=31)
-    return date.replace(month=date.month + 1, day=1) - relativedelta(days=1)
+    return date.replace(month=date.month + 1, day=1) - timedelta(days=1)
 
 
 def last_day_of_quarter(date, end):
@@ -39,29 +37,29 @@ def last_day_of_quarter(date, end):
         if end.year == date.year and end.month.real <= 3:
             return end
         else:
-            return date.replace(month=4, day=1) - relativedelta(days=1)
+            return date.replace(month=4, day=1) - timedelta(days=1)
     elif date.month.real >= 4 and date.month.real <= 6:
         if end.year.real == date.year.real and end.month.real >= 4 and end.month.real <= 6:
             return end
         else:
-            return date.replace(month=7, day=1) - relativedelta(days=1)
+            return date.replace(month=7, day=1) - timedelta(days=1)
     elif date.month.real >= 7 and date.month.real <= 9:
         if end.year.real == date.year.real and end.month.real >= 7 and end.month.real <= 9:
             return end
         else:
-            return date.replace(month=10, day=1) - relativedelta(days=1)
+            return date.replace(month=10, day=1) - timedelta(days=1)
     elif date.month.real >= 10 and date.month.real <= 12:
         if end.year.real == date.year.real and end.month.real >= 10 and end.month.real <= 12:
             return end
         else:
-            return date.replace(year=date.year + 1, month=1, day=1) - relativedelta(days=1)
+            return date.replace(year=date.year + 1, month=1, day=1) - timedelta(days=1)
 
 
 def last_day_of_year(date, end):
     if end.year.real == date.year.real:
         return end
     else:
-        return date.replace(year=date.year + 1, month=1, day=1) - relativedelta(days=1)
+        return date.replace(year=date.year + 1, month=1, day=1) - timedelta(days=1)
 
 
 def line_chart(startDate, endDate, menus, unit):
@@ -159,7 +157,7 @@ def line_chart(startDate, endDate, menus, unit):
                     result[menu_name[ordermenu.menu_id]][count_for_result]['price'] += ordermenu.totalprice
                     result[menu_name[ordermenu.menu_id]][count_for_result]['count'] += 1
                     increaseTotalPrice(ordermenu, result[menu_name[ordermenu.menu_id]][count_for_result])
-            current = current + relativedelta(days=1)
+            current = current + timedelta(days=1)
     return result
 
 
@@ -227,6 +225,6 @@ def bar_chart(startDate, endDate, menus, unit):
                     result[count_for_result]['count'] += 1
                     result[count_for_result]['totalprice'] += ordermenu.totalprice
                     increaseTotalPrice(ordermenu, result[count_for_result])
-            current = current + relativedelta(days=1)
+            current = current + timedelta(days=1)
     return result
     # 단위별 결제 방식, 총 결제방식 별 총액
